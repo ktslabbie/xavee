@@ -1,5 +1,6 @@
 import os
 import dj_database_url
+from django.conf.global_settings import ALLOWED_HOSTS
 
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 PROJECT_ROOT = here("..")
@@ -17,6 +18,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': dj_database_url.config()
 }
+
+ALLOWED_HOSTS = [ '.herokuapp.com' ]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
