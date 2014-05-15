@@ -5,8 +5,8 @@ Created on May 15, 2014
 '''
 from .base import *
 
-#try:
-#    from .local import *
-#except ImportError:
-#    pass
-#
+try:
+    from .local import *
+except ImportError:
+    pass
+
