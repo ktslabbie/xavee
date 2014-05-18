@@ -1,25 +1,31 @@
 from django.contrib import admin
-from blog.models import Post
+from .models import Post
 
 class PostAdmin(admin.ModelAdmin):
     
+    # Controls what fields show up in the admin form
+    fields = ["published", "title", "slug", "description", "content", "author"]
+    
     # fields display on change list
-    list_display = ['title', 'description']
+    list_display = ["published", "title", "updated_at"]
+    
+    list_display_links = ["title"]
+    
+    list_editable = ["published"]
     
     # fields to filter the change list with
-    list_filter = ['published', 'created']
+    list_filter = ["published", "updated_at", "author"]
     
     # fields to search in change list
-    search_fields = ['title', 'description', 'content']
+    search_fields = ["title", "description", "content"]
     
     # enable the date drill down on change list
-    date_hierarchy = 'created'
+    date_hierarchy = "created_at"
     
     # enable the save buttons on top on change form
     save_on_top = True
     
-    # prepopulate the slug from the title - big timesaver!
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = { "slug": ("title",) }
 
 # Register your models here.
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)

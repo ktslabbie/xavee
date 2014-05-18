@@ -1,0 +1,23 @@
+{% extends '_layouts/base.html' %}
+
+{% block title %} Approduce - introducing the hottest apps to Japanese users {% endblock %}
+
+{% block content %}
+<ul>
+	{% for post in post_list %}
+	<li class="post">
+		<h2>
+			<a href="{{ post.get_absolute_url }}"> {{post.title}} </a>
+		</h2>
+		<p>{{post.description}}</p>
+		<p class="postdate">
+			Posted on
+			<time datetime="{{post.created_at|date:"c"}}"> {{post.created_at|date}} </time>
+		</p>
+	</li>
+	{% empty %}
+	<li>Sorry, no articles yet. Check back later!</li>
+	{% endfor %}
+</ul>
+<a href="{% url 'home' %}"> &larr; Back to home </a>
+ {% endblock %}

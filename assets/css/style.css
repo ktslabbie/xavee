@@ -1,5 +1,5 @@
 body {
-	background-color: #5d2d2d;
+	background-color: #adadad;
 	color: #2e2e2e;
 	margin: 0;
 	padding: 0;
@@ -26,6 +26,13 @@ p.postdate {
 	font-family: Calibri, sans-serif;
 }
 
-h1.pagetitle {
+.pagetitle {
 	text-align: center;
+	font-family: Calibri, sans-serif;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }

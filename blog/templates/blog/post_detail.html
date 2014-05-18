@@ -1,0 +1,19 @@
+{% extends '_layouts/base.html' %}
+
+{% block title %} {{post.title}} {% endblock %}
+
+{% block content %}
+<article>
+	<header>
+		<h2> {{post.title}} </h2>
+		<p class="postdate">
+			Posted on
+			<time datetime="{{post.created_at|date:"c"}}">
+				{{post.created_at|date}} </time>
+		</p>
+	</header>
+	<p class="description">{{post.description}}</p>
+	{{post.content|linebreaks}}
+</article>
+<a href="{% url 'blog:post_list' %}"> &larr; Back to main </a>
+{% endblock %}
