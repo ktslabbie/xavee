@@ -1,7 +1,4 @@
 {% extends '_layouts/base.html' %}
-
-{% block content %}
-<div>
-	<a href="{% url 'blog:post_list' %}">Articles</a>
-</div>
- {% endblock %}
+{% block index_content %}
+            <a href="{% url 'blog:post_list' %}">Articles</a>
+{% endblock %}

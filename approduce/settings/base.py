@@ -118,6 +118,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'south',
+    'dh5bp',
 )
 
 LOCAL_APPS = (
