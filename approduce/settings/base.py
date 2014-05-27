@@ -48,7 +48,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = root("..", "uploads")
+MEDIA_ROOT = root("..", "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -76,6 +76,11 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.request",
 )
 
 # Make this unique, and don't share it with anybody.
@@ -119,10 +124,12 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'south',
     'dh5bp',
+    'tinymce',
 )
 
 LOCAL_APPS = (
     'blog',
+    'referrer',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -154,4 +161,21 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+#TINYMCE_JS_URL = '/js/tinymce/'
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+#    'theme_url': 'js/tinymce/themes/modern/theme.min.js',
+    'plugins': "table,xhtmlxtras,paste,searchreplace",
+    "theme_advanced_buttons3_add" : "cite,abbr",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+    'width': 1200,
+    'height': 500,
+#    'theme_advanced_toolbar_location' : "top",
+#    'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,separator,outdent,indent,separator,undo,redo",
+#    'theme_advanced_buttons2': "",
+#    'theme_advanced_buttons3': "",
 }
