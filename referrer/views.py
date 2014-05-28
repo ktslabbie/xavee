@@ -3,10 +3,14 @@ from .models import Referral
 # Create your views here.
 from django.shortcuts import redirect
 
-def redirect_to_store(request, origin, app_title):
+def redirect_to_store(request):
     
-    redirect_object = Referral.objects.get(app_title=app_title)
-    redirect_object.click_number += 1
-    redirect_object.save()
+    # Retrieve the Referral object based on the GET parameters in the URL received.
+    referral = Referral.objects.get(
+        source = request.GET.get('utm_source', None),
+        medium = request.GET.get('utm_medium', None),
+        name   = request.GET.get('utm_campaign', None)
+    )
     
-    return redirect(redirect_object.destination)
+    # Redirect to destination link.
+    return redirect(referral.destination)

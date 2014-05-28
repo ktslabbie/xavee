@@ -3,24 +3,24 @@ from .models import Referral
 
 class ReferralAdmin(admin.ModelAdmin):
     
-    # Controls what fields show up in the admin form
-    fields = ["origin", "app_title", "destination"]
+    # Controls what fields show up in the admin creation form
+    fields = ["name", "source", "medium", "destination"]
     
     # fields display on change list
-    list_display = ["referral_id", "clicked_at", "origin", "app_title", "click_number"]
+    list_display = ["referral_link","name", "source", "medium", "created_at"]
     
     #list_display_links = ["id"]
     
     list_editable = []
     
     # fields to filter the change list with
-    list_filter = ["clicked_at", "origin", "app_title"]
+    #list_filter = ["clicked_at", "origin", "app_title"]
     
     # fields to search in change list
-    search_fields = ["origin", "app_title"]
+    search_fields = ["name", "source", "medium"]
     
     # enable the date drill down on change list
-    date_hierarchy = "clicked_at"
+    date_hierarchy = "created_at"
     
     # enable the save buttons on top on change form
     save_on_top = True

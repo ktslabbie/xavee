@@ -10,12 +10,13 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding model 'Referral'
         db.create_table('referrer_referral', (
-            ('referral_id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('clicked_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('origin', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('referral_link', self.gf('django.db.models.fields.URLField')(default='', max_length=200)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('source', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('medium', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('destination', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('app_title', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('click_number', self.gf('django.db.models.fields.IntegerField')()),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal('referrer', ['Referral'])
 
@@ -27,13 +28,14 @@ class Migration(SchemaMigration):
 
     models = {
         'referrer.referral': {
-            'Meta': {'object_name': 'Referral', 'ordering': "['referral_id']"},
-            'app_title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'click_number': ('django.db.models.fields.IntegerField', [], {}),
-            'clicked_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'Meta': {'ordering': "['-created_at']", 'object_name': 'Referral'},
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'destination': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
-            'origin': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'referral_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'medium': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'referral_link': ('django.db.models.fields.URLField', [], {'default': "''", 'max_length': '200'}),
+            'source': ('django.db.models.fields.CharField', [], {'max_length': '30'})
         }
     }
 
