@@ -8,10 +8,17 @@
 $(document).ready(function() {
 
 	if ($('#referralRedirect').length) {
-		var paramString = 'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium;
-		alert(paramString);
+		//var paramString = 'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium;
+		//alert(paramString);
 		
-		_gaq.push(['_trackPageview', referralDestination + '?' + paramString]);
+		ga('send', 'pageview', {
+			  'dimension1':  referralName,
+			  'dimension2':  referralPlatform,
+			  'dimension3':  referralOrigin,
+			  'dimension4':  referralMedium
+		    });
+		
+		//_gaq.push(['_trackPageview', referralDestination + '?' + paramString]);
 		
 		//_gaq.push( ['_set', 'campaignParams', 
 		//            'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium] );
