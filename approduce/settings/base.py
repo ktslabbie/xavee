@@ -22,10 +22,10 @@ ROOT_URLCONF = "approduce.urls"
 
 HOST_MIDDLEWARE_URLCONF_MAP = {
     # Referral site
-    "app-install.herokuapp.com": "approduce.referrer.urls", 
+    "www.app-install.info": "approduce.referrer.urls",
 }
 
-REFERRAL_SITE = "http://app-install.herokuapp.com"
+REFERRAL_SITE = "http://app-install.info"
 
 ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info' ]
 
