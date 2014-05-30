@@ -11,7 +11,7 @@ $(document).ready(function() {
 		
 		_gaq.push( ['_set', 'campaignParams', 
 		            'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium] );
-		window.location.replace(referralDestination);
+		//window.location.replace(referralDestination);
     }
 	
 });
