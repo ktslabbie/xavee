@@ -14,7 +14,7 @@ $(document).ready(function() {
 		ga('send', 'pageview', {
 			  'dimension1':  referralName,
 			  'dimension2':  referralPlatform,
-			  'dimension3':  referralOrigin,
+			  'dimension3':  referralSource,
 			  'dimension4':  referralMedium
 		    });
 		
