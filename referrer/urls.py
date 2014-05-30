@@ -6,7 +6,7 @@ from django.conf.urls import patterns, url
 from . import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.HomepageView.as_view(), name = "home"),
+    url(r'^$', views.HomepageView.as_view(), name = "referrer_home"),
     url(r'^([\w-]+)/([\w-]+)$', views.redirect, name="redirect"),
 )
 

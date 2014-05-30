@@ -5,3 +5,4 @@ venv
 Thumbs.db
 staticfiles
 approduce/settings/local.py
+media
