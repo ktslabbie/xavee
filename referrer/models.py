@@ -30,9 +30,9 @@ class Referral(models.Model):
         verbose_name = "referral link"
         
     def save(self, *args, **kwargs):
-        self.name = slugify(self.name)
-        self.source = slugify(self.source)
-        self.medium = slugify(self.medium)
+        self.name = slugify(self.name).replace('-','_')
+        self.source = slugify(self.source).replace('-','_')
+        self.medium = slugify(self.medium).replace('-','_')
         
         #path = build_url("referral", get = {'utm_source': self.source, 'utm_medium': self.medium, 'utm_campaign': self.name,})
         #current_site = Site.objects.get_current()
