@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', views.HomepageView.as_view(), name = "home"),
     url(r'^blog/', include("blog.urls", namespace = "blog")),
-    url(r'^referrer$', include("referrer.urls", namespace = "referrer")),
+   # url(r'^referrer$', include("referrer.urls", namespace = "referrer")),
     url(r'^admin/tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^static/(.*)$', 'django.views.static.serve', {

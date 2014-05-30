@@ -18,7 +18,16 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-ALLOWED_HOSTS = [ '.herokuapp.com' ]
+ROOT_URLCONF = "approduce.urls"
+
+HOST_MIDDLEWARE_URLCONF_MAP = {
+    # Referral site
+    "www.app-install.info": "approduce.referrer.urls",
+}
+
+REFERRAL_SITE = "http://app-install.info"
+
+ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info' ]
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -94,6 +103,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'approduce.multihost.MultiHostMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -102,8 +112,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 )
-
-ROOT_URLCONF = 'approduce.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'approduce.wsgi.application'

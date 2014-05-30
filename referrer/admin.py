@@ -4,10 +4,10 @@ from .models import Referral
 class ReferralAdmin(admin.ModelAdmin):
     
     # Controls what fields show up in the admin creation form
-    fields = ["name", "source", "medium", "destination"]
+    fields = ["platform", "name", "medium", "source", "destination"]
     
     # fields display on change list
-    list_display = ["referral_link","name", "source", "medium", "created_at"]
+    list_display = ["referral_link", "referral_id", "platform", "name", "source", "medium", "created_at"]
     
     #list_display_links = ["id"]
     
