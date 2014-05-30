@@ -6,7 +6,6 @@ from django.conf.urls import patterns, url
 from . import views
 
 urlpatterns = patterns('',
-    url(r'^$', 'index'),
     url(r'^([\w-]+)/([\w-]+)$', views.redirect, name="redirect"),
 )
 
