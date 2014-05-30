@@ -38,7 +38,7 @@ class Referral(models.Model):
         #current_site = Site.objects.get_current()
         super(Referral, self).save(*args, **kwargs)
         
-        self.referral_link = settings.REFERRAL_SITE + "/%s/%s?r=%s" % (self.platform, self.name, self.referral_id)
+        self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.platform, self.name, self.referral_id)
         super(Referral, self).save(update_fields=['referral_link'])
         
     def __unicode__(self):

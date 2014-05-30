@@ -1,7 +1,6 @@
 """
-
  A simple middleware component that lets you use a single Django
- instance to server multiple distinct hosts.
+ instance to serve multiple distinct hosts.
 
  IMPORTANT!! Make sure this is the FIRST entry in your MIDDLEWARE_CLASSES
 
@@ -12,7 +11,7 @@
   * Added 'MultiHost' response header (tells us if multihost was used or not)
   * Added 'HOST_MIDDLEWARE_URLCONF_MAP' example
   * Cleaned up code slightly
-
+  
 """
 import time
 from django.conf import settings
@@ -30,7 +29,7 @@ class MultiHostMiddleware:
             # best way to do this.
             host_port = host.split(':')
             if len(host_port)==2:                    
-                host = host_port[0] 
+                host = host_port[0]
 
             if host in settings.HOST_MIDDLEWARE_URLCONF_MAP:
                 request.urlconf = settings.HOST_MIDDLEWARE_URLCONF_MAP[host]
