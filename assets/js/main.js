@@ -8,8 +8,14 @@
 $(document).ready(function() {
 
 	if ($('#referralRedirect').length) {
-		//var paramString = 'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium;
-		//alert(paramString);
+		var paramString = 'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium;
+		
+		alert(paramString);
+		
+		ga('set', 'dimension1', referralName);
+		ga('set', 'dimension2', referralPlatform);
+		ga('set', 'dimension3', referralSource);
+		ga('set', 'dimension4', referralMedium);
 		
 		ga('send', 'pageview', {
 			  'dimension1':  referralName
@@ -27,10 +33,7 @@ $(document).ready(function() {
 			  'dimension4':  referralMedium
 			});
 		
-		//ga('set', 'dimension1', referralName);
-		//ga('set', 'dimension2', referralPlatform);
-		//ga('set', 'dimension3', referralSource);
-		//ga('set', 'dimension4', referralMedium);
+		
 		
 		//_gaq.push(['_trackPageview', referralDestination + '?' + paramString]);
 		
