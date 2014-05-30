@@ -1,6 +1,7 @@
 venv
 *.pyc
 .DS_Store
+.settings
 Thumbs.db
 staticfiles
 approduce/settings/local.py
