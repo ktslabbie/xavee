@@ -11,6 +11,8 @@ $(document).ready(function() {
 		
 		_gaq.push( ['_set', 'campaignParams', 
 		            'utm_campaign=' + referralName +  '&utm_source=' + referralSource + '&utm_medium=' + referralMedium] );
+		_gaq.push(['_setAccount', 'UA-51423008-1']);
+        _gaq.push(['_trackPageview']);
 		//window.location.replace(referralDestination);
     }
 	
