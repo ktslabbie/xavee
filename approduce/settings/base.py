@@ -22,7 +22,7 @@ ROOT_URLCONF = "approduce.urls"
 
 HOST_MIDDLEWARE_URLCONF_MAP = {
     # Referral site
-    "www.app-install.info": "approduce.referrer.urls",
+    "www.app-install.info": "referrer.urls",
 }
 
 REFERRAL_SITE = "http://www.app-install.info"
