@@ -15,7 +15,11 @@ $(document).ready(function() {
 			  'dimension2': referralPlatform,
 			  'dimension3': referralSource,
 			  'dimension4': referralMedium,
-			});	
-		window.location.replace(referralDestination);
+			});
+		
+		ga(function() {
+		    setTimeout(function() {
+		        window.location.replace(referralDestination);
+		    }, 250)});
     }
 });

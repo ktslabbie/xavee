@@ -1,4 +1,16 @@
 {% extends '_layouts/base.html' %}
-{% block index_content %}
+
+{% block content %}
+
+        <div class="content">
+{% block header %}
+            <h1 class="pagetitle">Xavee - 海外アプリ紹介サービス</h1>
+{% endblock %}
+
+{% block page_content %}
             <a href="{% url 'blog:post_list' %}">Articles</a>
+{% endblock %}
+
+{% block footer %} {% endblock %}
+        </div>
 {% endblock %}

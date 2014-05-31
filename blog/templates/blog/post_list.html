@@ -1,8 +1,6 @@
 {% extends 'index.html' %}
 
-{% block title %} Approduce - introducing the hottest apps to Japanese users {% endblock %}
-
-{% block index_content %}
+{% block page_content %}
 <ul>
 	{% for post in post_list %}
 	<li class="post">
@@ -20,4 +18,4 @@
 	{% endfor %}
 </ul>
 <a href="{% url 'home' %}"> &larr; Back to home </a>
- {% endblock %}
+{% endblock %}
