@@ -1,19 +1,17 @@
-{% extends 'index.html' %}
-
+{% extends 'blog/post_list.html' %}
 {% block title %} {{post.title}} {% endblock %}
-
 {% block page_content %}
 <article>
 	<header>
 		<h2> {{post.title}} </h2>
-		<p class="postdate">
+		<p class="post-date">
 			Posted on
 			<time datetime="{{post.created_at|date:"c"}}">
-				{{post.created_at|date}} </time>
+				{{post.created_at|date:"F jS, Y \a\t H:i a"}} </time>
 		</p>
 	</header>
-	<p class="description">{{post.description}}</p>
-	{{post.content|linebreaks}}
+	<div class="post-description">{{post.description}}</div>
+	{{post.content|safe}}
 </article>
-<a href="{% url 'blog:post_list' %}"> &larr; Back to main </a>
+<a href="{% url 'blog:post_list' %}"> &larr; 書き込みリストに戻る </a>
 {% endblock %}

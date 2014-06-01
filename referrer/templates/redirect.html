@@ -1,6 +1,11 @@
 {% extends '_layouts/base.html' %}
+{% block head %}
+        <meta http-equiv="refresh" content="5;{{referral.destination}}"/>
+{% endblock %}
 {% block title %} {% endblock %}
 {% block content %}
+        <a href={{referral.destination}}>Redirecting...</a>
+        
         <script>
             var referralName        = "{{referral.name}}";
             var referralSource      = "{{referral.source}}";
@@ -8,5 +13,6 @@
             var referralPlatform    = "{{referral.platform}}";
             var referralDestination = "{{referral.destination}}";
         </script>
+        
         <div id="referralRedirect"></div>
 {% endblock %}

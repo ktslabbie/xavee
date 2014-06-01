@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', views.HomepageView.as_view(), name = "home"),
+    url(r'^about/$', views.AboutView.as_view(), name = "about"),
     url(r'^blog/', include("blog.urls", namespace = "blog")),
     url(r'^admin/tinymce/', include('tinymce.urls')),
     url(r'^admin/', include(admin.site.urls)),

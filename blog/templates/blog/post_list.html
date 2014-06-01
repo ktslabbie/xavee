@@ -1,21 +1,26 @@
 {% extends 'index.html' %}
-
+{% block nav_list %}
+                        <li><a href="{% url 'home' %}">ホーム</a></li>
+                        <li><a href="#">アプリ</a></li>
+                        <li class="active"><a href="#">ブログ</a></li>
+                        <li><a href="/about">アバウト</a></li>
+                        <li><a href="#contact">コンタクト</a></li>
+{% endblock %}
 {% block page_content %}
-<ul>
+<ul class="post">
 	{% for post in post_list %}
-	<li class="post">
+	<li>
 		<h2>
 			<a href="{{ post.get_absolute_url }}"> {{post.title}} </a>
 		</h2>
-		<p>{{post.description}}</p>
-		<p class="postdate">
+		<p class="post-date">
 			Posted on
-			<time datetime="{{post.created_at|date:"c"}}"> {{post.created_at|date}} </time>
+			<time datetime="{{post.created_at|date:"c"}}"> {{post.created_at|date:"F jS, Y \a\t H:i a"}} </time>
 		</p>
+		<div class="post-description">{{post.description}}</div>
 	</li>
 	{% empty %}
 	<li>Sorry, no articles yet. Check back later!</li>
 	{% endfor %}
 </ul>
-<a href="{% url 'home' %}"> &larr; Back to home </a>
 {% endblock %}

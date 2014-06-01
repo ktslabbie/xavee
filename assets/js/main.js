@@ -16,10 +16,9 @@ $(document).ready(function() {
 			  'dimension3': referralSource,
 			  'dimension4': referralMedium,
 			});
-		
 		ga(function() {
 		    setTimeout(function() {
 		        window.location.replace(referralDestination);
-		    }, 250)});
+		    }, 200)});
     }
 });
