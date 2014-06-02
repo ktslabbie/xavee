@@ -7,6 +7,6 @@ class HomepageView(TemplateView):
     template_name = "referrer_index.html"
 
 # Create your views here.
-def redirect(request, platform, app_name):
+def redirect(request):
     referral = get_object_or_404(Referral, pk=request.GET.get('r'))
     return render(request, 'redirect.html', {'referral': referral})
