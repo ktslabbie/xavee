@@ -6,10 +6,10 @@ class Referral(models.Model):
     referral_id = models.AutoField(primary_key = True)
     referral_link = models.URLField(default = '', editable = False)
     
-    IPHONE = 'iphone'
-    ANDROID = 'android'
-    WINDOWS = 'windows'
-    KINDLE = 'kindle'
+    IPHONE = 'iPhone'
+    ANDROID = 'Android'
+    WINDOWS = 'Windows'
+    KINDLE = 'Kindle'
     
     PLATFORM_CHOICES = (
         (IPHONE, 'iPhone'),
@@ -30,15 +30,15 @@ class Referral(models.Model):
         verbose_name = "referral link"
         
     def save(self, *args, **kwargs):
-        self.name = slugify(self.name).replace('-','_')
-        self.source = slugify(self.source).replace('-','_')
-        self.medium = slugify(self.medium).replace('-','_')
+        #self.name = slugify(self.name).replace('-','_')
+        #self.source = slugify(self.source).replace('-','_')
+        #self.medium = slugify(self.medium).replace('-','_')
         
         #path = build_url("referral", get = {'utm_source': self.source, 'utm_medium': self.medium, 'utm_campaign': self.name,})
         #current_site = Site.objects.get_current()
         super(Referral, self).save(*args, **kwargs)
         
-        self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.platform, self.name, self.referral_id)
+        self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.platform, slugify(self.name), self.referral_id)
         super(Referral, self).save(update_fields=['referral_link'])
         
     def __unicode__(self):

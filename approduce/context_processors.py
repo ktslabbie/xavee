@@ -8,7 +8,7 @@ from django.conf import settings
 def google_analytics(request):
     """
     Use the variable returned in this function to
-    render your Google Analytics tracking code template.
+    render the Google Analytics tracking code template.
     """
     ga_prop_id = getattr(settings, 'DH5BP_GA_CODE', False)
     
