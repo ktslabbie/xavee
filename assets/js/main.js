@@ -17,8 +17,7 @@ $(document).ready(function() {
 			  'dimension4': referralMedium,
 			});
 		ga(function() {
-		    setTimeout(function() {
-		        window.location.replace(referralDestination);
-		    }, 100)});
+			window.location.replace(referralDestination);
+		});
     }
 });
