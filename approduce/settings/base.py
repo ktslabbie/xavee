@@ -53,7 +53,7 @@ HOST_MIDDLEWARE_URLCONF_MAP = {
 }
 
 # Host to prepend to our generated referral links.
-# REFERRAL_HOST = "http://www.app-install.info"
+REFERRAL_HOST = "http://www.app-install.info"
 
 # Hosts allowed to connect to our site.
 ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', ]
