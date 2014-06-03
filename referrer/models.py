@@ -21,8 +21,9 @@ class Referral(models.Model):
     platform = models.CharField(max_length = 8, choices = PLATFORM_CHOICES, default = IPHONE)
     name = models.CharField("App name", max_length = 64, help_text = "The name of the app.")
     source = models.CharField(max_length = 16, help_text = "The name of the site that will host the referrer link (e.g. 'appbank').")
-    medium = models.CharField(max_length = 16, help_text = "The medium used (e.g. 'review').")
+    medium = models.CharField(max_length = 16, help_text = "The medium used (e.g. 'review, ad').")
     destination = models.URLField(help_text = "Copy/paste the app store URL here.")
+    times_clicked = models.IntegerField("Times clicked", default = 0)
     created_at = models.DateTimeField(auto_now_add = True, editable = False)
     
     class Meta:
@@ -40,6 +41,10 @@ class Referral(models.Model):
         
         self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.platform, slugify(self.name), self.referral_id)
         super(Referral, self).save(update_fields=['referral_link'])
+    
+    def update_clicks(self):
+        self.times_clicked += 1
+        super(Referral, self).save(update_fields=['times_clicked'])
         
     def __unicode__(self):
         return u'%s' % self.referral_link

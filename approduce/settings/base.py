@@ -39,7 +39,7 @@ DATABASES = {
 }
 
 # ID for the sites framework.
-SITE_ID = 1
+# SITE_ID = 1
 
 # Google Analytics code. Will be inserted automatically into the HTML5 Boilerplate code.
 DH5BP_GA_CODE = 'UA-51423008-2'
@@ -139,7 +139,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+#    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -157,7 +157,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django.contrib.redirects',
+#    'django.contrib.redirects',
 )
 
 THIRD_PARTY_APPS = (
@@ -169,7 +169,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
 #    'app',
     'blog',
-#    'referrer',
+    'referrer',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

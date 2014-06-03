@@ -1,12 +1,14 @@
-from .models import Referral
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
+from django.views.generic.base import TemplateView, RedirectView
 
-from django.views.generic import TemplateView
+from .models import Referral
+
+class ReferralRedirectView(RedirectView):
+
+    def get_redirect_url(self):
+        referral = get_object_or_404(Referral, pk=self.request.GET.get('r'))
+        referral.update_clicks()
+        return referral.destination
 
 class HomepageView(TemplateView):
     template_name = "referrer_index.html"
-
-# Create your views here.
-def redirect(request):
-    referral = get_object_or_404(Referral, pk=request.GET.get('r'))
-    return render(request, 'redirect.html', {'referral': referral})
