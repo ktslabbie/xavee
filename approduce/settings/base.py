@@ -38,6 +38,9 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
+# ID for the sites framework.
+SITE_ID = 1
+
 # Google Analytics code. Will be inserted automatically into the HTML5 Boilerplate code.
 DH5BP_GA_CODE = 'UA-51423008-2'
 
@@ -50,7 +53,7 @@ HOST_MIDDLEWARE_URLCONF_MAP = {
 }
 
 # Host to prepend to our generated referral links.
-REFERRAL_HOST = "http://www.app-install.info"
+# REFERRAL_HOST = "http://www.app-install.info"
 
 # Hosts allowed to connect to our site.
 ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', ]
@@ -136,6 +139,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -149,10 +153,11 @@ DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-#   'django.contrib.sites',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.redirects',
 )
 
 THIRD_PARTY_APPS = (
@@ -162,8 +167,9 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
+    'app',
     'blog',
-    'referrer',
+#    'referrer',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
