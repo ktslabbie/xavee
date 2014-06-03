@@ -167,7 +167,7 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
-    'app',
+#    'app',
     'blog',
 #    'referrer',
 )
