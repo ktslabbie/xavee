@@ -49,14 +49,14 @@ ROOT_URLCONF = "approduce.urls"
 
 HOST_MIDDLEWARE_URLCONF_MAP = {
     # App-install part of the site. We want a different router for it so that it can only access its own part.
-    "www.app-install.info": "referrer.urls",
+    "www.application-install.info": "referrer.urls",
 }
 
 # Host to prepend to our generated referral links.
-REFERRAL_HOST = "http://www.app-install.info"
+REFERRAL_HOST = "http://www.application-install.info"
 
 # Hosts allowed to connect to our site.
-ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', ]
+ALLOWED_HOSTS = [ '.herokuapp.com', '.application-install.info', ]
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -109,8 +109,8 @@ STATICFILES_DIRS = (
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
 #   'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -139,7 +139,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-#    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -163,16 +162,17 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'south',
     'dh5bp',
-    'tinymce',
+    'grappelli',
+#    'tinymce',
 )
 
 LOCAL_APPS = (
-#    'app',
+    'application',
     'blog',
     'referrer',
 )
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -205,17 +205,17 @@ LOGGING = {
 
 #TINYMCE_JS_URL = '/js/tinymce/'
 
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': "advanced",
+#TINYMCE_DEFAULT_CONFIG = {
+#    'theme': "advanced",
 #    'theme_url': 'js/tinymce/themes/modern/theme.min.js',
-    'plugins': "table,xhtmlxtras,paste,searchreplace",
-    "theme_advanced_buttons3_add" : "cite,abbr",
-    'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 10,
-    'width': 1200,
-    'height': 500,
+#    'plugins': "table,xhtmlxtras,paste,searchreplace",
+#    "theme_advanced_buttons3_add" : "cite,abbr",
+#    'cleanup_on_startup': True,
+#    'custom_undo_redo_levels': 10,
+#    'width': 1200,
+#    'height': 500,
 #    'theme_advanced_toolbar_location' : "top",
 #    'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,separator,outdent,indent,separator,undo,redo",
 #    'theme_advanced_buttons2': "",
 #    'theme_advanced_buttons3': "",
-}
+#}

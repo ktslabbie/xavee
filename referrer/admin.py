@@ -7,7 +7,7 @@ class ReferralAdmin(admin.ModelAdmin):
     fields = ["platform", "name", "medium", "source", "destination"]
     
     # fields display on change list
-    list_display = ["referral_link", "referral_id", "platform", "name", "source", "medium", "times_clicked", "created_at"]
+    list_display = ["referral_link", "platform", "name", "source", "medium", "times_clicked", "created_at"]
     
     #list_display_links = ["id"]
     

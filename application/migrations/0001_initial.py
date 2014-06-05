@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+from south.utils import datetime_utils as datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
+
+
+class Migration(SchemaMigration):
+
+    def forwards(self, orm):
+        # Adding model 'Developer'
+        db.create_table('application_developer', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
+        ))
+        db.send_create_signal('application', ['Developer'])
+
+        # Adding model 'Application'
+        db.create_table('application_application', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
+            ('developer', self.gf('django.db.models.fields.related.ForeignKey')(related_name='developers', to=orm['application.Developer'])),
+        ))
+        db.send_create_signal('application', ['Application'])
+
+        # Adding model 'Platform'
+        db.create_table('application_platform', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=32)),
+        ))
+        db.send_create_signal('application', ['Platform'])
+
+        # Adding model 'AppVersion'
+        db.create_table('application_appversion', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('app', self.gf('django.db.models.fields.related.ForeignKey')(related_name='versions', to=orm['application.Application'])),
+            ('platform', self.gf('django.db.models.fields.related.ForeignKey')(related_name='platforms', to=orm['application.Platform'])),
+            ('appstore_link', self.gf('django.db.models.fields.URLField')(max_length=200)),
+            ('release_date', self.gf('django.db.models.fields.DateTimeField')(default='', null=True, blank=True)),
+        ))
+        db.send_create_signal('application', ['AppVersion'])
+
+
+    def backwards(self, orm):
+        # Deleting model 'Developer'
+        db.delete_table('application_developer')
+
+        # Deleting model 'Application'
+        db.delete_table('application_application')
+
+        # Deleting model 'Platform'
+        db.delete_table('application_platform')
+
+        # Deleting model 'AppVersion'
+        db.delete_table('application_appversion')
+
+
+    models = {
+        'application.application': {
+            'Meta': {'ordering': "['-name']", 'object_name': 'Application'},
+            'developer': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'developers'", 'to': "orm['application.Developer']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
+        'application.appversion': {
+            'Meta': {'object_name': 'AppVersion'},
+            'app': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'versions'", 'to': "orm['application.Application']"}),
+            'appstore_link': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'platform': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'platforms'", 'to': "orm['application.Platform']"}),
+            'release_date': ('django.db.models.fields.DateTimeField', [], {'default': "''", 'null': 'True', 'blank': 'True'})
+        },
+        'application.developer': {
+            'Meta': {'ordering': "['-name']", 'object_name': 'Developer'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
+        'application.platform': {
+            'Meta': {'ordering': "['-name']", 'object_name': 'Platform'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '32'})
+        }
+    }
+
+    complete_apps = ['application']
