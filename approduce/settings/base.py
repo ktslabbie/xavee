@@ -206,20 +206,3 @@ LOGGING = {
 
 # Grappelli settings:
 GRAPPELLI_ADMIN_TITLE = "Xavee Admin Panel"
-
-#TINYMCE_JS_URL = '/js/tinymce/'
-
-#TINYMCE_DEFAULT_CONFIG = {
-#    'theme': "advanced",
-#    'theme_url': 'js/tinymce/themes/modern/theme.min.js',
-#    'plugins': "table,xhtmlxtras,paste,searchreplace",
-#    "theme_advanced_buttons3_add" : "cite,abbr",
-#    'cleanup_on_startup': True,
-#    'custom_undo_redo_levels': 10,
-#    'width': 1200,
-#    'height': 500,
-#    'theme_advanced_toolbar_location' : "top",
-#    'theme_advanced_buttons1': "bold,italic,underline,separator,bullist,separator,outdent,indent,separator,undo,redo",
-#    'theme_advanced_buttons2': "",
-#    'theme_advanced_buttons3': "",
-#}
