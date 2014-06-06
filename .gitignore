@@ -6,3 +6,5 @@ Thumbs.db
 staticfiles
 approduce/settings/local.py
 media
+backup_static
+

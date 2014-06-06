@@ -7,7 +7,7 @@ class VersionInline(admin.TabularInline):
     fields         = ["platform", "appstore_link", "release_date"]
     list_display   = ["__unicode__", "appstore_link", "release_date"]
     search_fields  = ["platform", "appstore_link", "release_date"]
-    date_hierarchy = "release_date"
+    date_hierarchy = "release_date" 
 
 class AppAdmin(admin.ModelAdmin):
     
