@@ -20,6 +20,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
             ('developer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['application.Developer'], related_name='developers')),
+            ('date_added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal('application', ['Application'])
 
@@ -30,15 +31,16 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('application', ['Platform'])
 
-        # Adding model 'AppVersion'
-        db.create_table('application_appversion', (
+        # Adding model 'Version'
+        db.create_table('application_version', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('app', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['application.Application'], related_name='versions')),
             ('platform', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['application.Platform'], related_name='platforms')),
             ('appstore_link', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('release_date', self.gf('django.db.models.fields.DateTimeField')(default='', blank=True, null=True)),
+            ('release_date', self.gf('django.db.models.fields.DateTimeField')(default='', null=True, blank=True)),
+            ('date_added', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
-        db.send_create_signal('application', ['AppVersion'])
+        db.send_create_signal('application', ['Version'])
 
 
     def backwards(self, orm):
@@ -51,24 +53,17 @@ class Migration(SchemaMigration):
         # Deleting model 'Platform'
         db.delete_table('application_platform')
 
-        # Deleting model 'AppVersion'
-        db.delete_table('application_appversion')
+        # Deleting model 'Version'
+        db.delete_table('application_version')
 
 
     models = {
         'application.application': {
             'Meta': {'object_name': 'Application', 'ordering': "['-name']"},
+            'date_added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'developer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Developer']", 'related_name': "'developers'"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
-        },
-        'application.appversion': {
-            'Meta': {'object_name': 'AppVersion'},
-            'app': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Application']", 'related_name': "'versions'"}),
-            'appstore_link': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'platform': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Platform']", 'related_name': "'platforms'"}),
-            'release_date': ('django.db.models.fields.DateTimeField', [], {'default': "''", 'blank': 'True', 'null': 'True'})
         },
         'application.developer': {
             'Meta': {'object_name': 'Developer', 'ordering': "['-name']"},
@@ -79,6 +74,15 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Platform', 'ordering': "['-name']"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '32'})
+        },
+        'application.version': {
+            'Meta': {'object_name': 'Version'},
+            'app': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Application']", 'related_name': "'versions'"}),
+            'appstore_link': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
+            'date_added': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'platform': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Platform']", 'related_name': "'platforms'"}),
+            'release_date': ('django.db.models.fields.DateTimeField', [], {'default': "''", 'null': 'True', 'blank': 'True'})
         }
     }
 
