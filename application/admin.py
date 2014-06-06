@@ -42,5 +42,5 @@ class PlatformAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Application, AppAdmin)
-admin.site.register(Platform, PlatformAdmin)
-#admin.site.register(Developer, DeveloperAdmin)
+#admin.site.register(Platform, PlatformAdmin)
+admin.site.register(Developer, DeveloperAdmin)
