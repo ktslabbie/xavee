@@ -26,9 +26,9 @@ urlpatterns = patterns('',
         'document_root': settings.STATIC_ROOT
     }),
     
-    url(r'^media/(.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT,
-    }),
+    #url(r'^media/(.*)$', 'django.views.static.serve', {
+    #    'document_root': settings.MEDIA_ROOT,
+    #}),
 )
 
 # Add the HTML5 Boilerplate URLs.
