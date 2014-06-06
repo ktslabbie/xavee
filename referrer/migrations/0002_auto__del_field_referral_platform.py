@@ -46,7 +46,7 @@ class Migration(SchemaMigration):
         },
         'referrer.referral': {
             'Meta': {'ordering': "['-referral_id']", 'object_name': 'Referral'},
-            'app': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.AppVersion']", 'related_name': "'referral_versions'"}),
+            'app': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Version']", 'related_name': "'referral_versions'"}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'medium': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
             'referral_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

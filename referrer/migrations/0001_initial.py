@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             ('referral_id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('referral_link', self.gf('django.db.models.fields.URLField')(max_length=200, default='')),
             ('platform', self.gf('django.db.models.fields.related.ForeignKey')(related_name='referral_platforms', to=orm['application.Platform'])),
-            ('app', self.gf('django.db.models.fields.related.ForeignKey')(related_name='referral_versions', to=orm['application.AppVersion'])),
+            ('app', self.gf('django.db.models.fields.related.ForeignKey')(related_name='referral_versions', to=orm['application.Version'])),
             ('source', self.gf('django.db.models.fields.CharField')(max_length=16)),
             ('medium', self.gf('django.db.models.fields.CharField')(max_length=16)),
             ('times_clicked', self.gf('django.db.models.fields.IntegerField')(default=0)),
@@ -54,7 +54,7 @@ class Migration(SchemaMigration):
         },
         'referrer.referral': {
             'Meta': {'object_name': 'Referral', 'ordering': "['-referral_id']"},
-            'app': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'referral_versions'", 'to': "orm['application.AppVersion']"}),
+            'app': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'referral_versions'", 'to': "orm['application.Version']"}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'medium': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
             'platform': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'referral_platforms'", 'to': "orm['application.Platform']"}),
