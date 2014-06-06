@@ -1,28 +1,15 @@
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from application.models import Version
     
 class Referral(models.Model):
     referral_id = models.AutoField(primary_key = True)
-    referral_link = models.URLField(default = '', editable = False)
-    
-    IPHONE = 'iPhone'
-    ANDROID = 'Android'
-    WINDOWS = 'Windows'
-    KINDLE = 'Kindle'
-    
-    PLATFORM_CHOICES = (
-        (IPHONE, 'iPhone'),
-        (ANDROID, 'Android'),
-        (WINDOWS, 'Windows Phone'),
-        (KINDLE, 'Kindle'),
-    )
-    
-    platform = models.CharField(max_length = 8, choices = PLATFORM_CHOICES, default = IPHONE)
-    name = models.CharField("App name", max_length = 64, help_text = "The name of the application.")
+    referral_link = models.URLField(default = '', editable = False)    
+    #platform = models.ForeignKey(Platform, related_name = "referral_platforms")
+    app = models.ForeignKey(Version, related_name = "referral_versions")
     source = models.CharField(max_length = 16, help_text = "The name of the site that will host the referrer link (e.g. 'appbank').")
     medium = models.CharField(max_length = 16, help_text = "The medium used (e.g. 'review, ad').")
-    destination = models.URLField(help_text = "Copy/paste the application store URL here.")
     times_clicked = models.IntegerField("Times clicked", default = 0)
     created_at = models.DateTimeField(auto_now_add = True, editable = False)
     
@@ -39,7 +26,7 @@ class Referral(models.Model):
         #current_site = Site.objects.get_current()
         super(Referral, self).save(*args, **kwargs)
         
-        self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.platform, slugify(self.name), self.referral_id)
+        self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.app.platform.name, slugify(self.app.app.name), self.referral_id)
         super(Referral, self).save(update_fields=['referral_link'])
     
     def update_clicks(self):

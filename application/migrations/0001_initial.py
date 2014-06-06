@@ -19,7 +19,7 @@ class Migration(SchemaMigration):
         db.create_table('application_application', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
-            ('developer', self.gf('django.db.models.fields.related.ForeignKey')(related_name='developers', to=orm['application.Developer'])),
+            ('developer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['application.Developer'], related_name='developers')),
         ))
         db.send_create_signal('application', ['Application'])
 
@@ -33,10 +33,10 @@ class Migration(SchemaMigration):
         # Adding model 'AppVersion'
         db.create_table('application_appversion', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('app', self.gf('django.db.models.fields.related.ForeignKey')(related_name='versions', to=orm['application.Application'])),
-            ('platform', self.gf('django.db.models.fields.related.ForeignKey')(related_name='platforms', to=orm['application.Platform'])),
+            ('app', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['application.Application'], related_name='versions')),
+            ('platform', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['application.Platform'], related_name='platforms')),
             ('appstore_link', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('release_date', self.gf('django.db.models.fields.DateTimeField')(default='', null=True, blank=True)),
+            ('release_date', self.gf('django.db.models.fields.DateTimeField')(default='', blank=True, null=True)),
         ))
         db.send_create_signal('application', ['AppVersion'])
 
@@ -57,26 +57,26 @@ class Migration(SchemaMigration):
 
     models = {
         'application.application': {
-            'Meta': {'ordering': "['-name']", 'object_name': 'Application'},
-            'developer': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'developers'", 'to': "orm['application.Developer']"}),
+            'Meta': {'object_name': 'Application', 'ordering': "['-name']"},
+            'developer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Developer']", 'related_name': "'developers'"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
         },
         'application.appversion': {
             'Meta': {'object_name': 'AppVersion'},
-            'app': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'versions'", 'to': "orm['application.Application']"}),
+            'app': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Application']", 'related_name': "'versions'"}),
             'appstore_link': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'platform': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'platforms'", 'to': "orm['application.Platform']"}),
-            'release_date': ('django.db.models.fields.DateTimeField', [], {'default': "''", 'null': 'True', 'blank': 'True'})
+            'platform': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['application.Platform']", 'related_name': "'platforms'"}),
+            'release_date': ('django.db.models.fields.DateTimeField', [], {'default': "''", 'blank': 'True', 'null': 'True'})
         },
         'application.developer': {
-            'Meta': {'ordering': "['-name']", 'object_name': 'Developer'},
+            'Meta': {'object_name': 'Developer', 'ordering': "['-name']"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
         },
         'application.platform': {
-            'Meta': {'ordering': "['-name']", 'object_name': 'Platform'},
+            'Meta': {'object_name': 'Platform', 'ordering': "['-name']"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '32'})
         }
