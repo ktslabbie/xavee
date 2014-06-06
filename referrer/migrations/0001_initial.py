@@ -34,8 +34,8 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
         },
-        'application.appversion': {
-            'Meta': {'object_name': 'AppVersion'},
+        'application.version': {
+            'Meta': {'object_name': 'Version'},
             'app': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'versions'", 'to': "orm['application.Application']"}),
             'appstore_link': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
