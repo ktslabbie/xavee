@@ -2,6 +2,8 @@ venv
 *.pyc
 .DS_Store
 .settings
+.pydevproject
+.settings/org.*
 Thumbs.db
 staticfiles
 approduce/settings/local.py
