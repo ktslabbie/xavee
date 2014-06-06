@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from tinymce.models import HTMLField
 
 class PostManager(models.Manager):
     def live(self):
@@ -14,7 +13,7 @@ class Post(models.Model):
     title = models.CharField(max_length = 255)
     slug = models.SlugField(max_length = 255, unique = True, blank = True, default = '')
     description = models.CharField(max_length = 255)
-    content = HTMLField()
+    content = models.TextField()
     published = models.BooleanField(default = True)
     author = models.ForeignKey(User, related_name = "posts")
     objects = PostManager()

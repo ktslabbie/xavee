@@ -8,5 +8,5 @@ pystache==0.5.4
 static==1.0.2
 South==0.8.4
 django-html5-boilerplate==1.0.8
-django-tinymce==1.5.2
 django-grappelli==2.5.3
+django-filebrowser==3.5.6

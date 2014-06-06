@@ -39,7 +39,7 @@ DATABASES = {
 }
 
 # ID for the sites framework.
-# SITE_ID = 1
+#SITE_ID = 1
 
 # Google Analytics code. Will be inserted automatically into the HTML5 Boilerplate code.
 DH5BP_GA_CODE = 'UA-51423008-2'
@@ -117,6 +117,8 @@ STATICFILES_FINDERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.request",
+    "django.core.context_processors.i18n",
+    'django.contrib.messages.context_processors.messages',
     'approduce.context_processors.google_analytics',
 )
 
@@ -155,16 +157,14 @@ DJANGO_APPS = (
 #    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'grappelli',
-    'django.contrib.admin',
-#    'django.contrib.redirects',
 )
 
 THIRD_PARTY_APPS = (
     'south',
     'dh5bp',
-    
-#    'tinymce',
+    'grappelli',
+    'filebrowser',
+    'django.contrib.admin',
 )
 
 LOCAL_APPS = (
@@ -203,6 +203,9 @@ LOGGING = {
         },
     }
 }
+
+# Grappelli settings:
+GRAPPELLI_ADMIN_TITLE = "Xavee Admin Panel"
 
 #TINYMCE_JS_URL = '/js/tinymce/'
 

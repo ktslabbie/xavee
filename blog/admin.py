@@ -3,6 +3,12 @@ from .models import Post
 
 class PostAdmin(admin.ModelAdmin):
     
+    class Media:
+        js = [
+            '/static/grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
+            '/static/js/tinymce/tinymce_setup.js',
+        ]
+    
     # Controls what fields show up in the admin form
     fields = ["published", "title", "slug", "description", "content", "author"]
     
