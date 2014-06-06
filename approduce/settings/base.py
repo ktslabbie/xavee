@@ -155,6 +155,7 @@ DJANGO_APPS = (
 #    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'grappelli',
     'django.contrib.admin',
 #    'django.contrib.redirects',
 )
@@ -162,7 +163,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'south',
     'dh5bp',
-    'grappelli',
+    
 #    'tinymce',
 )
 
@@ -172,7 +173,7 @@ LOCAL_APPS = (
     'referrer',
 )
 
-INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

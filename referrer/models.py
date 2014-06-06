@@ -35,4 +35,3 @@ class Referral(models.Model):
         
     def __unicode__(self):
         return u'%s' % self.referral_link
-
