@@ -4,23 +4,18 @@
    @author Kristian Slabbekoorn
    ========================================================================== */
 
+a {
+	text-decoration: none;
+}
+
 body {
 	padding-top: 40px;
 	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
-}
-
-div.navbar {
-	background-color: #000;
-	border-radius: 24px;
-	max-width: 960px;
-	width: 50%;
-	padding-left: 2%;
-	margin: auto;
+    padding: 40px 15px;
+    text-align: center;
 }
 
 div.content {
@@ -30,26 +25,44 @@ div.content {
 	margin: 28px auto;
 }
 
-div.post-description {
-	margin-top: 32px;
+div.navbar {
+	background-color: #FFF;
+	border-radius: 24px;
+	border: none;
+	max-width: 960px;
+	width: 50%;
+	padding-left: 2%;
+	margin: auto;
 }
 
 div.page-content {
 	padding: 2%;
-	margin: 28px auto;
+	margin: 10px auto;
 }
 
-a {
-	text-decoration: none;
+div.page-title {
+	/*background-image: url("../../media/owl-banner.png"); */
+	
+	margin-top: -20px;
+	margin-bottom: 20px;
+	/*padding-bottom: 40px;
+	padding-top: 64px; */
+}
+
+h1.main-title {
+	
+}
+
+h3.sub-title {
+	margin-top: 0
+}
+
+div.post-description {
+	margin-top: 32px;
 }
 
 p.post-date {
 	font-size: 0.9em;
-	font-family: Calibri, sans-serif;
-}
-
-.pagetitle {
-	text-align: center;
 	font-family: Calibri, sans-serif;
 }
 
