@@ -6,7 +6,6 @@ class PostManager(models.Manager):
     def live(self):
         return self.model.objects.filter(published = True)
 
-# Create your models here.
 class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, editable = False)
     updated_at = models.DateTimeField(auto_now = True, editable = False)

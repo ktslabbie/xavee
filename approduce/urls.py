@@ -5,10 +5,10 @@ Created on May 18, 2014
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from . import views
 
 from filebrowser.sites import site
 from dh5bp.urls import urlpatterns as dh5bp_urls
-from . import views
 
 # Generate the admin console for all models found.
 admin.autodiscover()
@@ -24,10 +24,6 @@ urlpatterns = patterns('',
     
     url(r'^static/(.*)$',   'django.views.static.serve', {
         'document_root': settings.STATIC_ROOT
-    }),
-    
-    url(r'^media/(.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT,
     }),
 )
 

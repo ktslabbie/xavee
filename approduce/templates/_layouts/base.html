@@ -1,10 +1,7 @@
 {% extends 'dh5bp/base.html' %}
 {% load staticfiles %}
-{% block head %}
-        <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
-{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">{% endblock %}
 {% block title %}Xavee - 海外アプリ紹介サービス{% endblock %}
 {% block content %} {% endblock %}
-{% block pre_main_script %}
-        <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
-{% endblock %}
+{% block pre_main_script %}<script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>{% endblock %}

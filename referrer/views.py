@@ -4,7 +4,6 @@ from django.views.generic.base import TemplateView, RedirectView
 from .models import Referral
 
 class ReferralRedirectView(RedirectView):
-
     def get_redirect_url(self):
         referral = get_object_or_404(Referral, pk=self.request.GET.get('r'))
         referral.update_clicks()

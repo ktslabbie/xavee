@@ -40,7 +40,7 @@ class PlatformAdmin(admin.ModelAdmin):
     search_fields  = ["name", ]
     save_on_top    = True
 
-# Register your models here.
+# Register models here to make them visible in the Admin panel.
 admin.site.register(Application, AppAdmin)
 #admin.site.register(Platform, PlatformAdmin)
 admin.site.register(Developer, DeveloperAdmin)

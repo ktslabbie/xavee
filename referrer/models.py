@@ -6,7 +6,6 @@ from application.models import Version
 class Referral(models.Model):
     referral_id = models.AutoField(primary_key = True)
     referral_link = models.URLField(default = '', editable = False)    
-    #platform = models.ForeignKey(Platform, related_name = "referral_platforms")
     app = models.ForeignKey(Version, related_name = "referral_versions")
     source = models.CharField(max_length = 16, help_text = "The name of the site that will host the referrer link (e.g. 'appbank').")
     medium = models.CharField(max_length = 16, help_text = "The medium used (e.g. 'review, ad').")
@@ -18,14 +17,7 @@ class Referral(models.Model):
         verbose_name = "referral link"
         
     def save(self, *args, **kwargs):
-        #self.name = slugify(self.name).replace('-','_')
-        #self.source = slugify(self.source).replace('-','_')
-        #self.medium = slugify(self.medium).replace('-','_')
-        
-        #path = build_url("referral", get = {'utm_source': self.source, 'utm_medium': self.medium, 'utm_campaign': self.name,})
-        #current_site = Site.objects.get_current()
         super(Referral, self).save(*args, **kwargs)
-        
         self.referral_link = settings.REFERRAL_HOST + "/%s/%s?r=%s" % (self.app.platform.name, slugify(self.app.app.name), self.referral_id)
         super(Referral, self).save(update_fields=['referral_link'])
     

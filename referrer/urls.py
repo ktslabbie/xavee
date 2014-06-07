@@ -7,8 +7,8 @@ from django.conf.urls import patterns, url
 from . import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.HomepageView.as_view(), name = "referrer_home"),
-    url(r'^', views.ReferralRedirectView.as_view(), name="redirect"),
+    url(r'^$', views.HomepageView.as_view(),         name = "referrer_home"),
+    url(r'^',  views.ReferralRedirectView.as_view(), name = "redirect"),
 )
 
 handler404 = "dh5bp.views.page_not_found"

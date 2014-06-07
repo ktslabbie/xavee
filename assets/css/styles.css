@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Project-specific styles. These are loaded after the H5BP styles.
+   
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+body {
+	padding-top: 40px;
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+div.navbar {
+	background-color: #000;
+	border-radius: 24px;
+	max-width: 960px;
+	width: 50%;
+	padding-left: 2%;
+	margin: auto;
+}
+
+div.content {
+	max-width: 960px;
+	width: 50%;
+	padding: 2%;
+	margin: 28px auto;
+}
+
+div.post-description {
+	margin-top: 32px;
+}
+
+div.page-content {
+	padding: 2%;
+	margin: 28px auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+p.post-date {
+	font-size: 0.9em;
+	font-family: Calibri, sans-serif;
+}
+
+.pagetitle {
+	text-align: center;
+	font-family: Calibri, sans-serif;
+}
+
+ul.post {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
