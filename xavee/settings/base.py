@@ -167,7 +167,6 @@ THIRD_PARTY_APPS = (
     'south',
     'dh5bp',
     'grappelli',
-    'filebrowser',
     'django.contrib.admin',
     'rest_framework',
 )

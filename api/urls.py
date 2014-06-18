@@ -6,7 +6,7 @@ Created on Jun 18, 2014
 from django.conf.urls import patterns, url, include
 from blog.api import PostList, PostDetail, UserPostList
 from . import views
-from approduce.api import UserList, UserDetail
+from xavee.api import UserList, UserDetail
 
 # Create a router and register our viewsets with it.
 #router = DefaultRouter()

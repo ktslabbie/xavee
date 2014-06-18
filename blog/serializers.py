@@ -5,7 +5,7 @@ Created on Jun 8, 2014
 '''
 from rest_framework import serializers
 from .models import Post
-from approduce.serializers import UserSerializer
+from xavee.serializers import UserSerializer
 
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.HyperlinkedRelatedField(view_name='user-detail', lookup_field='username')

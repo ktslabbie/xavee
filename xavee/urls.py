@@ -5,7 +5,7 @@ Created on May 18, 2014
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from filebrowser.sites import site
+#from filebrowser.sites import site
 from . import views
 from blog.views import PostListView
 from dh5bp.urls import urlpatterns as dh5bp_urls
@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^api/',               include('api.urls')),
     url(r'^api-auth/',          include('rest_framework.urls',  namespace = 'rest_framework')),
     url(r'^blog/',              include('blog.urls',            namespace = 'blog')),
-    url(r'^admin/filebrowser/', include(site.urls)),
+#    url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^grappelli/',         include('grappelli.urls')),
     url(r'^admin/',             include(admin.site.urls)),
     
