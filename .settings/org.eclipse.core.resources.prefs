@@ -1,7 +1,9 @@
 eclipse.preferences.version=1
-encoding//approduce/templates/_layouts/base.html=UTF-8
-encoding//approduce/templates/about.html=UTF-8
-encoding//approduce/templates/index.html=UTF-8
+encoding//assets/css/styles.css=UTF-8
+encoding//blog/migrations/0001_initial.py=utf-8
 encoding//blog/templates/blog/post_detail.html=UTF-8
 encoding//blog/templates/blog/post_list.html=UTF-8
 encoding//referrer/templates/referrer_index.html=UTF-8
+encoding//xavee/templates/_layouts/base.html=UTF-8
+encoding//xavee/templates/about.html=UTF-8
+encoding//xavee/templates/index.html=UTF-8

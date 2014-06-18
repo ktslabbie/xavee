@@ -60,7 +60,7 @@ HOST_MIDDLEWARE_URLCONF_MAP = {
 REFERRAL_HOST = "http://www.app-install.info"
 
 # Hosts allowed to connect to our site.
-ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', ]
+ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', '.xavee.net']
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

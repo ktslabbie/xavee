@@ -1,11 +1,12 @@
 venv
 *.pyc
+.project
 .DS_Store
 .settings
 .pydevproject
-.settings/org.*
+.settings/org.eclipse.core.resources.prefs
 Thumbs.db
 staticfiles
-approduce/settings/local.py
+xavee/settings/local.py
 media
 static
