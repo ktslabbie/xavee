@@ -49,7 +49,7 @@ REST_FRAMEWORK = {
 DH5BP_GA_CODE = 'UA-51423008-2'
 
 # The default URLConf that will route all incoming requests.
-ROOT_URLCONF = "approduce.urls"
+ROOT_URLCONF = "xavee.urls"
 
 HOST_MIDDLEWARE_URLCONF_MAP = {
     # App-install part of the site. We want a different router for it so that it can only access its own part.
@@ -123,7 +123,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.i18n",
     'django.contrib.messages.context_processors.messages',
-    'approduce.context_processors.google_analytics',
+    'xavee.context_processors.google_analytics',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -137,7 +137,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'approduce.multihost.MultiHostMiddleware',
+    'xavee.multihost.MultiHostMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -148,7 +148,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'approduce.wsgi.application'
+WSGI_APPLICATION = 'xavee.wsgi.application'
 
 TEMPLATE_DIRS = (
     root("templates"),

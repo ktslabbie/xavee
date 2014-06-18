@@ -1,5 +1,5 @@
 """
-WSGI config for approduce project.
+WSGI config for xavee project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 import os
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "approduce.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xavee.settings")
 
 from dj_static import Cling
 application = Cling(get_wsgi_application())
