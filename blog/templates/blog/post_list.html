@@ -14,10 +14,13 @@
 			<a href="{{ post.get_absolute_url }}"> {{post.title}} </a>
 		</h2>
 		<p class="post-date">
-			Posted on
+			Posted by {{ post.author.username }} on
 			<time datetime="{{post.created_at|date:"c"}}"> {{post.created_at|date:"F jS, Y \a\t H:i a"}} </time>
 		</p>
 		<div class="post-description">{{post.description}}</div>
+		<p style="text-align: right;">
+		    <a href="{{ post.get_absolute_url }}"> 続きを読む &rarr; </a>
+		</p>
 	</li>
 	{% empty %}
 	<li>Sorry, no articles yet. Check back later!</li>
