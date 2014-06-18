@@ -38,6 +38,10 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
+REST_FRAMEWORK = {
+    'PAGINATE_BY': 10              
+}
+
 # ID for the sites framework.
 #SITE_ID = 1
 
@@ -165,6 +169,7 @@ THIRD_PARTY_APPS = (
     'grappelli',
     'filebrowser',
     'django.contrib.admin',
+    'rest_framework',
 )
 
 LOCAL_APPS = (

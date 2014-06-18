@@ -1,7 +1,7 @@
 {% extends 'blog/post_list.html' %}
 {% block title %} {{post.title}} {% endblock %}
 {% block page_content %}
-<article>
+<article style="margin-bottom: 20px;">
 	<header>
 		<h2> {{post.title}} </h2>
 		<p class="post-date">
@@ -14,5 +14,5 @@
 	<div class="post-description">{{post.description}}</div>
 	{{post.content|safe}}
 </article>
-<a href="{% url 'blog:post_list' %}"> &larr; 書き込みリストに戻る </a>
+<a href="{% url 'blog:post-list' %}"> &larr; 書き込みリストに戻る </a>
 {% endblock %}

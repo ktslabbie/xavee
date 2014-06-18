@@ -17,7 +17,7 @@
                     <ul class="nav navbar-nav">{% block nav_list %}
                         <li class="active"><a href="{% url 'home' %}">ホーム</a></li>
                         <li><a href="#">アプリ</a></li>
-                        <li><a href="{% url 'blog:post_list' %}">ブログ</a></li>
+                        <li><a href="{% url 'blog:post-list' %}">ブログ</a></li>
                         <li><a href="/about">アバウト</a></li>
                         <li><a href="#contact">コンタクト</a></li>{% endblock %}
                     </ul>
@@ -26,9 +26,7 @@
         </div> {% endblock %}
         <div class="content"> {% block header %}
             <div class="page-title">
-                <img class="img-responsive" src="{% static 'img/owl-banner.png' %}"/>
-                <!-- <h1 class="main-title">Xavee</h1>
-                <h3 class="sub-title">海外アプリ紹介サービス</h3>  -->
+                <img class="img-responsive" src="{% static 'img/xavee-banner.png' %}"/>
             </div> {% endblock %}
             <div class="page-content"> {% block page_content %}
                 <p>Index page content goes here.</p>

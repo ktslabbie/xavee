@@ -2,7 +2,7 @@
 {% block nav_list %}
                         <li><a href="{% url 'home' %}">ホーム</a></li>
                         <li><a href="#">アプリ</a></li>
-                        <li><a href="/blog">ブログ</a></li>
+                        <li><a href="{% url 'blog:post-list' %}">ブログ</a></li>
                         <li class="active"><a href="#">アバウト</a></li>
                         <li><a href="#contact">コンタクト</a></li>
 {% endblock %}
