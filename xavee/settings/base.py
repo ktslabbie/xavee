@@ -42,6 +42,31 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 10              
 }
 
+# File storage variables for Amazon S3.
+AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
+AWS_SECRET_ACCESS_KEY   = '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'
+AWS_STORAGE_BUCKET_NAME = 'xavee'
+AWS_PRELOAD_METADATA    = True # Necessary to fix collectstatic command to only upload changed files
+
+DEFAULT_FILE_STORAGE    = 'xavee.s3utils.MediaRootS3BotoStorage'
+STATICFILES_STORAGE     = 'xavee.s3utils.StaticRootS3BotoStorage'
+
+MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
+STATIC_URL         = 'https://xavee.s3.amazonaws.com/static/'
+ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
+
+
+# CKEditor settings.
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    'default': {
+        #'toolbar': 'Full',
+        'height': 640,
+        'width': 755,
+    },
+}
+
 # ID for the sites framework.
 #SITE_ID = 1
 
@@ -90,32 +115,20 @@ USE_TZ = True
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = root("..", "static")
+# STATIC_ROOT = root("..", "static")
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = root("..", "media")
+# MEDIA_ROOT = root("..", "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
-
-CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + '/uploads/'
-
-#CKEDITOR_IMAGE_BACKEND = 'pillow'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        #'toolbar': 'Full',
-        'height': 640,
-        'width': 755,
-    },
-}
+# MEDIA_URL = '/media/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -188,7 +201,7 @@ LOCAL_APPS = (
     'application',
     'blog',
     'referrer',
-#    'storages',
+    'storages',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
