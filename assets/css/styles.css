@@ -10,7 +10,8 @@ a {
 }
 
 body {
-	padding-top: 32px;
+	padding: 32px 0px 32px 0px;
+	background: url(/static/img/cream_dust.png) repeat 0 0;
 	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
@@ -19,43 +20,48 @@ body {
     text-align: center;
 }
 
-div.content {
-	max-width: 960px;
-	width: 60%;
-	padding: 2%;
-	margin: 28px auto;
-}
+
 
 div.navbar {
-	background-color: #FFF;
-	/*border-radius: 24px; */
+	background-color: inherit;
+	border-radius: 10px 10px 0px 0px;
 	border: none;
+}
+
+div.content {
+	margin: 32px;
+	/* background-color: #FFF; */
+	/* max-width: 960px;
+	width: 60%;
+	
+	margin: auto; */
+	/* border-radius: 0px 0px 10px 10px; */
+	/* padding: 0%; */
+}
+
+div.full-content {
+	background-color: #FFF;
 	max-width: 960px;
-	/*width: 70%;*/
-	padding-left: 2%;
+	width: 65%;
 	margin: auto;
+	padding: 0% 0% 2% 0%;
+	-webkit-box-shadow: 3px 3px 10px 1px rgba(0,0,0,0.5);
+    box-shadow: 3px 3px 10px 1px rgba(0,0,0,0.5);
+	border-radius: 10px;
 }
 
 div.page-content {
-	padding: 2%;
-	margin: 10px auto;
+	/* padding: 2%; */
 }
 
 div.page-title {
-	/*background-image: url("../../media/owl-banner.png"); */
-	text-align: center;
-	margin-top: -20px;
-	margin-bottom: 20px;
-	/*padding-bottom: 40px;
-	padding-top: 64px; */
+	/* padding: 2%; */
+	margin-bottom: 46px;
+	margin-top: 46px;
 }
 
-h1.main-title {
-	
-}
-
-h3.sub-title {
-	margin-top: 0
+img.img-title {
+	max-width: 65%;
 }
 
 div.post-description {

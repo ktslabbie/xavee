@@ -11,8 +11,7 @@
 
 # TECHNOLOGY COLOPHON
 
-    Heroku
-    Python, Django
+    Heroku, Amazon S3
+    Python, Django, Django REST Framework
     PostgreSQL
-    HTML5, CSS3
     jQuery, Twitter Bootstrap, Normalize.css, Modernizr

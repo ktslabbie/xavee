@@ -36,8 +36,9 @@ tinyMCE.init({
     editor_deselector: 'mceNoEditor',
     keep_styles: false,
     language: 'en',
-    object_resizing: false,
-    plugins: 'advimage,advlink,fullscreen,paste,media,searchreplace,grappelli,template',
+    object_resizing: 'img',
+    //plugins: 'advimage,advlink,fullscreen,paste,media,searchreplace,grappelli,template',
+    plugins: 'autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,grappelli,template',
     // directionality : "rtl",
     
     // Callbacks
@@ -53,7 +54,7 @@ tinyMCE.init({
         {title: 'Paragraph Small', block : 'p', classes: 'p_small'},
         {title: 'Paragraph ImageCaption', block : 'p', classes: 'p_caption'},
         {title: 'Clearfix', block : 'p', classes: 'clearfix'},
-        {title: 'Code', block : 'p', classes: 'code'}
+        {title: 'Code', block : 'p', classes: 'code'},
     ],
     verify_html: true,
 
@@ -62,8 +63,8 @@ tinyMCE.init({
     remove_script_host: true,
 
     // Layout
-    width: 758,
-    height: 300,
+    width: 958,
+    height: 600,
     indentation: '10px',
     
     // Content CSS
@@ -74,9 +75,13 @@ tinyMCE.init({
     theme_advanced_toolbar_location: 'top',
     theme_advanced_toolbar_align: 'left',
     theme_advanced_statusbar_location: 'bottom',
-    theme_advanced_buttons1: 'formatselect,styleselect,|,bold,italic,underline,|,bullist,numlist,blockquote,|,undo,redo,|,link,unlink,|,image,|,fullscreen,|,grappelli_adv',
-    theme_advanced_buttons2: 'search,|,pasteword,template,media,charmap,|,code,|,table,cleanup,grappelli_documentstructure',
-    theme_advanced_buttons3: '',
+    //theme_advanced_buttons1 : 'save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect,|,forecolor,backcolor',
+    //theme_advanced_buttons2 : 'cut,copy,paste,pastetext,pasteword,|,search,replace,|,undo,redo,|,link,unlink,anchor,|,image,media,|,fullscreen,code',
+    //theme_advanced_buttons3 : '',
+    
+    theme_advanced_buttons1: 'formatselect,styleselect,fontsizeselect,|,bold,italic,underline,alignleft,aligncenter,alignright,alignjustify,|,bullist,numlist,blockquote',
+    theme_advanced_buttons2: 'undo,redo,|,link,unlink,|,image,|,fullscreen,|,grappelli_adv',
+    theme_advanced_buttons3: 'search,|,pasteword,template,media,charmap,|,code,|,table,cleanup,grappelli_documentstructure',
     theme_advanced_path: false,
     theme_advanced_blockformats: 'p,h1,h2,h3,h4,pre',
     theme_advanced_resizing: true,
@@ -114,7 +119,7 @@ tinyMCE.init({
     media_strict: true,
     
     // Grappelli Settings
-    grappelli_adv_hidden: false,
+    grappelli_adv_hidden: true,
     grappelli_show_documentstructure: 'on'
     
     // Elements

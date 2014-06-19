@@ -86,15 +86,6 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = root("..", "media")
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
-
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -104,6 +95,27 @@ STATIC_ROOT = root("..", "static")
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = root("..", "media")
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = MEDIA_ROOT + '/uploads/'
+
+#CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        #'toolbar': 'Full',
+        'height': 640,
+        'width': 755,
+    },
+}
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -167,6 +179,7 @@ THIRD_PARTY_APPS = (
     'south',
     'dh5bp',
     'grappelli',
+    'ckeditor',
     'django.contrib.admin',
     'rest_framework',
 )
@@ -175,6 +188,7 @@ LOCAL_APPS = (
     'application',
     'blog',
     'referrer',
+#    'storages',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
