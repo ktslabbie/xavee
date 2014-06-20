@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 import os
 import dj_database_url
+from datetime import date, timedelta
 
 # Helper function to get the absolute file path to the project.
 here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
@@ -46,11 +47,23 @@ REST_FRAMEWORK = {
 AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
 AWS_SECRET_ACCESS_KEY   = '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'
 AWS_STORAGE_BUCKET_NAME = 'xavee'
-AWS_PRELOAD_METADATA    = True # Necessary to fix collectstatic command to only upload changed files
+AWS_PRELOAD_METADATA    = True # Necessary to fix collectstatic command to only upload changed files? Doesn't seem to work.
+AWS_QUERYSTRING_AUTH    = False
 
+tenyears = date.today() + timedelta(days=365*10)
+
+AWS_HEADERS = {
+    # Static content expires 10 years in the future at 8PM GMT.
+    'Expires': tenyears.strftime('%a, %d %b %Y 20:00:00 GMT'),
+    # Retrieve content from browser cache for 24 hours after the first access.
+    'Cache-Control': 'max-age=86400',
+}
+
+# Storage controllers for Amazon S3.
 DEFAULT_FILE_STORAGE    = 'xavee.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE     = 'xavee.s3utils.StaticRootS3BotoStorage'
 
+# Paths on Amazon S3.
 MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
 STATIC_URL         = 'https://xavee.s3.amazonaws.com/static/'
 ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
@@ -62,7 +75,7 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
         #'toolbar': 'Full',
-        'height': 640,
+        'height': 440,
         'width': 755,
     },
 }
@@ -190,7 +203,6 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'south',
-    'dh5bp',
     'grappelli',
     'ckeditor',
     'django.contrib.admin',

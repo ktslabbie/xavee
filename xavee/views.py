@@ -11,3 +11,11 @@ class HomepageView(TemplateView):
 class AboutView(TemplateView):
     ''' Simple class-based view to render the About page. '''
     template_name = "about.html"
+
+class PageNotFoundView(TemplateView):
+    ''' Custom 404 page. '''
+    template_name = "404.html"
+
+class ServerErrorView(TemplateView):
+    ''' Custom 500 page. '''
+    template_name = "500.html"
