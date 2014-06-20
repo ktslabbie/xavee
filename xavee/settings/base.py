@@ -74,7 +74,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
-        #'toolbar': 'Full',
+        'toolbar': 'Standard',
         'height': 440,
         'width': 755,
     },
