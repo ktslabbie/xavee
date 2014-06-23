@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     posts = serializers.SlugRelatedField(many=True, slug_field='slug')
+    #posts = PostSerializer()
     
     class Meta:
         model = User

@@ -7,23 +7,19 @@
                         <li><a href="#contact">コンタクト</a></li>
 {% endblock %}
 {% block page_content %}
-<ul class="post">
-	{% for post in post_list %}
+<ul class="post" ng-repeat="post in posts">
 	<li>
 		<h2>
-			<a href="{{ post.get_absolute_url }}"> {{post.title}} </a>
+			<a href="/blog/{[{ post.slug }]}" ng-bind="post.title"></a>
 		</h2>
 		<p class="post-date">
-			Posted by {{ post.author.username }} on
-			<time datetime="{{post.created_at|date:"c"}}"> {{post.created_at|date:"F jS, Y \a\t H:i a"}} </time>
+			Posted by <span ng-bind="post.author.username"></span> on
+			<time datetime="{[{ post.created_at }]}" ng-bind="post.created_at|date:'short'"></time>
 		</p>
-		<div class="post-description">{{post.description}}</div>
+		<div class="post-description" ng-bind="post.description"></div>
 		<p style="text-align: right;">
-		    <a href="{{ post.get_absolute_url }}"> 続きを読む &rarr; </a>
+		    <a href="/blog/{[{ post.slug }]}"> 続きを読む &rarr; </a>
 		</p>
 	</li>
-	{% empty %}
-	<li>Sorry, no articles yet. Check back later!</li>
-	{% endfor %}
 </ul>
 {% endblock %}

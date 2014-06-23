@@ -74,7 +74,22 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Standard',
+        'toolbar': [
+            [      'Source', 'Save', 'NewPage', 'DocProps', 'Preview', 'Print', 'Templates', 'document',
+              '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', 'Undo', 'Redo',
+              '-', 'Find', 'Replace', 'SelectAll', 'Scayt',
+              '-', 'CreatePlaceholder', 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe', 'InsertPre',
+              '-', 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField',
+            ],
+            [      'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'RemoveFormat',
+              '-', 'NumberedList', 'BulletedList', 'Outdent', 'Indent', 'Blockquote', 'CreateDiv', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'BidiLtr', 'BidiRtl',
+              '-', 'Link', 'Unlink', 'Anchor',
+            ],
+            [      'Styles', 'Format', 'Font', 'FontSize',
+              '-', 'TextColor', 'BGColor',
+              '-', 'UIColor', 'Maximize', 'ShowBlocks',
+            ]
+        ],
         'height': 440,
         'width': 755,
     },

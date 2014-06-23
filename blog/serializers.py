@@ -8,7 +8,8 @@ from .models import Post
 from xavee.serializers import UserSerializer
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.HyperlinkedRelatedField(view_name='user-detail', lookup_field='username')
+    author = UserSerializer()
+    # HyperlinkedRelatedField(view_name='user-detail', lookup_field='username')
     
     def get_validation_exclusions(self):
         exclusions = super(PostSerializer, self).get_validation_exclusions()
