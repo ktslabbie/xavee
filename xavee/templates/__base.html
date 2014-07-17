@@ -33,7 +33,6 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.min.js"></script>
-        <script src="{% static 'js/plugins.js' %}"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
         {% compress js %}
@@ -41,6 +40,7 @@
         <script>window.angular || document.write('<script src="{% static 'js/vendor/angular.min.js' %}"><\/script>')</script>
         <script>try{angular.module("ngResource")}catch(err){document.write('<script src="{% static 'js/vendor/angular-resource.min.js' %}"><\/script>')}</script>
         <script>if(typeof($.fn.modal)==='undefined'){document.write('<script src="{% static 'js/vendor/bootstrap.min.js' %}"><\/script>')}</script>
+        <script src="{% static 'js/plugins.js' %}"></script>
         {% block pre_main_script %}{% endblock %}
         <script src="{% static 'js/angular/app.js' %}"></script>
         <script src="{% static 'js/angular/controllers.js' %}"></script>
