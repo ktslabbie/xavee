@@ -47,7 +47,7 @@ DATABASES = {
 AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
 AWS_SECRET_ACCESS_KEY   = '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'
 AWS_STORAGE_BUCKET_NAME = 'xavee'
-AWS_PRELOAD_METADATA    = True # Necessary to fix collectstatic command to only upload changed files? Doesn't seem to work.
+AWS_PRELOAD_METADATA    = True
 AWS_QUERYSTRING_AUTH    = False
 
 ten_years = date.today() + timedelta(days=365*10)
@@ -72,7 +72,8 @@ ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
 COMPRESS_URL         = STATIC_URL
 COMPRESS_ROOT        = root("..", "assets")
 COMPRESS_OFFLINE     = True
-COMPRESS_CSS_FILTERS  = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', ]
+COMPRESS_ENABLED     = True
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', ]
 
 # CKEditor settings.
 CKEDITOR_UPLOAD_PATH = 'uploads/'
