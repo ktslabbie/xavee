@@ -23,8 +23,10 @@ PROJECT_ROOT = here("..")
 root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 
 # Disable debugging on the production server!
-DEBUG          = False
-TEMPLATE_DEBUG = False
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
+TEMPLATE_DEBUG = DEBUG
+#DEBUG          = False
+#TEMPLATE_DEBUG = False
 
 # Admins for the admin console.
 ADMINS = (
