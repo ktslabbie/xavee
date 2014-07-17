@@ -52,6 +52,7 @@ DATABASES = {
 AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
 AWS_SECRET_ACCESS_KEY   = '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'
 AWS_STORAGE_BUCKET_NAME = 'xavee'
+AWS_IS_GZIPPED          = True
 AWS_PRELOAD_METADATA    = True
 AWS_QUERYSTRING_AUTH    = False
 
@@ -67,7 +68,14 @@ AWS_HEADERS = {
 # Storage controllers for Amazon S3.
 DEFAULT_FILE_STORAGE    = 'xavee.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE     = 'xavee.s3utils.CachedStaticRootS3BotoStorage'
-COMPRESS_STORAGE        = STATICFILES_STORAGE
+COMPRESS_STORAGE        = 'compressor.storage.GzipCompressorFileStorage'
+
+GZIP_CONTENT_TYPES = (
+    'text/css',
+    'application/javascript',
+    'application/x-javascript',
+    'text/javascript'
+)
 
 # Paths on Amazon S3.
 MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
