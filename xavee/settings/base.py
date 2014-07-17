@@ -68,11 +68,11 @@ COMPRESS_STORAGE        = STATICFILES_STORAGE
 MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
 STATIC_URL         = 'https://xavee.s3.amazonaws.com/static/'
 ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
-COMPRESS_URL       = STATIC_URL
 
-COMPRESS_ROOT      = root("..", "assets")
-COMPRESS_ENABLED   = True
-COMPRESS_OFFLINE   = True
+COMPRESS_URL         = STATIC_URL
+COMPRESS_ROOT        = root("..", "assets")
+COMPRESS_OFFLINE     = True
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'app.compressor.filters.YUglifyCSSFilter']
 
 # CKEditor settings.
 CKEDITOR_UPLOAD_PATH = 'uploads/'
@@ -239,6 +239,7 @@ LOCAL_APPS = (
     'referrer',
     'storages',
     'compressor',
+    'collectfast',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
