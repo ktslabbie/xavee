@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Project-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	/* Best-practice default fonts for Japanese websites */
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, 
+	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+/* ==========================================================================
+   Navbar styles
+   ========================================================================== */
+
+div.navbar-default {
+	background-color: #FFF;
+	border-bottom: none;
+}
+
+ul.nav a:hover {
+	color: #000 !important;
+    background-color: #FFF !important;
+}
+
+ul.nav li.active a {
+	color: #000 !important;
+	font-weight: bold;
+    background-color: #FFF !important;
+}
+
+/* ==========================================================================
+   Page layout styles
+   ========================================================================== */
+
+div.content {
+	margin: 32px;
+	padding: 0% 2% 2% 2%;
+}
+
+div.full-content {
+	background-color: #FFF;
+	max-width: 960px;
+	min-width: 320px;
+	width: 65%;
+	margin: auto;
+}
+
+div.page-content {
+	/* padding: 2%; */
+}
+
+div.page-title {
+	margin-bottom: 40px;
+}
+
+div.page-footer {
+	color: #FFF;
+	/* border-radius: 0px 0px 10px 10px; */
+	height: 60px;
+    background-color: #353535;
+    margin-top: 50px;
+    padding: 20px 0px 50px 50px;
+    /* border-top: #AAA 1px solid; */
+    border: none;
+    font-size: 11px;
+}
+
+img.img-title {
+	max-width: 150px;
+}
+
+img.img-title-big {
+	min-width: 200px;
+}
+
+/* ==========================================================================
+   Blog styles
+   ========================================================================== */
+
+.post-title {
+	text-decoration: none;
+	color: #008;
+}
+
+.post > li > h2 {
+	border-top: 1px solid #eee;
+	padding-top: 40px;
+}
+
+.post:first-child > li > h2 {
+	border-top: none;
+}
+
+div.post-description {
+	margin-top: 32px;
+	margin-bottom: 20px;
+}
+
+p.post-date {
+	font-size: 0.9em;
+	font-family: Calibri, sans-serif;
+}
+
+ul.post {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* ==========================================================================
+   Footer styles
+   ========================================================================== */
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+
+/* ==========================================================================
+   Misc. styles
+   ========================================================================== */
+

@@ -1,10 +1,12 @@
 {% extends '__base.html' %} {% load staticfiles %} {% load navbar_tags %}
 {% block content %}
 <div class="container full-content">
-	<div class="navbar-header navbar navbar-default navbar-static-top" role="navigation">
+	<div class="navbar-header navbar-default navbar-static-top" role="navigation">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-			<span class="icon-bar"></span> <span class="icon-bar"></span>
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
 		</button>
 		<span class="navbar-brand">Xavee</span>
 	</div>
@@ -18,7 +20,7 @@
 	</div> {# end navbar #}
 	<div class="content">
 		{% block page_header %} {% endblock %}
-		<div class="page-content">
+		<div class="page-content" ng-controller="PostController">
 			{% block page_content %}
 			<img class="img-responsive center-block img-title-big" src="{% static 'img/xavee-banner.png' %}" />
 			{% endblock %}

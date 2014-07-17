@@ -8,6 +8,5 @@ venv
 Thumbs.db
 staticfiles
 xavee/settings/local.py
-assets
 media
 static

@@ -72,7 +72,7 @@ ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
 COMPRESS_URL         = STATIC_URL
 COMPRESS_ROOT        = root("..", "assets")
 COMPRESS_OFFLINE     = True
-COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'app.compressor.filters.YUglifyCSSFilter']
+COMPRESS_CSS_FILTERS  = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', ]
 
 # CKEditor settings.
 CKEDITOR_UPLOAD_PATH = 'uploads/'
