@@ -23,6 +23,9 @@ PROJECT_ROOT = here("..")
 root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 
 # Disable debugging on the production server!
+# But if needed we can enable/disable debugging on Heroku:
+# heroku config:add DJANGO_DEBUG=true
+# heroku config:remove DJANGO_DEBUG
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
 #DEBUG          = False
@@ -73,8 +76,6 @@ ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
 
 COMPRESS_URL         = STATIC_URL
 COMPRESS_ROOT        = root("..", "assets")
-COMPRESS_OFFLINE     = True
-COMPRESS_ENABLED     = True
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', ]
 
 # CKEditor settings.
