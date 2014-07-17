@@ -1,23 +1,16 @@
 {% extends 'index.html' %}
-{% block nav_list %}
-                        <li><a href="{% url 'home' %}">ホーム</a></li>
-                        <li><a href="#">アプリ</a></li>
-                        <li class="active"><a href="#">ブログ</a></li>
-                        <li><a href="/about">アバウト</a></li>
-                        <li><a href="#contact">コンタクト</a></li>
-{% endblock %}
 {% block page_content %}
 <ul class="post" ng-repeat="post in posts">
 	<li>
 		<h2>
-			<a href="/blog/{[{ post.slug }]}" ng-bind="post.title"></a>
+			<a class="post-title" href="/blog/{[{ post.slug }]}" ng-bind="post.title"></a>
 		</h2>
 		<p class="post-date">
 			Posted by <span ng-bind="post.author.username"></span> on
 			<time datetime="{[{ post.created_at }]}" ng-bind="post.created_at|date:'short'"></time>
 		</p>
 		<div class="post-description" ng-bind="post.description"></div>
-		<p style="text-align: right;">
+		<p style="text-align: right; margin-bottom: -16px;">
 		    <a href="/blog/{[{ post.slug }]}"> 続きを読む &rarr; </a>
 		</p>
 	</li>

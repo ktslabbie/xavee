@@ -39,9 +39,9 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-REST_FRAMEWORK = {
-    'PAGINATE_BY': 10              
-}
+#REST_FRAMEWORK = {
+#    'PAGINATE_BY': 10              
+#}
 
 # File storage variables for Amazon S3.
 AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
@@ -50,24 +50,29 @@ AWS_STORAGE_BUCKET_NAME = 'xavee'
 AWS_PRELOAD_METADATA    = True # Necessary to fix collectstatic command to only upload changed files? Doesn't seem to work.
 AWS_QUERYSTRING_AUTH    = False
 
-tenyears = date.today() + timedelta(days=365*10)
+ten_years = date.today() + timedelta(days=365*10)
 
 AWS_HEADERS = {
     # Static content expires 10 years in the future at 8PM GMT.
-    'Expires': tenyears.strftime('%a, %d %b %Y 20:00:00 GMT'),
+    'Expires': ten_years.strftime('%a, %d %b %Y 20:00:00 GMT'),
     # Retrieve content from browser cache for 24 hours after the first access.
     'Cache-Control': 'max-age=86400',
 }
 
 # Storage controllers for Amazon S3.
 DEFAULT_FILE_STORAGE    = 'xavee.s3utils.MediaRootS3BotoStorage'
-STATICFILES_STORAGE     = 'xavee.s3utils.StaticRootS3BotoStorage'
+STATICFILES_STORAGE     = 'xavee.s3utils.CachedStaticRootS3BotoStorage'
+COMPRESS_STORAGE        = STATICFILES_STORAGE
 
 # Paths on Amazon S3.
 MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
 STATIC_URL         = 'https://xavee.s3.amazonaws.com/static/'
 ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
+COMPRESS_URL       = STATIC_URL
 
+COMPRESS_ROOT      = root("..", "assets")
+COMPRESS_ENABLED   = True
+COMPRESS_OFFLINE   = True
 
 # CKEditor settings.
 CKEDITOR_UPLOAD_PATH = 'uploads/'
@@ -143,7 +148,8 @@ USE_TZ = True
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-# STATIC_ROOT = root("..", "static")
+# STATIC_ROOT   = root("..", "static")
+# COMPRESS_ROOT = STATIC_ROOT
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -169,6 +175,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #   'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -228,8 +235,10 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'application',
     'blog',
+    'xavee',
     'referrer',
     'storages',
+    'compressor',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

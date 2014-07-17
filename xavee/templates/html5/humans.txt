@@ -14,4 +14,4 @@
     Heroku, Amazon S3
     Python, Django, Django REST Framework
     PostgreSQL
-    jQuery, Twitter Bootstrap, Normalize.css, Modernizr
+    jQuery, AngularJS, Twitter Bootstrap, Normalize.css, Modernizr

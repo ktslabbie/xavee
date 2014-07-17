@@ -1,46 +1,34 @@
-{% extends '__base.html' %}
-{% load staticfiles %}
+{% extends '__base.html' %} {% load staticfiles %} {% load navbar_tags %}
 {% block content %}
 <div class="container full-content">
-	{% block navbar %}
-	<div class="navbar navbar-default" role="navigation">
-	    <div class="container">
-	        <div class="navbar-header">
-	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	                <span class="sr-only">Toggle navigation</span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	                <span class="icon-bar"></span>
-	            </button>
-	            <!-- <span class="navbar-brand">Xavee</span>  -->
-	        </div>
-	        <div class="collapse navbar-collapse">
-	            <ul class="nav navbar-nav">
-	                {% block nav_list %}
-	                <li class="active"><a href="{% url 'home' %}">ホーム</a></li>
-	                <li><a href="#">アプリ</a></li>
-	                <li><a href="{% url 'blog:post-list' %}">ブログ</a></li>
-	                <li><a href="/about">アバウト</a></li>
-	                <li><a href="#contact">コンタクト</a></li>
-	                {% endblock %}
-	            </ul>
-	        </div>
-	    </div>
+	<div class="navbar-header navbar navbar-default navbar-static-top" role="navigation">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		<span class="navbar-brand">Xavee</span>
 	</div>
-	{% endblock %}
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav navbar-right">
+			<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">ホーム</a></li>
+			<li class="{% active_page request 'not_yet' %}"><a href="#">アプリ</a></li>
+			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">ブログ</a></li>
+			<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}">アバウト</a></li>
+		</ul>
+	</div> {# end navbar #}
 	<div class="content">
-	    {% block header %}
-	    <div class="page-title row">
-	        <div class="span12"><img class="img-responsive center-block img-title" src="{% static 'img/xavee-banner.png' %}" /></div>
-	    </div>
-	    {% endblock %}
-	    <div class="page-content" ng-controller="{% block ng_controller %}AppController{% endblock %}">
-	        {% block page_content %}
-	            <p>Index page content goes here.</p>
-	            <p>インデックスページのコンテンツがここに。</p>
-	        {% endblock %}
-	    </div>
-	    {% block footer %} {% endblock %}
+		{% block page_header %} {% endblock %}
+		<div class="page-content">
+			{% block page_content %}
+			<img class="img-responsive center-block img-title-big" src="{% static 'img/xavee-banner.png' %}" />
+			{% endblock %}
+		</div>
+		{% block page_footer %} {% endblock %}
 	</div>
-{% endblock %}
+	<div class="footer">
+	    {% block footer %}
+		&copy; <a href="http://www.agent-solve.com">Solve Inc.</a> All Rights Reserved.
+		{% endblock %}
+	</div>
 </div>
+{% endblock %}
