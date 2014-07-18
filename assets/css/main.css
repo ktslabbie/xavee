@@ -38,8 +38,9 @@ ul.nav li.active a {
    ========================================================================== */
 
 div.content {
-	padding: 32px;
-	min-width: 440px;
+	padding-top: 32px;
+	padding-bottom: 32px;
+	min-width: 320px;
 }
 
 div.page-content {
@@ -50,24 +51,12 @@ div.page-title {
 	margin-bottom: 40px;
 }
 
-div.page-footer {
-	color: #FFF;
-	/* border-radius: 0px 0px 10px 10px; */
-	height: 60px;
-    background-color: #353535;
-    margin-top: 50px;
-    padding: 20px 0px 50px 50px;
-    /* border-top: #AAA 1px solid; */
-    border: none;
-    font-size: 11px;
-}
-
 img.img-title {
 	max-width: 150px;
 }
 
 img.img-title-big {
-	min-width: 200px;
+	min-width: 160px;
 }
 
 /* ==========================================================================
