@@ -71,12 +71,12 @@ STATICFILES_STORAGE     = 'xavee.s3utils.CachedStaticRootS3BotoStorage'
 # COMPRESS_STORAGE        = 'compressor.storage.GzipCompressorFileStorage'
 COMPRESS_STORAGE        = STATICFILES_STORAGE
 
-# GZIP_CONTENT_TYPES = (
-#     'text/css',
-#     'application/javascript',
-#     'application/x-javascript',
-#     'text/javascript'
-# )
+GZIP_CONTENT_TYPES = (
+    'text/css',
+    'application/javascript',
+    'application/x-javascript',
+    'text/javascript'
+)
 
 # Paths on Amazon S3.
 MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
