@@ -3,7 +3,7 @@ Created on May 15, 2014
 
 @author: Kristian
 
-Django settings for this project.
+Django base settings for this project. These are active when running remotely.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -22,8 +22,7 @@ PROJECT_ROOT = here("..")
 # Function to append the root to a directory.
 root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 
-# Disable debugging on the production server!
-# But if needed we can enable/disable debugging on Heroku:
+# Disable debugging on the production server! But if needed we can enable/disable debugging on Heroku:
 # heroku config:add DJANGO_DEBUG=true
 # heroku config:remove DJANGO_DEBUG
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
@@ -44,11 +43,15 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-#REST_FRAMEWORK = {
-#    'PAGINATE_BY': 10              
-#}
+# API pagination was giving problems with Angular.js; disable for now.
+# REST_FRAMEWORK = {
+#     'PAGINATE_BY': 10              
+# }
 
-# File storage variables for Amazon S3.
+# ====================================
+#       Amazon AWS settings
+# ====================================
+
 AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
 AWS_SECRET_ACCESS_KEY   = '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'
 AWS_STORAGE_BUCKET_NAME = 'xavee'
@@ -68,21 +71,22 @@ AWS_HEADERS = {
 # Storage controllers for Amazon S3.
 DEFAULT_FILE_STORAGE    = 'xavee.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE     = 'xavee.s3utils.CachedStaticRootS3BotoStorage'
-COMPRESS_STORAGE        = 'compressor.storage.GzipCompressorFileStorage'
-# COMPRESS_STORAGE        = STATICFILES_STORAGE
 
-GZIP_CONTENT_TYPES = (
-    'text/css',
-    'application/javascript',
-    'application/x-javascript',
-    'text/javascript'
-)
+# GZIP_CONTENT_TYPES = (
+#     'text/css',
+#     'application/javascript',
+#     'application/x-javascript',
+#     'text/javascript'
+# )
 
 # Paths on Amazon S3.
 MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
 STATIC_URL         = 'https://xavee.s3.amazonaws.com/static/'
 ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
 
+# Django compressor settings.
+# COMPRESS_STORAGE     = 'compressor.storage.GzipCompressorFileStorage'
+COMPRESS_STORAGE     = STATICFILES_STORAGE
 COMPRESS_URL         = STATIC_URL
 COMPRESS_ROOT        = root("..", "assets")
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', ]
@@ -114,10 +118,10 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# ID for the sites framework.
+# ID for the sites framework. Not needed currently.
 #SITE_ID = 1
 
-# Google Analytics code. Will be inserted automatically into the HTML5 Boilerplate code.
+# Google Analytics code. Will be inserted into the code through a template tag.
 DH5BP_GA_CODE = 'UA-51423008-2'
 
 # The default URLConf that will route all incoming requests.

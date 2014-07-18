@@ -1,6 +1,8 @@
 {% extends '__base.html' %} {% load staticfiles %} {% load navbar_tags %}
 {% block content %}
-<div class="container full-content">
+<div class="container">
+	
+	{# Navbar code #}
 	<div class="navbar-header navbar-default navbar-static-top" role="navigation">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			<span class="sr-only">Toggle navigation</span>
@@ -14,17 +16,17 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">ホーム</a></li>
 			<li class="{% active_page request 'not_yet' %}"><a href="#">アプリ</a></li>
-			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">ブログ</a></li>
+			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">記事</a></li>
 			<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}">アバウト</a></li>
 		</ul>
-	</div> {# end navbar #}
+	</div>
+	{# End navbar code #}
+	
 	<div class="content">
 		{% block page_header %} {% endblock %}
-		<div class="page-content" ng-controller="PostController">
-			{% block page_content %}
-			<img class="img-responsive center-block img-title-big" src="{% static 'img/xavee-banner.png' %}" />
-			{% endblock %}
-		</div>
+		{% block page_content %}
+		<img class="img-responsive center-block img-title-big" src="{% static 'img/xavee-banner.png' %}" />
+		{% endblock %}
 		{% block page_footer %} {% endblock %}
 	</div>
 	<div class="footer">

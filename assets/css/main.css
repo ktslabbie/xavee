@@ -38,20 +38,12 @@ ul.nav li.active a {
    ========================================================================== */
 
 div.content {
-	margin: 32px;
-	padding: 0% 2% 2% 2%;
-}
-
-div.full-content {
-	background-color: #FFF;
-	max-width: 960px;
-	min-width: 320px;
-	width: 65%;
-	margin: auto;
+	padding: 32px;
+	min-width: 440px;
 }
 
 div.page-content {
-	/* padding: 2%; */
+	
 }
 
 div.page-title {
@@ -82,34 +74,40 @@ img.img-title-big {
    Blog styles
    ========================================================================== */
 
+.post-list {
+	list-style: none;
+	padding-left: 0;
+	
+}
+
+.post-list > li {
+	border-top: 1px solid #DDD;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.post-list:first-child > li {
+	border-top: none;
+}
+
 .post-title {
 	text-decoration: none;
 	color: #008;
 }
 
-.post > li > h2 {
-	border-top: 1px solid #eee;
-	padding-top: 40px;
-}
-
-.post:first-child > li > h2 {
-	border-top: none;
-}
-
-div.post-description {
-	margin-top: 32px;
-	margin-bottom: 20px;
-}
-
-p.post-date {
+.post-date {
 	font-size: 0.9em;
 	font-family: Calibri, sans-serif;
 }
 
-ul.post {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+.post-description {
+	margin-top: 32px;
+	margin-bottom: 20px;
+}
+
+.article {
+	padding-left: 16px;
+	padding-right: 16px;
 }
 
 /* ==========================================================================
@@ -119,7 +117,6 @@ ul.post {
 .footer {
   padding-top: 40px;
   padding-bottom: 40px;
-  margin-top: 40px;
   border-top: 1px solid #eee;
 }
 
