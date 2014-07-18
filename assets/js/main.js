@@ -8,31 +8,6 @@
  */
 
 /*
- * Angular.js code.
- */
-app = angular.module('xavee.app.api', ['ngResource']);
-
-app.factory('Post', ['$resource', function($resource) {
-    return $resource('/api/posts/:id', { id: '@id' });
-}]);
-
-app = angular.module('xavee.app.resource', ['xavee.app.api']);
-
-app.config(function($interpolateProvider) {
-	$interpolateProvider.startSymbol('{[{');
-	$interpolateProvider.endSymbol('}]}');
-});
-
-app.controller('AppController', ['$scope', 'Post', function($scope, Post) {
-	$scope.selected = 0;
-	$scope.itemClicked = function ($index) {
-	    $scope.selected = $index;
-	};
-	
-	$scope.posts = Post.query();
-}]);
-
-/*
  * Misc. jQuery code.
  */
 
