@@ -68,8 +68,8 @@ AWS_HEADERS = {
 # Storage controllers for Amazon S3.
 DEFAULT_FILE_STORAGE    = 'xavee.s3utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE     = 'xavee.s3utils.CachedStaticRootS3BotoStorage'
-# COMPRESS_STORAGE        = 'compressor.storage.GzipCompressorFileStorage'
-COMPRESS_STORAGE        = STATICFILES_STORAGE
+COMPRESS_STORAGE        = 'compressor.storage.GzipCompressorFileStorage'
+# COMPRESS_STORAGE        = STATICFILES_STORAGE
 
 GZIP_CONTENT_TYPES = (
     'text/css',
