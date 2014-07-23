@@ -22,7 +22,7 @@ user_urls = patterns('',
 )
 
 post_urls = patterns('',
-    url(r'^/(?P<pk>\d+)$',                           PostDetail.as_view(),   name='post-detail'),
+    url(r'^/(?P<slug>[\w\-]+)$',                     PostDetail.as_view(),   name='post-detail'),
     url(r'^$',                                       PostList.as_view(),     name='post-list'),
 )
 

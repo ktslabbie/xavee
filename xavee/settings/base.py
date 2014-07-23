@@ -44,9 +44,10 @@ DATABASES = {
 }
 
 # API pagination was giving problems with Angular.js; disable for now.
-# REST_FRAMEWORK = {
-#     'PAGINATE_BY': 10              
-# }
+REST_FRAMEWORK = {
+#     'PAGINATE_BY': 10
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)              
+}
 
 # ====================================
 #       Amazon AWS settings

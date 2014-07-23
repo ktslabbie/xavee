@@ -26,7 +26,7 @@ class PostList(PostMixin, generics.ListCreateAPIView):
 
 
 class PostDetail(PostMixin, generics.RetrieveUpdateDestroyAPIView):
-    pass
+    lookup_field = 'slug'
 
 
 class UserPostList(generics.ListAPIView):

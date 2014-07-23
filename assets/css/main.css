@@ -18,11 +18,20 @@ body {
    ========================================================================== */
 
 div.navbar-default {
-	background-color: #FFF;
 	border-bottom: none;
 }
 
-ul.nav a:hover {
+a.navbar-brand {
+	font-family: Arial, sans-serif;
+	color: #111 !important;
+	background-color: #FFF;
+}
+
+div.navbar-collapse {
+	border-bottom: none;
+}
+
+.nav a:hover {
 	color: #000 !important;
     background-color: #FFF !important;
 }
@@ -30,7 +39,7 @@ ul.nav a:hover {
 ul.nav li.active a {
 	color: #000 !important;
 	font-weight: bold;
-    background-color: #FFF !important;
+    /* background-color: #FFF !important; */
 }
 
 /* ==========================================================================
@@ -45,6 +54,10 @@ div.content {
 
 div.page-content {
 	
+}
+
+div.page-header {
+	border: none;
 }
 
 div.page-title {
@@ -66,17 +79,28 @@ img.img-title-big {
 .post-list {
 	list-style: none;
 	padding-left: 0;
-	
 }
 
-.post-list > li {
-	border-top: 1px solid #DDD;
+.post-list > li {	
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(253,253,253,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(253,253,253,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
+	
+	border: 1px solid #EEE;
+	border-radius: 10px;
 	padding-left: 16px;
 	padding-right: 16px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 .post-list:first-child > li {
-	border-top: none;
+	/* border-top: none; */
 }
 
 .post-title {

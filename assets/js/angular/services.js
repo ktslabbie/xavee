@@ -9,5 +9,5 @@
 var xaveeAPIService = angular.module('xavee.api', ['ngResource']);
 
 xaveeAPIService.factory('Post', ['$resource', function($resource) {
-    return $resource('/api/posts/:id', { id: '@id' });
+    return $resource('/api/posts/:slug', { slug: '@slug' });
 }]);

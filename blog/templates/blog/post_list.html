@@ -1,14 +1,14 @@
 {% extends 'index.html' %}
 {% block page_content %}
 <div class="page-content" ng-controller="PostController">
-	<ul class="post-list" ng-repeat="post in posts">
-		<li>
+	<ul class="post-list">
+		<li class="post-entry" ng-repeat="post in posts">
 			<h2>
 				<a class="post-title" href="/blog/{[{ post.slug }]}" ng-bind="post.title"></a>
 			</h2>
 			<p class="post-date">
 				<span ng-bind="post.author.username"></span>さんが
-				<time datetime="{[{ post.created_at }]}" ng-bind="post.created_at|date:'short'"></time>に投稿しました。
+				<time datetime="{[{ post.created_at }]}" ng-bind="post.created_at|date:'d/M/yyyy, HH:mm'"></time>に投稿しました。
 			</p>
 			<div class="post-description" ng-bind="post.description"></div>
 			<p style="text-align: right;">
