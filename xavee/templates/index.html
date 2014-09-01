@@ -14,10 +14,11 @@
 	</div>
 	<div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav navbar-right">
-			<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">ホーム</a></li>
-			<li class="{% active_page request 'not_yet' %}"><a href="#">アプリ</a></li>
-			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">記事</a></li>
-			<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}">アバウト</a></li>
+			<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">Home</a></li>
+			<li class="{% active_page request 'application-list' %}"><a href="{% url 'application:application-list' %}">Apps</a></li>
+			<li class="{% active_page request 'application-ranking' %}"><a href="{% url 'application:application-ranking' %}">Rankings</a></li>
+			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">Blog</a></li>
+			<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}">About</a></li>
 		</ul>
 	</div>
 	{# End navbar code #}
@@ -27,15 +28,16 @@
 		{% block page_content %}
 		<img class="center-block" src="{% static 'img/xavee-banner.png' %}" />
 		<div class="page-header text-center">
-			<h1>海外の超人気アプリを試して見よう。</h1>
-			<p class="lead">Xaveeでは日本か海外で人気なアプリを検索して、ランキング比較を可能とするサイトです。</p>
+			<h1>App Discovery Made Simple</h1>
+			<br>
+			<p class="lead">Weed out the crap to find the best rated applications and games from all over the world.</p>
 		</div>
 		{% endblock %}
 		{% block page_footer %} {% endblock %}
 	</div>
 	<div class="footer">
 	    {% block footer %}
-		&copy; <a href="http://www.agent-solve.com">Solve Inc.</a> All Rights Reserved.
+		&copy; Solve Inc. All Rights Reserved.
 		{% endblock %}
 	</div>
 </div>

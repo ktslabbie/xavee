@@ -25,10 +25,8 @@ root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 # Disable debugging on the production server! But if needed we can enable/disable debugging on Heroku:
 # heroku config:add DJANGO_DEBUG=true
 # heroku config:remove DJANGO_DEBUG
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
+DEBUG          = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
-#DEBUG          = False
-#TEMPLATE_DEBUG = False
 
 # Admins for the admin console.
 ADMINS = (
@@ -43,16 +41,27 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
-# API pagination was giving problems with Angular.js; disable for now.
+# ====================================
+#    Django REST Framework settings
+# ====================================
 REST_FRAMEWORK = {
-#     'PAGINATE_BY': 10
+    'PAGINATE_BY': 25,
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)              
 }
+
+
+# ====================================
+#         Celery settings
+# ====================================
+CELERY_ACCEPT_CONTENT    = ['json']
+CELERY_TASK_SERIALIZER   = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE          = 'Japan'
+
 
 # ====================================
 #       Amazon AWS settings
 # ====================================
-
 AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
 AWS_SECRET_ACCESS_KEY   = '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'
 AWS_STORAGE_BUCKET_NAME = 'xavee'
@@ -85,7 +94,10 @@ MEDIA_URL          = 'https://xavee.s3.amazonaws.com/media/'
 STATIC_URL         = 'https://xavee.s3.amazonaws.com/static/'
 ADMIN_MEDIA_PREFIX = 'https://xavee.s3.amazonaws.com/static/admin/'
 
-# Django compressor settings.
+
+# ====================================
+#     Django Compressor settings
+# ====================================
 # COMPRESS_STORAGE     = 'compressor.storage.GzipCompressorFileStorage'
 COMPRESS_STORAGE     = STATICFILES_STORAGE
 COMPRESS_URL         = STATIC_URL
@@ -93,7 +105,10 @@ COMPRESS_ROOT        = root("..", "assets")
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.CSSMinFilter', ]
 COMPRESS_ENABLED     = True
 
-# CKEditor settings.
+
+# ====================================
+#         CKEditor settings
+# ====================================
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
@@ -119,11 +134,16 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-# ID for the sites framework. Not needed currently.
-#SITE_ID = 1
 
-# Google Analytics code. Will be inserted into the code through a template tag.
-DH5BP_GA_CODE = 'UA-51423008-2'
+# ====================================
+#        Google Analytics code
+# ====================================
+GA_CODE = 'UA-51423008-2'
+
+
+# ====================================
+#     Domain/URL routing settings
+# ====================================
 
 # The default URLConf that will route all incoming requests.
 ROOT_URLCONF = "xavee.urls"
@@ -142,6 +162,10 @@ ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', '.xavee.net']
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+
+# ====================================
+#       Localization settings
+# ====================================
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # Although not all choices may be available on all operating systems.
@@ -163,27 +187,7 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-# STATIC_ROOT   = root("..", "static")
-# COMPRESS_ROOT = STATIC_ROOT
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-# STATIC_URL = '/static/'
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-# MEDIA_ROOT = root("..", "media")
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-# MEDIA_URL = '/media/'
-
-# Additional locations of static files
+# Additional locations of static files. We put everything in the assets/ dir.
 STATICFILES_DIRS = (
     root("..", "assets"),
 )
@@ -234,6 +238,10 @@ TEMPLATE_DIRS = (
     root("templates"),
 )
 
+
+# ====================================
+#          Installed Apps
+# ====================================
 DJANGO_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -254,7 +262,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'application',
     'blog',
-    'xavee',
+    'core',
     'referrer',
     'storages',
     'compressor',
@@ -292,5 +300,8 @@ LOGGING = {
     }
 }
 
-# Grappelli settings:
+# ====================================
+#         Grappelli settings
+# ====================================
 GRAPPELLI_ADMIN_TITLE = "Xavee Admin Panel"
+

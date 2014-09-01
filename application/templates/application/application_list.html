@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block page_content %}
+<div class="page-content" ng-controller="ApplicationController">
+	<p style="text-align: right;">
+		Displaying 1-<span ng-bind="apps.results.length">0</span> of <span ng-bind="apps.count">0</span> results.
+	</p>
+	<ul class="post-list">
+		<li class="post-entry" ng-repeat="app in apps.results">
+			<p>
+				<a class="post-title" href="/apps/{[{ app.id }]}" ng-bind="app.title"></a>
+			</p>
+		</li>
+	</ul>
+</div>
+{% endblock %}

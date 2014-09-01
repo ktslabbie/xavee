@@ -7,5 +7,6 @@ class APIRootView(APIView):
         return Response({
             'users': reverse('user-list', request=request),
             'posts': reverse('post-list', request=request),
+            'apps': reverse('application-list', request=request),
         })
     

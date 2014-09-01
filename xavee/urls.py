@@ -13,7 +13,6 @@ from django.contrib import admin
 from django.views.generic import TemplateView, RedirectView
 
 from . import views
-from blog.views import PostListView
 
 # Generate the admin console for all models found.
 admin.autodiscover()
@@ -23,14 +22,14 @@ urlpatterns = patterns('',
     url(r'^api/',       include('api.urls')),
     url(r'^api-auth/',  include('rest_framework.urls', namespace = 'rest_framework')),
     url(r'^blog/',      include('blog.urls',           namespace = 'blog')),
+    url(r'^apps/',      include('application.urls',    namespace = 'application')),
 
     url(r'^ckeditor/upload/', 'ckeditor.views.upload', name='ckeditor_upload'),
     url(r'^ckeditor/browse/', 'ckeditor.views.browse', name='ckeditor_browse'),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/',     include(admin.site.urls)),
-    url(r'^index/$',    views.HomepageView.as_view(),  name = 'home'),
     url(r'^about/$',    views.AboutView.as_view(),     name = 'about'),
-    url(r'^$',          PostListView.as_view(),        name = 'post-list'),
+    url(r'^$',          views.HomepageView.as_view(),  name = 'home'),
 )
 
 # HTML5 Boilerplate patterns.

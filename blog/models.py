@@ -1,7 +1,8 @@
 from django.db import models
-from django.utils.text import slugify
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from unidecode import unidecode
+from django.template import defaultfilters
 
 class PostManager(models.Manager):
     def live(self):
@@ -26,7 +27,7 @@ class Post(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = defaultfilters.slugify(unidecode(self.title))
         super(Post, self).save(*args, **kwargs)
             
     @models.permalink

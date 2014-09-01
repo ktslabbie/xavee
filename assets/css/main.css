@@ -13,12 +13,17 @@ body {
 	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
+div.container {
+	width: 90%;
+}
+
 /* ==========================================================================
    Navbar styles
    ========================================================================== */
 
 div.navbar-default {
 	border-bottom: none;
+	background-color: #FFF;
 }
 
 a.navbar-brand {
@@ -29,6 +34,7 @@ a.navbar-brand {
 
 div.navbar-collapse {
 	border-bottom: none;
+	background-color: #FFF;
 }
 
 .nav a:hover {
@@ -73,15 +79,17 @@ img.img-title-big {
 }
 
 /* ==========================================================================
-   Blog styles
+   List styles
    ========================================================================== */
 
-.post-list {
-	list-style: none;
+div.list {
 	padding-left: 0;
 }
 
-.post-list > li {	
+div.list-entry {
+	padding: 4px 4px 4px 4px;
+	margin: 8px 0px 8px 0px;
+	
 	background: rgb(255,255,255); /* Old browsers */
 	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(253,253,253,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(253,253,253,1))); /* Chrome,Safari4+ */
@@ -93,15 +101,89 @@ img.img-title-big {
 	
 	border: 1px solid #EEE;
 	border-radius: 10px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-top: 8px;
-	margin-bottom: 8px;
 }
 
-.post-list:first-child > li {
-	/* border-top: none; */
+img.list-thumb {
+	max-width: 48px;
 }
+
+/* ==========================================================================
+   Ranking styles
+   ========================================================================== */
+
+a.app-title {
+	text-decoration: none;
+	color: #008;
+}
+
+img.flag-rank {
+	margin-top: -2px;
+}
+
+div.col-header {
+	padding-left: 32px;
+	font-weight: bolder;
+}
+
+div.col-rank {
+	padding-top: 14px;
+}
+
+div.col-title {
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+
+div.col-rankings {
+	
+}
+
+div.col-country-rank {
+	font-size: 10px;
+	padding: 4px 0px 4px 0px;
+}
+
+div.facet-panel {
+	
+}
+
+div.facet {
+	margin: 16px 0px 16px 0px;
+}
+
+.btn-iphone {
+	font-size: 14px;
+}
+
+.btn-group a.active {
+	background-color: #9E9;
+}
+
+div a.active {
+	font-weight: bold;
+}
+
+div a:hover {
+	text-decoration: none;
+}
+
+.btn-android {
+	font-size: 14px;
+	background-color: #999;
+}
+
+.btn-ranking-type {	
+	font-size: 12px;
+}
+
+.col-btn {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+/* ==========================================================================
+   Blog styles
+   ========================================================================== */
 
 .post-title {
 	text-decoration: none;
@@ -111,6 +193,10 @@ img.img-title-big {
 .post-date {
 	font-size: 0.9em;
 	font-family: Calibri, sans-serif;
+}
+
+.post-entry {
+	padding-top: 10px;
 }
 
 .post-description {
@@ -123,6 +209,7 @@ img.img-title-big {
 	padding-left: 16px;
 	padding-right: 16px;
 }
+
 
 /* ==========================================================================
    Footer styles
@@ -138,3 +225,42 @@ img.img-title-big {
    Misc. styles
    ========================================================================== */
 
+.flag {
+	width: 25px;
+	height: 15px;
+	background:url(../img/flags.png) no-repeat
+}
+
+.flag.flag-au {background-position: -25px 0}
+.flag.flag-ca {background-position: -50px 0}
+.flag.flag-cn {background-position: -75px 0}
+.flag.flag-de {background-position: 0 -15px}
+.flag.flag-es {background-position: -25px -15px}
+.flag.flag-fr {background-position: -50px -15px}
+.flag.flag-gb {background-position: -75px -15px}
+.flag.flag-it {background-position: 0 -30px}
+.flag.flag-jp {background-position: -25px -30px}
+.flag.flag-kr {background-position: -50px -30px}
+.flag.flag-nl {background-position: -75px -30px}
+.flag.flag-ru {background-position: 0 -45px}
+.flag.flag-us {background-position: -25px -45px}
+
+.flag-small {
+	width: 16px;
+	height: 11px;
+	background:url(../img/flags_small.png) no-repeat
+}
+
+.flag-small.flag-au {background-position: -16px 0}
+.flag-small.flag-ca {background-position: -32px 0}
+.flag-small.flag-cn {background-position: -48px 0}
+.flag-small.flag-de {background-position: 0 -11px}
+.flag-small.flag-es {background-position: -16px -11px}
+.flag-small.flag-fr {background-position: -32px -11px}
+.flag-small.flag-gb {background-position: -48px -11px}
+.flag-small.flag-it {background-position: 0 -22px}
+.flag-small.flag-jp {background-position: -16px -22px}
+.flag-small.flag-kr {background-position: -32px -22px}
+.flag-small.flag-nl {background-position: -48px -22px}
+.flag-small.flag-ru {background-position: 0 -33px}
+.flag-small.flag-us {background-position: -16px -33px}

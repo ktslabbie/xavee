@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load staticfiles %} 
+{% block page_content %}
+<div class="page-content" ng-controller="RankingController">
+	<div class="row">
+		<div class="col-md-3 facet-panel">
+			<h4>Worldwide appstore rankings</h4>
+			<div class="row facet">
+				<div class="col-md-12">
+					<p>Platform:</p>
+					<div class="btn-group">
+						<a type="button" ng-click="platformButton = 'iphone'" 
+							ng-class="{ 'active' : platformButton == 'iphone' }" class="btn btn-default btn-iphone">iPhone</a>
+						<a type="button" ng-click="platformButton = 'android'" {# TODO: make clickable when Android is supported #}
+							ng-class="{ 'active' : platformButton == 'android' }" class="btn btn-default btn-android disabled">Android</a>
+					</div>
+				</div>
+			</div>
+			<div class="row facet">
+				<div class="col-md-12">
+					<p>Ranking type:</p>
+					<div class="btn-group">
+						<a type="button" ng-click="changeRankingType('1')" 
+							ng-class="{ 'active' : rankingTypeButton == '1' }" class="btn btn-default btn-ranking-type">Free</a>
+						<a type="button" ng-click="changeRankingType('2')" 
+							ng-class="{ 'active' : rankingTypeButton == '2' }" class="btn btn-default btn-ranking-type">Paid</a>
+						<a type="button" ng-click="changeRankingType('3')" 
+							ng-class="{ 'active' : rankingTypeButton == '3' }" class="btn btn-default btn-ranking-type">Grossing</a>
+					</div>
+				</div>
+			</div>
+			<div class="row facet">
+				<div class="col-md-12">
+					<p>Country:</p>
+					<div class="row" ng-repeat="ctup in countries">
+						<div class="col-md-10">
+							<a type="button" ng-click="changeCountry(ctup[0], $index)" ng-class="{ 'active' : $index == selected }" 
+								href="#" ng-bind="ctup[1]"></a>
+						</div>
+						<div class="col-md-2">
+							<img src="{% static 'img/blank.gif' %}" class="flag flag-{[{ ctup[0] }]}" alt="{[{ ctup[1] }]}" />
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div class="col-md-9">
+			<!-- <p style="text-align: right; font-family: Arial, sans-serif;">
+				Displaying 1-<span ng-bind="ranking.results.ranking.length">0</span> of <span ng-bind="ranking.results.ranking.length">0</span> results.
+			</p> -->
+			<div class="list">
+				<div class="row list-header">
+					<div class="col-md-1 col-header">Rank</div>
+					<div class="col-md-7 col-header">Application</div>
+					<div class="col-md-4 col-header">World ranking</div>
+				</div>
+				<div class="row list-entry" ng-repeat="app in ranking.results[0].ranking">
+					<div class="col-md-1 col-rank">
+						#<span ng-bind="$index+1"></span>
+					</div>
+					<div class="col-md-1 col-thumb">
+						<img class="list-thumb" ng-src="{[{ app.application.img_small }]}" />
+					</div>
+					<div class="col-md-6 col-title">
+						<a class="app-title" href="/apps/{[{ app.application.id }]}/{[{ app.application.slug }]}" ng-click="sendID(app.application.id)" ng-bind="app.application.title"></a>
+					</div>
+					<div class="col-md-4 col-rankings">
+						<div class="row">
+							<div class="col-md-2 col-country-rank" ng-repeat="(country, cn_rank) in app.foreign_ranking">
+								<img src="{% static 'img/blank.gif' %}" class="flag-rank flag-small flag-{[{ country }]}"/> : <span ng-bind="cn_rank"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
