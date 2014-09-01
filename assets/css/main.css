@@ -55,7 +55,7 @@ ul.nav li.active a {
 div.content {
 	padding-top: 32px;
 	padding-bottom: 32px;
-	min-width: 320px;
+	
 }
 
 div.page-content {
@@ -144,7 +144,7 @@ div.col-rankings {
 }
 
 div.col-country-rank {
-	font-size: 10px;
+	font-size: 11px;
 	padding: 2px 1px 2px 1px;
 }
 
