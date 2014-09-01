@@ -328,3 +328,22 @@ def add_apprank_by_country(ranking_type, category):
         world_ranking = WorldRanking(ranking_type=ranking_type, category=category, platform=dicts.IPHONE, country=country, ranking=country_ranking)
         world_ranking.save()
 
+
+# def compare_app_versions():
+#     
+#     developers = Developer.objects.all()
+#     
+#     for developer in developers:
+#         
+#         applications = Application.objects.filter(developer=developer)
+#         
+#         
+#         for index, application in enumerate(applications):    
+#             if application.categories == applications[index+1].categories:
+                
+            
+             
+            
+            
+            
+

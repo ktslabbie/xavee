@@ -83,7 +83,7 @@ img.img-title-big {
    ========================================================================== */
 
 div.list {
-	padding-left: 0;
+	
 }
 
 div.list-entry {
@@ -103,8 +103,10 @@ div.list-entry {
 	border-radius: 10px;
 }
 
-img.list-thumb {
-	max-width: 48px;
+img.list-icon {
+	margin-left: 8px;
+	max-width: 56px;
+	border-radius: 12px;
 }
 
 /* ==========================================================================
@@ -116,35 +118,39 @@ a.app-title {
 	color: #008;
 }
 
-img.flag-rank {
-	margin-top: -2px;
-}
-
-div.col-header {
-	padding-left: 32px;
+div.row-header {
+	padding-left: 12px;
 	font-weight: bolder;
 }
 
 div.col-rank {
-	padding-top: 14px;
+	padding-top: 22px;
+	padding-bottom: 4px;
+}
+
+div.col-icon {
+	padding: 4px 4px 4px 4px;
 }
 
 div.col-title {
-	padding-top: 14px;
-	padding-bottom: 14px;
+	padding-left: 26px;
+	padding-top: 22px;
+	padding-bottom: 22px;
 }
 
 div.col-rankings {
-	
+	margin-top: 4px;
+	margin-bottom: 4px;
 }
 
 div.col-country-rank {
 	font-size: 10px;
-	padding: 4px 0px 4px 0px;
+	padding: 2px 1px 2px 1px;
 }
 
 div.facet-panel {
 	
+	margin-bottom: 16px;
 }
 
 div.facet {
@@ -153,6 +159,10 @@ div.facet {
 
 .btn-iphone {
 	font-size: 14px;
+}
+
+.btn-group {
+	margin-bottom: 16px;
 }
 
 .btn-group a.active {
