@@ -149,8 +149,10 @@ div.col-country-rank {
 }
 
 div.facet-panel {
+	/* background-color: #EFEF */FF;
+	/* border: #000 1px solid; */
 	
-	margin-bottom: 16px;
+	margin-bottom: 32px;
 }
 
 div.facet {
@@ -182,6 +184,10 @@ div a:hover {
 	background-color: #999;
 }
 
+.country-selection {
+	margin-bottom: 2px;
+}
+
 .btn-ranking-type {	
 	font-size: 12px;
 }
@@ -189,6 +195,10 @@ div a:hover {
 .col-btn {
 	margin-left: 2px;
 	margin-right: 2px;
+}
+
+img.img-flag {
+	margin-right: 8px;
 }
 
 /* ==========================================================================

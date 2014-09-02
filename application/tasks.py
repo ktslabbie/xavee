@@ -37,34 +37,6 @@ def collect_all_ios_rankings(ranking_category_id, limit):
     collect_ios_ranking(dicts.TOP_PAID, ranking_category_id, limit)
     collect_ios_ranking(dicts.TOP_GROSSING, ranking_category_id, limit)
     
-    collect_ios_ranking(dicts.TOP_FREE, 7008, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7008, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7008, limit)
-    
-    collect_ios_ranking(dicts.TOP_FREE, 7009, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7009, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7009, limit)
-    
-    collect_ios_ranking(dicts.TOP_FREE, 7010, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7010, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7010, limit)
-    
-    collect_ios_ranking(dicts.TOP_FREE, 7011, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7011, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7011, limit)
-    
-    collect_ios_ranking(dicts.TOP_FREE, 7012, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7012, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7012, limit)
-    
-    collect_ios_ranking(dicts.TOP_FREE, 7013, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7013, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7013, limit)
-    
-    collect_ios_ranking(dicts.TOP_FREE, 7014, limit)
-    collect_ios_ranking(dicts.TOP_PAID, 7014, limit)
-    collect_ios_ranking(dicts.TOP_GROSSING, 7014, limit)
-    
     collect_ios_ranking(dicts.TOP_FREE, 7015, limit)
     collect_ios_ranking(dicts.TOP_PAID, 7015, limit)
     collect_ios_ranking(dicts.TOP_GROSSING, 7015, limit)
@@ -329,21 +301,96 @@ def add_apprank_by_country(ranking_type, category):
         world_ranking.save()
 
 
-# def compare_app_versions():
-#     
-#     developers = Developer.objects.all()
-#     
-#     for developer in developers:
-#         
-#         applications = Application.objects.filter(developer=developer)
-#         
-#         
-#         for index, application in enumerate(applications):    
-#             if application.categories == applications[index+1].categories:
-                
+def compare_app_versions():
+     
+    developers = Developer.objects.all()
+     
+    for developer in developers:
+        
+        print "Checking developer " + developer.name + "..."
+        
+        applications = list(Application.objects.filter(developer=developer))
+        all_countries = []
+        
+        for i in range (0, len(applications)):
             
-             
+            versions = list(Version.objects.filter(application=applications[i]))
+            countries = []  
             
+            for j in range (0, len(versions)):
+                countries.append(versions[j].country)
             
-            
-
+            # Ex: [ ['us', 'jp'], ['us', 'jp', 'gb']  ]
+            all_countries.append(countries)
+          
+        
+          
+        for i in range(0, len(all_countries)-1):
+            for k in range(i+1, len(all_countries)-1):
+                combined = set(all_countries[i]) & set(all_countries[k])
+                if not combined:
+                    # Compare categories
+                    app_a_categories = applications[i].categories.all()
+                    app_b_categories = applications[k].categories.all()
+                    
+                    a_set1 = set()
+                    b_set1 = set()
+                    
+                    for category in app_a_categories:                        
+                        a_set1.add(category.id)
+                    for category in app_b_categories:
+                        b_set1.add(category.id)
+                    ab_set1 = a_set1 & b_set1
+                    
+                    version_a = Version.objects.filter(application=applications[i])[0]
+                    version_b = Version.objects.filter(application=applications[k])[0]
+                    
+                    bundle_a_split = version_a.bundle_id.split(".")[:-1]
+                    bundle_b_split = version_b.bundle_id.split(".")[:-1]
+                    
+                    print version_a.bundle_id + " -> " + ''.join(bundle_a_split)
+                    print version_b.bundle_id + " -> " + ''.join(bundle_b_split)
+                    
+                    
+                    
+                    if len(ab_set1) is len(a_set1) and ''.join(bundle_a_split) is ''.join(bundle_b_split): #and applications[i].title == applications[k].title:
+                        prompt = "> "
+                        print "Match? " + applications[i].title + " and " + applications[k].title + " are similar."
+                        
+                        print ""
+                        print "Application comparison:"
+                        print "Title: " + applications[i].title + " and " + applications[k].title
+                        print "Slug: " + applications[i].slug + " and " + applications[k].slug
+                        print "Icon URL: " + applications[i].img_small + " and " + applications[k].img_small
+                        #print "Categories: " + list(applications[i].categories.all()) + " and " + list(applications[k].categories.all())
+                        
+                        print ""
+                        print "Version comparison:"
+                        version_a = Version.objects.filter(application=applications[i])[0]
+                        version_b = Version.objects.filter(application=applications[k])[0]
+                        print "Country: " + version_a.country + " and " + version_b.country
+                        print "Local title: " + version_a.title + " and " + version_b.title
+                        print "Appstore_id: " + str(version_a.appstore_id) + " and " + str(version_b.appstore_id)
+                        print "Bundle_id: " + version_a.bundle_id + " and " + version_b.bundle_id
+                        print "Price/currency: " + str(version_a.price) + " " + version_a.currency + " and " + str(version_b.price) + " " + version_b.currency
+                        print "Release date: " + str(version_a.release_date) + " and " + str(version_b.release_date)
+                        print "iTunes rating: " + str(version_a.itunes_rating.overall_rating) + " and " + str(version_b.itunes_rating.overall_rating)
+                        print "iTunes rating count: " + str(version_a.itunes_rating.overall_count) + " and " + str(version_b.itunes_rating.overall_count)
+                        
+                        print "Combine? Y/N?"
+                        answer = raw_input(prompt)
+                        if answer is "y" or answer is "Y":
+                            a_versions = Version.objects.filter(application=applications[i])
+                            
+                            
+                            for version in a_versions:
+                                version.application = applications[k]
+                                version.save()
+                                
+                            for category in app_a_categories:
+                                applications[i].categories.remove(category)
+                                
+                            applications[i].delete()
+                            
+                            break
+                            

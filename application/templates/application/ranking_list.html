@@ -3,10 +3,24 @@
 {% block page_content %}
 <div class="page-content" ng-controller="RankingController">
 	<div class="row">
-		<h4>Worldwide appstore rankings</h4>
+		<h1 style="text-align: center; margin-bottom: 32px;">Worldwide appstore rankings</h1>
 		<div class="col-md-12 facet-panel">
 			<div class="row facet">
-				<div class="col-sm-4">
+				<div class="col-sm-6 col-sm-push-1">
+					<p>Country:</p>
+					<div class="row">
+						<div class="col-xs-6 col-sm-8 col-md-6 country-selection" ng-repeat="ctup in countries">
+							<img src="{% static 'img/blank.gif' %}" class="img-flag flag flag-{[{ ctup[0] }]}" alt="{[{ ctup[1] }]}" />
+							<a type="button" ng-click="changeCountry(ctup[0], $index)" ng-class="{ 'active' : $index == selected }" 
+									href="#" ng-bind="ctup[1]"></a>
+							
+						</div>
+						<!-- <div class="col-xs-6 col-sm-4 col-md-5">
+							
+						</div> -->
+					</div>
+				</div>
+				<div class="col-sm-3 col-sm-push-2">
 					<p>Platform:</p>
 					<div class="btn-group">
 						<a type="button" ng-click="platformButton = 'iphone'" 
@@ -24,18 +38,7 @@
 							ng-class="{ 'active' : rankingTypeButton == '3' }" class="btn btn-default btn-ranking-type">Grossing</a>
 					</div>
 				</div>
-				<div class="col-sm-8">
-					<p>Country:</p>
-					<div class="row" ng-repeat="ctup in countries">
-						<div class="col-xs-6 col-sm-4 col-md-5">
-							<a type="button" ng-click="changeCountry(ctup[0], $index)" ng-class="{ 'active' : $index == selected }" 
-								href="#" ng-bind="ctup[1]"></a>
-						</div>
-						<div class="col-xs-6 col-sm-8 col-md-7">
-							<img src="{% static 'img/blank.gif' %}" class="flag flag-{[{ ctup[0] }]}" alt="{[{ ctup[1] }]}" />
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 		<div class="col-md-12 list">
@@ -55,7 +58,7 @@
 					<a class="app-title" href="/apps/{[{ app.application.id }]}/{[{ app.application.slug }]}" ng-click="sendID(app.application.id)" ng-bind="app.application.title"></a>
 				</div>
 				<div class="col-sm-12 col-md-4 col-rankings">
-					<div class="col-xs-3 col-sm-2 col-md-3 col-country-rank" ng-repeat="(country, cn_rank) in app.foreign_ranking">
+					<div class="col-xs-3 col-sm-2 col-md-2 col-country-rank" ng-repeat="(country, cn_rank) in app.foreign_ranking">
 						<img src="{% static 'img/blank.gif' %}" class="flag-small flag-{[{ country }]}"/> : <span ng-bind="cn_rank"></span>
 					</div>
 				</div>

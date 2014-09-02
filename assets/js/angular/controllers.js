@@ -44,7 +44,7 @@ xaveeController.controller('RankingController', ['$scope', 'Ranking', function($
 	$scope.platformButton = 'iphone';
 	$scope.rankingTypeButton = '1';
 	$scope.countryButton = 'us';
-	$scope.categoryButton = 6014;
+	$scope.categoryButton = -1;
 	$scope.countries = countries;
 	$scope.selected = 0;
 	
