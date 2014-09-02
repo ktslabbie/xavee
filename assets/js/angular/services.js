@@ -20,7 +20,7 @@ xaveeAPIService.factory('Application', ['$resource', function($resource) {
 }]);
 
 xaveeAPIService.factory('Ranking', ['$resource', function($resource) {
-    return $resource('/api/apps/rankings?country=:country', { country: '@country' }, {
+    return $resource('/api/apps/rankings', { }, {
     					//list: { isArray:true, method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
     					ranking: { isArray:false, method:'get' }
     				});

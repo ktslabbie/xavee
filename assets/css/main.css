@@ -14,7 +14,8 @@ body {
 }
 
 div.container {
-	width: 90%;
+	width: 67%;
+	overflow: visible;
 }
 
 /* ==========================================================================
@@ -126,6 +127,7 @@ div.row-header {
 div.col-rank {
 	padding-top: 22px;
 	padding-bottom: 4px;
+	font-weight: bold;
 }
 
 div.col-icon {
@@ -149,7 +151,7 @@ div.col-country-rank {
 }
 
 div.facet-panel {
-	/* background-color: #EFEF */FF;
+	/* background-color: #EFEF */
 	/* border: #000 1px solid; */
 	
 	margin-bottom: 32px;
@@ -182,6 +184,10 @@ div a:hover {
 .btn-android {
 	font-size: 14px;
 	background-color: #999;
+}
+
+div.country-list {
+	margin-bottom: 16px;
 }
 
 .country-selection {
@@ -236,9 +242,46 @@ img.img-flag {
    ========================================================================== */
 
 .footer {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  border-top: 1px solid #eee;
+ /* padding-top: 40px;
+  	padding-bottom: 40px;
+ 	border-top: 1px solid #eee; */
+ 	
+	font-size:xx-small; 
+	text-align:left; 
+	width:100%; 
+	bottom:0px; 
+	position:fixed; 
+	left:0px;
+	background-color:rgba(230,230,230,0);
+	padding:4px; 
+	padding-right:20px; 
+}
+
+p.footer-text {
+	margin-bottom: -2px;
+}
+
+/* ==========================================================================
+   Mobile customization
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 767px) {
+	div.container { 
+		width:100%;
+	}
+	
+	img.list-icon {
+		max-width: 48px;
+	}
+	
+	div.col-title {
+		padding-left: 26px;
+		padding-top: 6px;
+		padding-bottom: 10px;
+	}
+	
+	div.col-rank {
+		padding-top: 6px;
+	}
 }
 
 /* ==========================================================================

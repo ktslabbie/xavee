@@ -33,10 +33,10 @@ class ApplicationRanking(RankingMixin, generics.ListAPIView):
         country = self.request.GET.get('country')
         ranking_type = self.request.GET.get('ranking_type')
         category = self.request.GET.get('category')
-        #if category <= 0:
-        return WorldRanking.objects.filter(country=country, ranking_type=ranking_type)
-        #else:
-         #   return WorldRanking.objects.filter(country=country, ranking_type=ranking_type, category=category)
+        if category is None or int(category) <= 0:
+            return WorldRanking.objects.filter(country=country, ranking_type=ranking_type)
+        else:
+            return WorldRanking.objects.filter(country=country, ranking_type=ranking_type, category=category)
     
 # class ApplicationVersionList(RankingMixin, generics.ListAPIView):
 #     def get_queryset(self):

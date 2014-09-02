@@ -6,10 +6,10 @@
 		<h1 style="text-align: center; margin-bottom: 32px;">Worldwide appstore rankings</h1>
 		<div class="col-md-12 facet-panel">
 			<div class="row facet">
-				<div class="col-sm-6 col-sm-push-1">
+				<div class="col-sm-6 col-sm-push-1 country-list">
 					<p>Country:</p>
 					<div class="row">
-						<div class="col-xs-6 col-sm-8 col-md-6 country-selection" ng-repeat="ctup in countries">
+						<div class="col-xs-12 col-sm-8 col-md-6 country-selection" ng-repeat="ctup in countries">
 							<img src="{% static 'img/blank.gif' %}" class="img-flag flag flag-{[{ ctup[0] }]}" alt="{[{ ctup[1] }]}" />
 							<a type="button" ng-click="changeCountry(ctup[0], $index)" ng-class="{ 'active' : $index == selected }" 
 									href="#" ng-bind="ctup[1]"></a>
@@ -25,7 +25,7 @@
 					<div class="btn-group">
 						<a type="button" ng-click="platformButton = 'iphone'" 
 							ng-class="{ 'active' : platformButton == 'iphone' }" class="btn btn-default btn-iphone">iPhone</a>
-						<a type="button" ng-click="platformButton = 'android'" {# TODO: make clickable when Android is supported #}
+						<a type="button" ng-click="platformButton = 'android'"
 							ng-class="{ 'active' : platformButton == 'android' }" class="btn btn-default btn-android disabled">Android</a>
 					</div>
 					<p>Ranking type:</p>
@@ -37,28 +37,31 @@
 						<a type="button" ng-click="changeRankingType('3')" 
 							ng-class="{ 'active' : rankingTypeButton == '3' }" class="btn btn-default btn-ranking-type">Grossing</a>
 					</div>
+					<p>Category:</p>
+					<select ng-model="activeCategory" ng-options="category.genre group by category.type for category in categories"
+							ng-change="changeCategory(activeCategory)"></select>
 				</div>
 				
 			</div>
 		</div>
 		<div class="col-md-12 list">
 			<div class="row row-header">
-				<div class="col-sm-2 col-md-1">Rank</div>
-				<div class="col-sm-10 col-md-7">Application</div>
-				<div class="col-sm-12 col-md-4">World ranking</div>
+				<div class="col-xs-4 col-sm-2 col-md-1">Rank</div>
+				<div class="col-xs-8 col-sm-10 col-md-7">Application</div>
+				<div class="col-xs-12 col-sm-12 col-md-4">World ranking</div>
 			</div>
 			<div class="row list-entry" ng-repeat="app in ranking.results[0].ranking">
-				<div class="col-xs-12 col-sm-1 col-md-1 col-rank">
+				<div class="col-xs-1 col-sm-1 col-md-1 col-rank">
 					#<span ng-bind="$index+1"></span>
 				</div>
-				<div class="col-xs-2 col-sm-1 col-md-1 col-icon">
+				<div class="col-xs-1 col-xs-push-1 col-sm-1 col-sm-push-0 col-md-1 col-icon">
 					<img class="list-icon" ng-src="{[{ app.application.img_small }]}" />
 				</div>
-				<div class="col-xs-10 col-sm-10 col-md-6 col-title">
+				<div class="col-xs-7 col-xs-push-2 col-sm-10 col-sm-push-0 col-md-6 col-title">
 					<a class="app-title" href="/apps/{[{ app.application.id }]}/{[{ app.application.slug }]}" ng-click="sendID(app.application.id)" ng-bind="app.application.title"></a>
 				</div>
-				<div class="col-sm-12 col-md-4 col-rankings">
-					<div class="col-xs-3 col-sm-2 col-md-2 col-country-rank" ng-repeat="(country, cn_rank) in app.foreign_ranking">
+				<div class="col-xs-12 col-sm-12 col-md-4 col-rankings">
+					<div class="col-xs-3 col-sm-2 col-md-3 col-country-rank" ng-repeat="(country, cn_rank) in app.foreign_ranking">
 						<img src="{% static 'img/blank.gif' %}" class="flag-small flag-{[{ country }]}"/> : <span ng-bind="cn_rank"></span>
 					</div>
 				</div>
