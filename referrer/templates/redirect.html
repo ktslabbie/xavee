@@ -12,7 +12,7 @@
             var referralName        = "{{referral.name}}";
             var referralSource      = "{{referral.source}}";
             var referralMedium      = "{{referral.medium}}";
-            var referralDestination = "{{referral.destination}}";
+            var referralDestination = "{{referral.destination|safe}}";
         </script>
         <div id="referralRedirect"></div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
