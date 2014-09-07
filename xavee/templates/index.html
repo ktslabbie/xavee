@@ -1,4 +1,4 @@
-{% extends '__base.html' %} {% load staticfiles %} {% load navbar_tags %}
+{% extends '__base.html' %} {% load i18n %} {% load staticfiles %} {% load navbar_tags %}
 {% block content %}
 <div class="container">
 	
@@ -10,11 +10,12 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="{% url 'home' %}">Xavee</a>
+		<!-- <a class="navbar-brand" href="{% url 'home' %}">Xavee</a> -->
+		<!-- <img class="navbar-brand" src="{% static 'img/xavee-banner.png' %}" style="height:70px;"></img> -->
 	</div>
 	<div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav navbar-right">
-			<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">Home</a></li>
+			<!-- <li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">Home</a></li> -->
 			<li class="{% active_page request 'application-list' %}"><a href="{% url 'application:application-list' %}">Apps</a></li>
 			<li class="{% active_page request 'application-ranking' %}"><a href="{% url 'application:application-ranking' %}">Rankings</a></li>
 			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">Blog</a></li>
@@ -32,6 +33,9 @@
 			<br>
 			<p class="lead">Weed out the crap to find the best rated applications and games from all over the world.</p>
 		</div>
+		<div style="text-align: center;">
+	    	<a href="{% url 'application:application-ranking' %}" style="font-size: 36px;">See the rankings</a>
+	    </div>
 		{% endblock %}
 		{% block page_footer %} {% endblock %}
 	</div>

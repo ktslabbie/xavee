@@ -1,0 +1,52 @@
+{% extends '__base.html' %} {% load i18n %} {% load staticfiles %} {% load navbar_tags %}
+{% block content %}
+<div class="container">
+	
+	{# Navbar code #}
+	<div class="nav navbar-header navbar-default navbar-static-top" role="navigation">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<!-- <img class="navbar-brand" src="{% static 'img/xavee-banner.png' %}"></img> -->
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav navbar-right">
+			<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">ホーム</a></li>
+			<li class="{% active_page request 'application-list' %}"><a href="{% url 'application:application-list' %}">アプリ</a></li>
+			<li class="{% active_page request 'application-ranking' %}"><a href="{% url 'application:application-ranking' %}">ランキング</a></li>
+			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">ブログ</a></li>
+			<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}">アバウト</a></li>
+		</ul>
+	</div>
+	{# End navbar code #}
+	
+	<div class="content">
+		{% block page_header %} {% endblock %}
+		{% block page_content %}
+		<img class="center-block" src="{% static 'img/xavee-banner.png' %}" />
+		<div class="page-header text-center">
+			<h1>あなたに、もっと面白いアプリを。</h1>
+			<br>
+			<p class="lead"></p>
+		</div>
+		<!-- <div class="row row-centered">
+	        <div class="col-xs-4 col-centered">これは最初の欄です</div>
+	        <div class="col-xs-4 col-centered">ミドル欄</div>
+	        <div class="col-xs-4 col-centered">最終攬</div>
+	    </div> -->
+	    <div style="text-align: center;">
+	    	<a href="{% url 'application:application-ranking' %}" style="font-size: 36px;">ランキングを見る</a>
+	    </div>
+		{% endblock %}
+		{% block page_footer %} {% endblock %}
+	</div>
+	<div class="footer">
+	    {% block footer %}
+		<p class="text-muted footer-text">&copy; Solve Inc. All Rights Reserved.</p>
+		{% endblock %}
+	</div>
+</div>
+{% endblock %}

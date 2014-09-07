@@ -5,9 +5,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="{% block description %}海外アプリを紹介するサービスです。その他いろいろな、海外アプリに関する情報やデータを提供しています。{% endblock %}">
+        <meta name="description" content="{% block description %}Xavee consolidates apps from iTunes and Google Play and provides improved quality-based rankings for them.{% endblock %}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %} Xavee - 海外アプリを試して見よう！ {% endblock %}</title>
+        <title>{% block title %} Xavee - App Rankings Done Right {% endblock %}</title>
         <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         {% compress css %}
@@ -36,6 +36,7 @@
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
         {% compress js %}
+        <script src="{% static 'js/vendor/ng-infinite-scroll.min.js' %}"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.10.2.min.js' %}"><\/script>')</script>
         <script>window.angular || document.write('<script src="{% static 'js/vendor/angular.min.js' %}"><\/script>')</script>
         <script>try{angular.module("ngResource")}catch(err){document.write('<script src="{% static 'js/vendor/angular-resource.min.js' %}"><\/script>')}</script>
@@ -57,7 +58,7 @@
             e=a.createElement(v);r=a.getElementsByTagName(v)[0];
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','{{ DH5BP_GA_CODE }}');ga('send','pageview');
+            ga('create','{{ GA_CODE }}');ga('send','pageview');
         </script>
         {% endif %}
     </body>

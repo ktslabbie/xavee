@@ -5,11 +5,12 @@ Created on May 18, 2014
 '''
 from django.conf.urls import patterns, url
 from . import views
+from xavee import views as main_views
 
 urlpatterns = patterns('',
     url(r'^$', views.HomepageView.as_view(),         name = "referrer_home"),
-    url(r'^',  views.ReferralRedirectView.as_view(), name = "redirect"),
+    url(r'^',  views.redirect,                      name = "redirect"),
 )
 
-handler404 = "dh5bp.views.page_not_found"
-handler500 = "dh5bp.views.server_error"
+handler404 = main_views.PageNotFoundView.as_view()
+handler500 = main_views.ServerErrorView.as_view()

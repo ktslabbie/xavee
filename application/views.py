@@ -1,11 +1,11 @@
 from django.views.generic import ListView, DetailView
-from .models import Application, Ranking
+from .models import Application, WorldRanking
 
 class ApplicationMixin(object):
     model = Application
 
 class RankingMixin(object):
-    model = Ranking
+    model = WorldRanking
 
 class ApplicationListView(ApplicationMixin, ListView):
     pass

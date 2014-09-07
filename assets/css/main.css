@@ -11,6 +11,7 @@ body {
 	/* Best-practice default fonts for Japanese websites */
 	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, 
 	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	background-color: #FEFFFE;
 }
 
 div.container {
@@ -24,23 +25,23 @@ div.container {
 
 div.navbar-default {
 	border-bottom: none;
-	background-color: #FFF;
+	background-color: #FEFFFE;
 }
 
 a.navbar-brand {
 	font-family: Arial, sans-serif;
 	color: #111 !important;
-	background-color: #FFF;
+	background-color: #FEFFFE;
 }
 
 div.navbar-collapse {
 	border-bottom: none;
-	background-color: #FFF;
+	background-color: #FEFFFE;
 }
 
 .nav a:hover {
 	color: #000 !important;
-    background-color: #FFF !important;
+    background-color: #FEFFFE !important;
 }
 
 ul.nav li.active a {
@@ -52,6 +53,20 @@ ul.nav li.active a {
 /* ==========================================================================
    Page layout styles
    ========================================================================== */
+
+/* centered columns styles */
+.row-centered {
+	margin-left: 40px;
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
 
 div.content {
 	padding-top: 32px;
@@ -84,7 +99,7 @@ img.img-title-big {
    ========================================================================== */
 
 div.list {
-	
+	min-height: 2000px;
 }
 
 div.list-entry {
@@ -119,6 +134,11 @@ a.app-title {
 	color: #008;
 }
 
+.ranking-title {
+	text-align: center;
+	margin-bottom: 32px;
+}
+
 div.row-header {
 	padding-left: 12px;
 	font-weight: bolder;
@@ -151,10 +171,7 @@ div.col-country-rank {
 }
 
 div.facet-panel {
-	/* background-color: #EFEF */
-	/* border: #000 1px solid; */
-	
-	margin-bottom: 32px;
+	margin-bottom: 8px;
 }
 
 div.facet {
@@ -163,6 +180,10 @@ div.facet {
 
 .btn-iphone {
 	font-size: 14px;
+}
+
+.btn-glyph {
+	margin-bottom: 5px;
 }
 
 .btn-group {

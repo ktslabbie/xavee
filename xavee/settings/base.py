@@ -28,6 +28,9 @@ root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 DEBUG          = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
 
+# Stop annoying slash-adding behavior.
+APPEND_SLASH = False
+
 # Admins for the admin console.
 ADMINS = (
     ("Kristian Slabbekoorn", "kristian@agent-solve.com"),
@@ -186,6 +189,11 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+# Path for the translation files.
+LOCALE_PATHS = (
+    root("..", "locale"),
+)
 
 # Additional locations of static files. We put everything in the assets/ dir.
 STATICFILES_DIRS = (

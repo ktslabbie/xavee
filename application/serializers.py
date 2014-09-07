@@ -4,7 +4,7 @@ Created on Jun 8, 2014
 @author: Kristian
 '''
 from rest_framework import serializers
-from .models import Application, Version, WorldRanking, Developer
+from .models import Application, IPhoneVersion, WorldRanking, Developer
 
 class JSONField(serializers.WritableField):
     def to_native(self, obj):
@@ -26,16 +26,16 @@ class ApplicationSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'slug', 'developer', 'categories', 'img_small', 'created_at', 'updated_at',)
         #lookup_field = 'slug'
         
-class VersionSerializer(serializers.ModelSerializer):
+class IPhoneVersionSerializer(serializers.ModelSerializer):
     application = ApplicationSerializer(source='application')
     
     class Meta:
-        model = Version
+        model = IPhoneVersion
         fields = ('id', 'country', 'title', 'application', 'appstore_id', 'bundle_id', 'price', 'currency', 'release_date', 'created_at', 'updated_at',)
         #lookup_field = 'country'
 
 class RankingSerializer(serializers.ModelSerializer):
-    version = VersionSerializer(source='version')
+    version = IPhoneVersionSerializer(source='version')
     ranking = JSONField()
     
     class Meta:

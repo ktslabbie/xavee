@@ -3,8 +3,8 @@ from .models import Referral
 
 class ReferralAdmin(admin.ModelAdmin):
     
-    fields         = ["source", "medium"]
-    list_display   = ["referral_link", "source", "medium", "times_clicked", "created_at"]
+    fields         = ["referral_name", "source", "medium", "destination"]
+    list_display   = ["referral_id", "referral_name", "referral_link", "source", "medium", "times_clicked", "destination", "created_at"]
     search_fields  = ["source", "medium"]
     date_hierarchy = "created_at"
     

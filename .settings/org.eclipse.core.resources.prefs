@@ -1,13 +1,16 @@
 eclipse.preferences.version=1
 encoding//application/templates/application/application_detail.html=UTF-8
 encoding//application/templates/application/application_list.html=UTF-8
+encoding//application/templates/application/worldranking_list.html=UTF-8
 encoding//assets/css/main.css=UTF-8
 encoding//assets/css/styles.css=UTF-8
+encoding//blog/migrations/0001_initial.py=utf-8
 encoding//blog/templates/blog/post_detail.html=UTF-8
 encoding//blog/templates/blog/post_list.html=UTF-8
 encoding//referrer/templates/referrer_index.html=UTF-8
 encoding//xavee/templates/_layouts/base.html=UTF-8
 encoding//xavee/templates/about.html=UTF-8
 encoding//xavee/templates/index.html=UTF-8
+encoding//xavee/templates/index_ja.html=UTF-8
 encoding/<project>=UTF-8
 encoding/functional_tests.py=utf-8
