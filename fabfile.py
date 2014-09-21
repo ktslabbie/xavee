@@ -33,9 +33,20 @@ def update_ranking():
     local("aws s3 cp --acl public-read worldranking.dump s3://xavee/")
     print(green("Restoring WorldRanking table into remote Heroku DB..."))
     local("heroku pgbackups:restore DATABASE 'https://s3-ap-northeast-1.amazonaws.com/xavee/worldranking.dump' --confirm xavee")
-    print(green("Finally, deleting the dump from Amazon S3."))
+    print(green("Finally, deleting the dump from Amazon S3 and locally."))
     local("aws s3 rm s3://xavee/worldranking.dump")
+    local("rm worldranking.dump")
     
+def update_category():
+    print(green("Dumping Category table..."))
+    local("pg_dump -Fc --no-acl --no-owner -h localhost -U Kristian -t application_category xavee_db > category.dump")
+    print(green("Uploading dump to Amazon S3..."))
+    local("aws s3 cp --acl public-read category.dump s3://xavee/")
+    print(green("Restoring Category table into remote Heroku DB..."))
+    local("heroku pgbackups:restore DATABASE 'https://s3-ap-northeast-1.amazonaws.com/xavee/category.dump' --confirm xavee")
+    print(green("Finally, deleting the dump from Amazon S3 and locally."))
+    local("aws s3 rm s3://xavee/category.dump")
+    local("rm category.dump")
 
 def test():
     print("Beginning unit tests...")

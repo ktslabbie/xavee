@@ -96,7 +96,7 @@ class Application(BaseModel):
 class IPhoneVersion(BaseModel):
     ''' Database model for app versions (Android version, iOS version, etc.). '''
     application = models.ForeignKey(Application, related_name="iphone_versions")
-    country = models.CharField(max_length=2, choices=dicts.COUNTRY_CHOICES.items(), default='us', db_index=True)
+    country = models.CharField(max_length=2, choices=dicts.COUNTRY_CHOICES.items(), default='us')
     title = models.CharField("App title", max_length=256, help_text="The title of the application in the local language.")
     appstore_id = models.IntegerField("Appstore ID", blank=True, null=True, default='', db_index=True, help_text="This is the ID from the iTunes app store.")
     bundle_id = models.CharField("Bundle name", max_length=256, help_text="This is the package name of the app.")
