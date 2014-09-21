@@ -4,9 +4,8 @@ from core import dicts
 from unidecode import unidecode
 from django.template import defaultfilters
 from jsonfield import JSONField
-#from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 import itertools
-
 
 class Developer(BaseModel):
     ''' Database model for developers. '''
@@ -97,9 +96,9 @@ class Application(BaseModel):
 class IPhoneVersion(BaseModel):
     ''' Database model for app versions (Android version, iOS version, etc.). '''
     application = models.ForeignKey(Application, related_name="iphone_versions")
-    country = models.CharField(max_length=2, choices=dicts.COUNTRY_CHOICES.items(), default='us')
+    country = models.CharField(max_length=2, choices=dicts.COUNTRY_CHOICES.items(), default='us', db_index=True)
     title = models.CharField("App title", max_length=256, help_text="The title of the application in the local language.")
-    appstore_id = models.IntegerField("Appstore ID", blank=True, null=True, default='', help_text="This is the ID from the iTunes app store.")
+    appstore_id = models.IntegerField("Appstore ID", blank=True, null=True, default='', db_index=True, help_text="This is the ID from the iTunes app store.")
     bundle_id = models.CharField("Bundle name", max_length=256, help_text="This is the package name of the app.")
     price = models.DecimalField(decimal_places=2, max_digits=8, help_text="Price in the local currency. 0 if free.")
     currency = models.CharField(help_text="Three-letter currency code.", max_length=3)
@@ -137,23 +136,10 @@ class WorldRanking(models.Model):
     category = models.ForeignKey(Category, blank=True, null=True, related_name='world_rankings')
     platform = models.SmallIntegerField(choices=dicts.PLATFORM_CHOICES, default=1)
     country = models.CharField(max_length=2, choices=dicts.COUNTRY_CHOICES.items(), default='us')
+    currency = models.CharField(help_text="Three-letter currency code.", max_length=3)
     ranking = JSONField()
     
     def __unicode__(self):
         return u'%s' % self.type
 
-# class ITunesRating(BaseModel):
-#     ''' Database model for App iTunes ratings. '''
-#     version = models.OneToOneField(IPhoneVersion, primary_key=True, related_name='itunes_rating')
-#     current_version_rating = models.DecimalField(decimal_places=1, max_digits=2, null=True, default=0)
-#     current_version_count = models.PositiveIntegerField(null=True, default=0)
-#     overall_rating = models.DecimalField(decimal_places=1, max_digits=2, null=True, default=0)
-#     overall_count = models.PositiveIntegerField(null=True, default=0)
-#     
-#     class Meta:
-#         ordering = ['overall_rating']
-#         verbose_name = "iTunes Rating"
-#     
-#     def __unicode__(self):
-#         return u'%s' % self.overall_rating
     

@@ -33,20 +33,33 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
         {% compress js %}
-        <script src="{% static 'js/vendor/ng-infinite-scroll.min.js' %}"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery-1.10.2.min.js' %}"><\/script>')</script>
         <script>window.angular || document.write('<script src="{% static 'js/vendor/angular.min.js' %}"><\/script>')</script>
         <script>try{angular.module("ngResource")}catch(err){document.write('<script src="{% static 'js/vendor/angular-resource.min.js' %}"><\/script>')}</script>
+        <script>try{angular.module("ngRoute")}catch(err){document.write('<script src="{% static 'js/vendor/angular-route.min.js' %}"><\/script>')}</script>
         <script>if(typeof($.fn.modal)==='undefined'){document.write('<script src="{% static 'js/vendor/bootstrap.min.js' %}"><\/script>')}</script>
-        <script src="{% static 'js/plugins.js' %}"></script>
-        {% block pre_main_script %}{% endblock %}
-        <script charset="UTF-8" src="{% static 'js/angular/app.js' %}"v></script>
+        <script charset="UTF-8" src="{% static 'js/vendor/ng-infinite-scroll.min.js' %}"></script>
+        <script charset="UTF-8" src="{% static 'js/vendor/angular-translate.min.js' %}"></script>
+        <script charset="UTF-8" src="{% static 'js/translations.js' %}"></script>
+        <script charset="UTF-8" src="{% static 'js/angular/app.js' %}"></script>
+        <script charset="UTF-8" src="{% static 'js/facets.js' %}"></script>
+        <script charset="UTF-8" src="{% static 'js/plugins.js' %}"></script>
+        <script charset="UTF-8" src="{% static 'js/angular/translation-controllers.js' %}"></script>
         <script charset="UTF-8" src="{% static 'js/angular/controllers.js' %}"></script>
         <script charset="UTF-8" src="{% static 'js/angular/services.js' %}"></script>
+        {% block pre_main_script %}{% endblock %}
         <script charset="UTF-8" src="{% static 'js/main.js' %}"></script>
+        <script>
+			// Add the CSRF Token
+			var app = angular.module('xavee.app');
+			app.config(['$httpProvider', function($httpProvider) {
+			    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+			}]);
+		</script>
         {% block post_main_script %}{% endblock %}
         {% endcompress %}
         

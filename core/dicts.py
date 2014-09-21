@@ -41,6 +41,22 @@ COUNTRY_CHOICES = OrderedDict((
     ('cn', "China"),
 ))
 
+CURRENCIES = {
+    'us': "USD",
+    'gb': "GBP",
+    'au': "AUD",
+    'ca': "CAD",
+    'de': "EUR",
+    'fr': "EUR",
+    'it': "EUR",
+    'es': "EUR",
+    'nl': "EUR",
+    'ru': "RUB",
+    'jp': "JPY",
+    'kr': "USD",
+    'cn': "CNY",
+}
+
 # Choices for ranking types.
 TOP_FREE     = 1
 TOP_PAID     = 2

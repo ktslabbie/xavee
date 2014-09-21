@@ -1,40 +1,18 @@
-{% extends '__base.html' %} {% load i18n %} {% load staticfiles %} {% load navbar_tags %}
+{% extends '__base.html' %} {% load i18n %} {% load staticfiles %}
 {% block content %}
 <div class="container">
-	
-	{# Navbar code #}
-	<div class="nav navbar-header navbar-default navbar-static-top" role="navigation">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<!-- <a class="navbar-brand" href="{% url 'home' %}">Xavee</a> -->
-		<!-- <img class="navbar-brand" src="{% static 'img/xavee-banner.png' %}" style="height:70px;"></img> -->
-	</div>
-	<div class="navbar-collapse collapse">
-		<ul class="nav navbar-nav navbar-right">
-			<!-- <li class="{% active_page request 'home' %}"><a href="{% url 'home' %}">Home</a></li> -->
-			<li class="{% active_page request 'application-list' %}"><a href="{% url 'application:application-list' %}">Apps</a></li>
-			<li class="{% active_page request 'application-ranking' %}"><a href="{% url 'application:application-ranking' %}">Rankings</a></li>
-			<li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}">Blog</a></li>
-			<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}">About</a></li>
-		</ul>
-	</div>
-	{# End navbar code #}
-	
+	{% include "_navbar.html" %}
 	<div class="content">
 		{% block page_header %} {% endblock %}
 		{% block page_content %}
 		<img class="center-block" src="{% static 'img/xavee-banner.png' %}" />
 		<div class="page-header text-center">
-			<h1>App Discovery Made Simple</h1>
+			<h1 translate="MAIN_TITLE"></h1>
 			<br>
-			<p class="lead">Weed out the crap to find the best rated applications and games from all over the world.</p>
+			<p class="lead" translate="SUB_TITLE"></p>
 		</div>
 		<div style="text-align: center;">
-	    	<a href="{% url 'application:application-ranking' %}" style="font-size: 36px;">See the rankings</a>
+	    	<a href="{% url 'application:application-ranking' %}" style="font-size: 36px;" target="_self" translate="TO_THE_RANKINGS"></a>
 	    </div>
 		{% endblock %}
 		{% block page_footer %} {% endblock %}

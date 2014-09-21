@@ -5,149 +5,95 @@
  * 
  * File for Angular.js controllers.
  */
+var xaveeController = angular.module('xavee.controller', [])
 
-var xaveeController = angular.module('xavee.controller', []);
-
-xaveeController.controller('PostController', ['$scope', 'Post', function($scope, Post) {
-	$scope.posts = Post.query();
-}]);
-
-xaveeController.controller('ApplicationController', ['$scope', 'Application', function($scope, Application) {
-	$scope.apps = Application.apps();
-}]);
-
-xaveeController.controller('ApplicationDetailController', ['$scope', 'Application', function($scope, Application, AppID) {
+.controller('BaseController', ['$scope', '$http', '$location', '$translate', function($scope, $http, $location, $translate) {
+	$scope.activeLanguage = $location.absUrl().split('/')[3];
+	$http.defaults.headers.common['Accept-Language'] = $scope.activeLanguage;
+	$translate.use($scope.activeLanguage);
 	
-	$scope.app = Application.apps({id:AppID.getID()});
-	
-}]);
+	$scope.changeActiveLanguage = function(lang) {
+		$scope.activeLanguage = lang;
+		$translate.use($scope.activeLanguage);
+	};
+}])
 
 // Controller for the Ranking page.
-xaveeController.controller('RankingController', ['$scope', 'Ranking', function($scope, Ranking, AppID) {
+.controller('RankingController', ['$scope', '$rootScope', '$location', '$controller', '$routeParams', 'Ranking', 
+                                       function($scope, $rootScope, $location, $controller, $routeParams, Ranking) {
+	angular.extend(this, $controller('BaseController', {$scope: $scope}));
 	
-	countries = [                                                                                                                                                                                                 
-		['us', 'United States'],                                                                                                                                                                                                                         
-		['jp', 'Japan'],                                                                                                                                                                                                                         
-		['gb', 'United Kingdom'],
-		['de', 'Germany'],
-		['fr', 'France'],
-		['kr', 'South Korea'],
-		['au', 'Australia'],
-		['cn', 'China'],
-		['ca', 'Canada'],
-		['es', 'Spain'],
-		['it', 'Italy'],
-		['ru', 'Russia'],
-		['nl', 'The Netherlands'],
-	];
-	
-	$scope.appCategories = [
-	    {id:0,    genre:'All Applications', type:'Applications'},
-	    {id:6000, genre:'Business', type:'Applications'},
-	    {id:6001, genre:'Weather', type:'Applications'},
-	    {id:6002, genre:'Utilities', type:'Applications'},
-	    {id:6003, genre:'Travel', type:'Applications'},
-	    {id:6004, genre:'Sports', type:'Applications'},
-	    {id:6005, genre:'Social Networking', type:'Applications'},
-	    {id:6006, genre:'Reference', type:'Applications'},
-	    {id:6007, genre:'Productivity', type:'Applications'},
-	    {id:6008, genre:'Photo & Video', type:'Applications'},
-	    {id:6009, genre:'News', type:'Applications'},
-	    {id:6010, genre:'Navigation', type:'Applications'},
-	    {id:6011, genre:'Music', type:'Applications'},
-	    {id:6012, genre:'Lifestyle', type:'Applications'},
-	    {id:6013, genre:'Health & Fitness', type:'Applications'},
-	    {id:6015, genre:'Finance', type:'Applications'},
-	    {id:6016, genre:'Entertainment', type:'Applications'},
-	    {id:6017, genre:'Education', type:'Applications'},
-	    {id:6018, genre:'Books', type:'Applications'},
-	    {id:6020, genre:'Medical', type:'Applications'},
-	    {id:6021, genre:'Newsstand', type:'Applications'},
-	    {id:6022, genre:'Catalogs', type:'Applications'},
-	    {id:6023, genre:'Food & Drink', type:'Applications'},
-	];
-	
-	$scope.gameCategories = [
-	    {id:6014, genre:'All Games', type:'Games'},
-	    	{id:7001, genre:'Action', type:'Games'},
-	    	{id:7002, genre:'Adventure', type:'Games'},
-	    	{id:7003, genre:'Arcade', type:'Games'},
-	    	{id:7004, genre:'Board', type:'Games'},
-	    	{id:7005, genre:'Card', type:'Games'},
-	    	{id:7006, genre:'Casino & Dice', type:'Games'},
-//	    	{id:7007, genre:'Dice', type:'Games'},
-	    	{id:7008, genre:'Educational', type:'Games'},
-	    	{id:7009, genre:'Family', type:'Games'},
-//	    	{id:7010, genre:'Kids', type:'Games'},
-	    	{id:7011, genre:'Music', type:'Games'},
-	    	{id:7012, genre:'Puzzle', type:'Games'},
-	    	{id:7013, genre:'Racing', type:'Games'},
-	    	{id:7014, genre:'Role Playing', type:'Games'},
-	    	{id:7015, genre:'Simulation', type:'Games'},
-	    	{id:7016, genre:'Sports', type:'Games'},
-	    	{id:7017, genre:'Strategy', type:'Games'},
-	    	{id:7018, genre:'Trivia', type:'Games'},
-	    	{id:7019, genre:'Word', type:'Games'},
- 	];
+	var updateRanking = function() {
+		$scope.pageSize = 20;
+		$scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategoryID});
+	};
 	
 	$scope.platformButton = 'iphone';
 	$scope.rankingTypeButton = '1';
 	$scope.countryButton = 'us';
-	$scope.activeCategory = $scope.gameCategories[0];
-	$scope.countries = countries;
+	$scope.activeCategoryID = 6014;
+	
 	$scope.selected = 0;
 	$scope.appType = 1;
+	$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
 	
-    $scope.pageSize = 20;
-    $scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategory.id});
+	//updateRanking();
     
     $scope.numberOfPages = function() {
         return Math.ceil($scope.ranking.results[0].ranking.length/$scope.pageSize);
-    }
+    };
 
     $scope.loadMore = function() {
     	$scope.pageSize = $scope.pageSize + 20;
-    	
     };
-	
-	$scope.sendID = function(id) {
-		AppID.setID(id);
-	}
 	
 	$scope.changeRankingType = function(rankingType) {
 		$scope.rankingTypeButton = rankingType;
-		$scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategory.id});
-		$scope.pageSize = 20;
-		
+		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
+		//updateRanking();
 	};
 	
 	$scope.changeCountry = function(country, index) {
 		$scope.countryButton = country;
 		$scope.selected = index;
-		$scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategory.id});
-		$scope.pageSize = 20;
+		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
+		//updateRanking();
 	};
 	
 	$scope.changeAppType = function(appType, category) {
 		$scope.appType = appType;
-		$scope.activeCategory = category;
-		$scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategory.id});
-		$scope.pageSize = 20;
+		$scope.activeCategoryID = category.id;
+		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
+		//updateRanking();
 	};
 	
 	$scope.changeCategory = function(category) {
-		$scope.activeCategory = category;
-		$scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategory.id});
-		$scope.pageSize = 20;
+		$scope.activeCategoryID = category.id;
+		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
+		//updateRanking();
 	};
-}]);
-
-// Controller for the rankings per version.
-xaveeController.controller('VersionRankingController', ['$scope', 'VersionRanking', function($scope, VersionRanking) {
-	$scope.versionRank = VersionRanking.versionRanking({application_id:$scope.rank.version.application.id, ranking_type:$scope.rankingTypeButton});
 	
-//	$scope.getVersions = function() {
-//		return versionRank;
-//	};
+	$rootScope.$on("$locationChangeSuccess", function (locationChangeObj, path) {
+		$scope.countryButton = $location.search().country;
+		$scope.activeCategoryID = $location.search().category;
+		$scope.rankingTypeButton = $location.search().ranking;
+		$scope.platformButton = $location.search().platform;
+		updateRanking();
+	});
+
+}])
+
+.controller('PostController', ['$scope', '$controller', 'Post', function($scope, $controller, Post) {
+	angular.extend(this, $controller('BaseController', {$scope: $scope}));
+	$scope.posts = Post.query();
+}])
+
+.controller('ApplicationController', ['$scope', '$controller', 'Application', function($scope, $controller, Application) {
+	angular.extend(this, $controller('BaseController', {$scope: $scope}));
+	$scope.apps = Application.apps();
+}])
+
+.controller('ApplicationDetailController', ['$scope', 'Application', function($scope, Application, AppID) {
+	$scope.app = Application.apps({id:AppID.getID()});
 }]);
 	

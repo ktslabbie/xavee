@@ -26,6 +26,17 @@ def migrate():
         local("python manage.py schemamigration --auto referrer")
         local("python manage.py migrate")
 
+def update_ranking():
+    print(green("Dumping WorldRanking table..."))
+    local("pg_dump -Fc --no-acl --no-owner -h localhost -U Kristian -t application_worldranking xavee_db > worldranking.dump")
+    print(green("Uploading dump to Amazon S3..."))
+    local("aws s3 cp --acl public-read worldranking.dump s3://xavee/")
+    print(green("Restoring WorldRanking table into remote Heroku DB..."))
+    local("heroku pgbackups:restore DATABASE 'https://s3-ap-northeast-1.amazonaws.com/xavee/worldranking.dump' --confirm xavee")
+    print(green("Finally, deleting the dump from Amazon S3."))
+    local("aws s3 rm s3://xavee/worldranking.dump")
+    
+
 def test():
     print("Beginning unit tests...")
     local("python manage.py test")

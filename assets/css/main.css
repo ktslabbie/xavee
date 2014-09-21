@@ -11,12 +11,22 @@ body {
 	/* Best-practice default fonts for Japanese websites */
 	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, 
 	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-	background-color: #FEFFFE;
+	background-color: #FDFFFD;
 }
 
 div.container {
 	width: 67%;
 	overflow: visible;
+}
+
+.row-narrow-gutter {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.col-narrow-gutter {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* ==========================================================================
@@ -25,23 +35,23 @@ div.container {
 
 div.navbar-default {
 	border-bottom: none;
-	background-color: #FEFFFE;
+	background-color: #FDFFFD;
 }
 
 a.navbar-brand {
 	font-family: Arial, sans-serif;
 	color: #111 !important;
-	background-color: #FEFFFE;
+	background-color: #FDFFFD;
 }
 
 div.navbar-collapse {
 	border-bottom: none;
-	background-color: #FEFFFE;
+	background-color: #FDFFFD;
 }
 
 .nav a:hover {
 	color: #000 !important;
-    background-color: #FEFFFE !important;
+    background-color: #FDFFFD !important;
 }
 
 ul.nav li.active a {
@@ -99,7 +109,7 @@ img.img-title-big {
    ========================================================================== */
 
 div.list {
-	min-height: 2000px;
+	min-height: 1000px;
 }
 
 div.list-entry {
@@ -151,11 +161,12 @@ div.col-rank {
 }
 
 div.col-icon {
-	padding: 4px 4px 4px 4px;
+	/* padding: 4px 4px 4px 4px; */
+	/* width: 76px; */
 }
 
 div.col-title {
-	padding-left: 26px;
+	/* padding-left: 26px; */
 	padding-top: 22px;
 	padding-bottom: 22px;
 }
@@ -167,7 +178,7 @@ div.col-rankings {
 
 div.col-country-rank {
 	font-size: 11px;
-	padding: 2px 1px 2px 1px;
+	padding: 1px 1px 1px 1px;
 }
 
 div.facet-panel {
@@ -294,8 +305,11 @@ p.footer-text {
 		max-width: 48px;
 	}
 	
+	div.col-icon {
+		width: 48px;
+	}
+	
 	div.col-title {
-		padding-left: 26px;
 		padding-top: 6px;
 		padding-bottom: 10px;
 	}
@@ -324,10 +338,12 @@ p.footer-text {
 .flag.flag-gb {background-position: -75px -15px}
 .flag.flag-it {background-position: 0 -30px}
 .flag.flag-jp {background-position: -25px -30px}
+.flag.flag-ja {background-position: -25px -30px}
 .flag.flag-kr {background-position: -50px -30px}
 .flag.flag-nl {background-position: -75px -30px}
 .flag.flag-ru {background-position: 0 -45px}
 .flag.flag-us {background-position: -25px -45px}
+.flag.flag-en {background-position: -25px -45px}
 
 .flag-small {
 	width: 16px;

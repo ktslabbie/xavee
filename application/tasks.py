@@ -8,7 +8,6 @@ This file contains the tasks to retrieve apps from appstores daily.
 from __future__ import absolute_import
 from celery import shared_task
 from celery.utils.log import get_task_logger
-from pprint import pprint
 
 import json, requests
 from unidecode import unidecode
@@ -58,11 +57,12 @@ def collect_ios_ranking(ranking_type, ranking_category_id, limit):
     category = Category.objects.filter(id=ranking_category_id).first()
     
     # Check if category is valid. 0 or lower means get all categories (iTunes defaults to this for invalid numbers).
+    # TODO: combined categories
     if ranking_category_id <= 0 or category is not None:
-        if ranking_category_id is 7006:
-            path = '/rss/' + type_string + '/limit=' + str(limit) + '/genre=7006-7007/json'
-        else:
-            path = '/rss/' + type_string + '/limit=' + str(limit) + '/genre=' + str(ranking_category_id) + '/json'
+#         if ranking_category_id is 7006:
+#             path = '/rss/' + type_string + '/limit=' + str(limit) + '/genre=7006-7007/json'
+#         else:
+        path = '/rss/' + type_string + '/limit=' + str(limit) + '/genre=' + str(ranking_category_id) + '/json'
     else:
         print("Invalid category!")
         return
@@ -115,11 +115,12 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         print("Processing the #" + str(rank_counter) + " app '" + app['im:name']['label'] + "' in country '" + country + "'...")
         
         # TODO: Check if the application already exists.
+        version = None
         
         # Check if we already have this Version of this app for this country in the DB.
-        version = IPhoneVersion.objects.filter(appstore_id=appstore_id, country=country).first()
+        id_list = IPhoneVersion.objects.values_list('id', flat=True).filter(appstore_id=appstore_id, country=country)
         
-        if not version:
+        if not id_list:
             
             # The Version with this ID does not yet exist for this country. Let's create one.
             versions = IPhoneVersion.objects.filter(appstore_id=appstore_id)
@@ -140,7 +141,12 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
                     lookup_and_add_ios_app(appstore_id, version_country, version.application)
                 else:
                     version = lookup_and_add_ios_app(appstore_id, version_country, None)
+                    
+            # Get the world average rating and total rating count by averaging over all versions.
+            compute_itunes_world_rating(version.application)
             
+        else:
+            version = IPhoneVersion.objects.get(pk=id_list[0])
         # endif
         
         # We should have a version now.
@@ -148,9 +154,6 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         
         # Time to create the new ranking for this version and add it to the list (we save to DB in bulk later).
         # rankings.append(Ranking(version=version, ranking_type=ranking_type, category=category, rank=rank_counter))
-        
-        # Get the world average rating and total rating count by averaging over all versions.
-        compute_itunes_world_rating(version.application)
         
         # Also add the rank to a dictionary we will use later to add foreign rankings to apps.
         countryrank_by_app.setdefault(version.application.id, {})[country] = rank_counter
@@ -161,11 +164,11 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
             'application': {
                 'id': version.application.id,
                 'title': version.application.title,
-                'slug': version.application.slug,
+#                 'slug': version.application.slug,
                 'developer': {
                     'id': version.application.developer.id,
                     'name': version.application.developer.name,
-                    'slug': version.application.developer.slug,
+#                     'slug': version.application.developer.slug,
                 },
                 'img_small': version.application.img_small,
                 'itunes_world_rating': version.application.itunes_world_rating,
@@ -173,10 +176,9 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
             },
             'appstore_id': version.appstore_id,
             'price': version.price,
-            'currency': version.currency,
             'rating': {
-                'current_version_rating': version.current_version_rating,
-                'current_version_count': version.current_version_count,
+#                 'current_version_rating': version.current_version_rating,
+#                 'current_version_count': version.current_version_count,
                 'overall_rating': version.overall_rating,
                 'overall_count': version.overall_count,
             },
@@ -198,7 +200,7 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
     
     lookup_url = IOS_DOMAIN + 'lookup?id=' + str(appstore_id) + '&country=' + version_country
     
-    print("Calling " + lookup_url + "...")
+    print("Calling " + lookup_url + "... ")
     
     for retry in utils.retryloop(40, timeout=120, delay=1, backoff=2):
         try:
@@ -214,7 +216,7 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
     
     else:
         # Found an app. Get the details. There will always be only one result.
-        print("Found an app for " + version_country + "!...")
+        print("Found an app for " + version_country + "!")
         app_detail = detail_data['results'][0]
         title = app_detail['trackName']
         img_small = app_detail['artworkUrl60']
@@ -305,7 +307,8 @@ def add_apprank_by_country(ranking_type, category):
                     app['foreign_ranking'][foreign_country] = foreign_dict.get(foreign_country)
         
         WorldRanking.objects.filter(ranking_type=ranking_type, category=category, platform=dicts.IPHONE, country=country).delete()
-        world_ranking = WorldRanking(ranking_type=ranking_type, category=category, platform=dicts.IPHONE, country=country, ranking=country_ranking)
+        world_ranking = WorldRanking(ranking_type=ranking_type, category=category, platform=dicts.IPHONE, 
+                                     country=country, currency=dicts.CURRENCIES.get(country), ranking=country_ranking)
         world_ranking.save()
 
 def compute_all_itunes_world_ratings():

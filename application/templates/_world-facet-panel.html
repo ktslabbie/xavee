@@ -1,0 +1,51 @@
+{% load staticfiles %} 
+<div class="col-sm-6 col-sm-push-1 country-list">
+
+	<p translate="COUNTRY"></p>
+	<div class="row" ng-controller="TLController">
+		<div class="col-xs-12 col-sm-8 col-md-6 country-selection" ng-repeat="ctup in countries">
+			<img src="{% static 'img/blank.gif' %}" class="img-flag flag flag-{[{ ctup[0] }]}" alt="{[{ ctup[1] }]}" />
+			<a type="button" ng-click="changeCountry(ctup[0], $index)" ng-class="{ 'active' : $index == selected }" 
+					 style="cursor: pointer;" ng-bind="ctup[1]"></a>
+		</div>
+	</div>
+	
+</div>
+
+<div class="col-sm-3 col-sm-push-2">
+
+	<p translate="PLATFORM"></p>
+	<div class="btn-group">
+		<a type="button" ng-click="platformButton = 'iphone'" 
+			ng-class="{ 'active' : platformButton == 'iphone' }" class="btn btn-default btn-iphone">iPhone</a>
+		<a type="button" ng-click="platformButton = 'android'"
+			ng-class="{ 'active' : platformButton == 'android' }" class="btn btn-default btn-android disabled">Android</a>
+	</div>
+	
+	<p translate="RANKING_TYPE"></p>
+	<div class="btn-group">
+		<a type="button" ng-click="changeRankingType('1')" 
+			ng-class="{ 'active' : rankingTypeButton == '1' }" class="btn btn-default btn-ranking-type" translate="FREE"></a>
+		<a type="button" ng-click="changeRankingType('2')" 
+			ng-class="{ 'active' : rankingTypeButton == '2' }" class="btn btn-default btn-ranking-type" translate="PAID"></a>
+		<a type="button" ng-click="changeRankingType('3')" 
+			ng-class="{ 'active' : rankingTypeButton == '3' }" class="btn btn-default btn-ranking-type" translate="GROSSING"></a>
+	</div>
+	
+	<p translate="CATEGORY"></p>
+	<div ng-controller="TLController">
+		<div class="btn-group">
+			<a type="button" ng-click="changeAppType(1, activeGameCategory)" 
+					ng-class="{ 'active' : appType == 1 }" class="btn btn-default btn-ranking-type" translate="GAMES"></a>
+			<a type="button" ng-click="changeAppType(2, activeAppCategory)" 
+				ng-class="{ 'active' : appType == 2 }" class="btn btn-default btn-ranking-type" translate="APPS"></a>
+		</div>
+		
+		<div>
+			<select ng-init="activeGameCategory = gameCategories[0]" ng-show="appType == 1" ng-model="activeGameCategory"
+					ng-options="category.genre for category in gameCategories" ng-change="changeAppType(1, activeGameCategory)"></select>
+			<select ng-init="activeAppCategory = appCategories[0]" ng-show="appType == 2" ng-model="activeAppCategory" 
+					ng-options="category.genre for category in appCategories" ng-change="changeAppType(2, activeAppCategory)"></select>
+		</div>
+	</div>
+</div>

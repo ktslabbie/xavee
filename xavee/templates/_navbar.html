@@ -1,0 +1,34 @@
+{% load staticfiles %} {% load i18n %} {% load navbar_tags %}
+<div class="nav navbar-header navbar-default navbar-static-top" role="navigation" ng-controller="BaseController">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+	<!-- <a class="navbar-brand" href="{% url 'home' %}">Xavee</a> -->
+	<!-- <img class="navbar-brand" src="{% static 'img/xavee-banner.png' %}" style="height:70px;"></img> -->
+</div>
+<div class="navbar-collapse collapse" ng-controller="BaseController">
+	<ul class="nav navbar-nav navbar-right">
+		<li class="{% active_page request 'home' %}"><a href="{% url 'home' %}" target="_self" translate="HOME"></a></li>
+		<!-- <li class="{% active_page request 'application-list' %}"><a href="{% url 'application:application-list' %}" target="_self" translate="APPS"></a></li> -->
+		<li class="{% active_page request 'application-ranking' %}"><a href="{% url 'application:application-ranking' %}" target="_self" translate="RANKINGS"></a></li>
+		<!-- <li class="{% active_page request 'post-list' %}"><a href="{% url 'blog:post-list' %}" target="_self" translate="BLOG"></a></li> -->
+		<li class="{% active_page request 'about' %}"><a href="{% url 'about' %}" target="_self" translate="ABOUT"></a></li>
+		<li style="padding: 12px;">
+			<form action="{% url 'set_language' %}" method="post">
+				{% csrf_token %}
+				<input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>
+				<select style="background-color: #FFF;" class="btn" name="language" onChange="this.form.submit()">
+					{% get_language_info_list for LANGUAGES as languages %}
+						{% for language in languages %}
+							<option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+							    {{ language.name_local }}
+							</option>
+						{% endfor %}
+				</select>
+			</form>
+		</li>
+	</ul>
+</div>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Application, IPhoneVersion, Developer, Category
-from core import dicts
+from modeltranslation.admin import TranslationAdmin
 
 class IPhoneVersionInline(admin.TabularInline):
     model = IPhoneVersion
@@ -43,10 +43,10 @@ class DeveloperAdmin(admin.ModelAdmin):
     search_fields  = ["ios_id", "name", ]
     save_on_top    = True
     
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     fields         = ["id", "name", ]
-    list_display   = ["id", "name", ]
-    search_fields  = ["id", "name", ]
+    list_display   = ["id", "name_en", "name_ja", ]
+    search_fields  = ["id", "name_en", "name_ja", ]
     save_on_top    = True
     
 class RankingAdmin(admin.ModelAdmin):

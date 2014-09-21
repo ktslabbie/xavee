@@ -16,19 +16,15 @@ xaveeAPIService.factory('Application', ['$resource', function($resource) {
     return $resource('/api/apps/:id', { id: '@id' }, {
     					//list: { isArray:true, method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
     					apps: { isArray:false, method:'get' }
-    				});
+    });
 }]);
 
 xaveeAPIService.factory('Ranking', ['$resource', function($resource) {
     return $resource('/api/apps/rankings', { }, {
     					//list: { isArray:true, method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
-    					ranking: { isArray:false, method:'get' }
-    				});
-}]);
-
-xaveeAPIService.factory('VersionRanking', ['$resource', function($resource) {
-    return $resource('/api/apps/:application_id/versions?ranking_type=:ranking_type', { application_id: '@application_id', ranking_type: '@ranking_type' }, {
-    					versionRanking: { isArray:false, method:'get' }
+    					ranking: { isArray:false, 
+    							   method:'get'
+    							    }
     				});
 }]);
 

@@ -4,12 +4,11 @@ Created on Jun 18, 2014
 @author: Kristian
 '''
 from rest_framework import permissions, generics
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from rest_framework.renderers import JSONRenderer
+from django.utils import translation
 from rest_framework.response import Response
-from .models import WorldRanking, Application
-from .serializers import ApplicationSerializer, IPhoneVersionSerializer, RankingSerializer
+from .models import WorldRanking, Application, Developer
+from .serializers import ApplicationSerializer, IPhoneVersionSerializer, RankingSerializer, DeveloperSerializer
 
 # API Mixins.
 class ApplicationMixin(object):
@@ -21,24 +20,18 @@ class VersionMixin(object):
     serializer_class = IPhoneVersionSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
-
 # API view classes.
 class ApplicationList(ApplicationMixin, generics.ListAPIView):
     pass
 
 class ApplicationRanking(generics.GenericAPIView):
     def get(self, request):
+        translation.activate(request.LANGUAGE_CODE)
+        
         country = request.GET.get('country')
         ranking_type = request.GET.get('ranking_type')
         category = request.GET.get('category')
+        
         obj = None
         
         if category is None or int(category) <= 0:
@@ -62,3 +55,8 @@ class ApplicationDetail(ApplicationMixin, generics.RetrieveAPIView):
 
 class VersionDetail(VersionMixin, generics.RetrieveAPIView):
     pass
+
+class DeveloperDetail(generics.RetrieveAPIView):
+    queryset = Developer.objects.all()
+    serializer_class = DeveloperSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )

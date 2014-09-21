@@ -8,6 +8,7 @@
 		<li class="post-entry" ng-repeat="app in apps.results">
 			<p>
 				<a class="post-title" href="/apps/{[{ app.id }]}" ng-bind="app.title"></a>
+				<span class="small" ng-bind="app.categories[0].name"></span>
 			</p>
 		</li>
 	</ul>

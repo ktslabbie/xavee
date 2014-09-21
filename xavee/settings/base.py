@@ -29,7 +29,7 @@ DEBUG          = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
 
 # Stop annoying slash-adding behavior.
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # Admins for the admin console.
 ADMINS = (
@@ -160,7 +160,7 @@ HOST_MIDDLEWARE_URLCONF_MAP = {
 REFERRAL_HOST = "http://www.app-install.info"
 
 # Hosts allowed to connect to our site.
-ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', '.xavee.net']
+ALLOWED_HOSTS = [ '.herokuapp.com', '.app-install.info', '.xavee.net', ]
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -178,6 +178,12 @@ TIME_ZONE = 'Japan'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('ja', gettext('Japanese')),
+)
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -210,9 +216,9 @@ STATICFILES_FINDERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.request",
-    "django.core.context_processors.i18n",
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
+    'django.core.context_processors.i18n',
     'django.contrib.messages.context_processors.messages',
     'xavee.context_processors.google_analytics',
 )
@@ -265,6 +271,7 @@ THIRD_PARTY_APPS = (
     'ckeditor',
     'django.contrib.admin',
     'rest_framework',
+    'modeltranslation',
 )
 
 LOCAL_APPS = (

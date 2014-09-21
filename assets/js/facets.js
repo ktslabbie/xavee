@@ -1,0 +1,52 @@
+var FACETS = {}
+	 	
+FACETS.appCategories = [
+	{id:0,    genre:'All Applications'},
+	{id:6000, genre:'Business'},
+	{id:6001, genre:'Weather'},
+	{id:6002, genre:'Utilities'},
+	{id:6003, genre:'Travel'},
+	{id:6004, genre:'Sports'},
+	{id:6005, genre:'Social Networking'},
+	{id:6006, genre:'Reference'},
+	{id:6007, genre:'Productivity'},
+	{id:6008, genre:'Photo & Video'},
+	{id:6009, genre:'News'},
+	{id:6010, genre:'Navigation'},
+	{id:6011, genre:'Music'},
+	{id:6012, genre:'Lifestyle'},
+	{id:6013, genre:'Health & Fitness'},
+	{id:6015, genre:'Finance'},
+	{id:6016, genre:'Entertainment'},
+	{id:6017, genre:'Education'},
+	{id:6018, genre:'Books'},
+	{id:6020, genre:'Medical'},
+	{id:6021, genre:'Newsstand'},
+	{id:6022, genre:'Catalogs'},
+	{id:6023, genre:'Food & Drink'},
+];
+	 	
+FACETS.gameCategories = [
+	{id:6014, genre:'All Games'},
+	{id:7001, genre:'Action'},
+	{id:7002, genre:'Adventure'},
+	{id:7003, genre:'Arcade'},
+	{id:7004, genre:'Board'},
+	{id:7005, genre:'Card'},
+	{id:7006, genre:'Casino'},
+	{id:7007, genre:'Dice'},
+	{id:7008, genre:'Educational'},
+	{id:7009, genre:'Family'},
+	{id:7010, genre:'Kids'},
+	{id:7011, genre:'Music'},
+	{id:7012, genre:'Puzzle'},
+	{id:7013, genre:'Racing'},
+	{id:7014, genre:'Role Playing'},
+	{id:7015, genre:'Simulation'},
+	{id:7016, genre:'Sports'},
+	{id:7017, genre:'Strategy'},
+	{id:7018, genre:'Trivia'},
+	{id:7019, genre:'Word'},
+];
+
+

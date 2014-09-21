@@ -5,16 +5,16 @@ Created on Aug 10, 2014
 '''
 import sys, time
 
-
+"""
+Get an app or developer slug from an iTunes URL.
+This is easier than dealing with slug generation ourselves.
+"""
 def get_slug_from_itunes_url(url):
     url_parts = url.split('/')
     for i in range(0, len(url_parts)):
         if url_parts[i] == "artist" or url_parts[i] == "app":
             return url_parts[i+1]
         
-
-
-
 """ 
 Retry loop. Useful for remote API calling over an uncertain network.
 
