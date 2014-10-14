@@ -2,11 +2,11 @@
 <div class="col-sm-6 col-sm-push-1 country-list">
 
 	<p translate="COUNTRY"></p>
-	<div class="row" ng-controller="TLController">
-		<div class="col-xs-12 col-sm-8 col-md-6 country-selection" ng-repeat="ctup in countries">
-			<img src="{% static 'img/blank.gif' %}" class="img-flag flag flag-{[{ ctup[0] }]}" alt="{[{ ctup[1] }]}" />
-			<a type="button" ng-click="changeCountry(ctup[0], $index)" ng-class="{ 'active' : $index == selected }" 
-					 style="cursor: pointer;" ng-bind="ctup[1]"></a>
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-6 country-selection" ng-repeat="country in countries">
+			<img src="{% static 'img/blank.gif' %}" class="img-flag flag flag-{[{ country.code }]}" alt="{[{ country.name }]}" />
+			<a type="button" class="country-link" ng-click="changeCountry(country.code, $index)"
+					ng-class="{ 'active' : $index == selectedCountry }" ng-bind="country.name"></a>
 		</div>
 	</div>
 	
@@ -33,19 +33,19 @@
 	</div>
 	
 	<p translate="CATEGORY"></p>
-	<div ng-controller="TLController">
+	<div>
 		<div class="btn-group">
-			<a type="button" ng-click="changeAppType(1, activeGameCategory)" 
+			<a type="button" ng-click="changeCategory(1, activeGameCategory)" 
 					ng-class="{ 'active' : appType == 1 }" class="btn btn-default btn-ranking-type" translate="GAMES"></a>
-			<a type="button" ng-click="changeAppType(2, activeAppCategory)" 
+			<a type="button" ng-click="changeCategory(2, activeAppCategory)"
 				ng-class="{ 'active' : appType == 2 }" class="btn btn-default btn-ranking-type" translate="APPS"></a>
 		</div>
 		
 		<div>
-			<select ng-init="activeGameCategory = gameCategories[0]" ng-show="appType == 1" ng-model="activeGameCategory"
-					ng-options="category.genre for category in gameCategories" ng-change="changeAppType(1, activeGameCategory)"></select>
-			<select ng-init="activeAppCategory = appCategories[0]" ng-show="appType == 2" ng-model="activeAppCategory" 
-					ng-options="category.genre for category in appCategories" ng-change="changeAppType(2, activeAppCategory)"></select>
+			<select class="form-control" ng-show="appType == 1" ng-model="activeGameCategory"
+					ng-options="c.id as c.genre for c in gameCategories" ng-change="changeCategory(1, activeGameCategory)"></select>
+			<select class="form-control" ng-show="appType == 2" ng-model="activeAppCategory" 
+					ng-options="c.id as c.genre for c in appCategories" ng-change="changeCategory(2, activeAppCategory)"></select>
 		</div>
 	</div>
 </div>

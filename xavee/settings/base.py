@@ -28,9 +28,6 @@ root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 DEBUG          = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
 
-# Stop annoying slash-adding behavior.
-APPEND_SLASH = True
-
 # Admins for the admin console.
 ADMINS = (
     ("Kristian Slabbekoorn", "kristian@agent-solve.com"),

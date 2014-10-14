@@ -222,8 +222,13 @@ div.country-list {
 	margin-bottom: 16px;
 }
 
-.country-selection {
+div.country-selection {
 	margin-bottom: 2px;
+	cursor: pointer;
+}
+
+a.country-link {
+	cursor: pointer;
 }
 
 .btn-ranking-type {	

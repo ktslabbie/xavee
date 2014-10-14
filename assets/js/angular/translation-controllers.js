@@ -15,26 +15,75 @@ var xaveeController = angular.module('xavee.tlcontroller', [])
 	            'CAT_6007', 'CAT_6008', 'CAT_6009', 'CAT_6010', 'CAT_6011', 'CAT_6012', 'CAT_6013', 'CAT_6015',
 	            'CAT_6016', 'CAT_6017', 'CAT_6018', 'CAT_6020', 'CAT_6021', 'CAT_6022', 'CAT_6023', 
 	            'CAT_6014', 'CAT_7001', 'CAT_7002', 'CAT_7003', 'CAT_7004', 'CAT_7005', 'CAT_7006', 
-	            'CAT_7007', 'CAT_7008', 'CAT_7009', 'CAT_7010', 'CAT_7011', 'CAT_7012', 'CAT_7013',
+	            'CAT_7007', 'CAT_7008', 'CAT_7009', 'CAT_7011', 'CAT_7012', 'CAT_7013',
 	            'CAT_7014', 'CAT_7015', 'CAT_7016', 'CAT_7017', 'CAT_7018', 'CAT_7019', 
 	
 	]).then(function (translations) {
 		
 		$scope.countries = [ 
-				['us', translations.US_NAME],                                                                                                                                                                                                                         
-				['jp', translations.JP_NAME],
-				['gb', translations.GB_NAME],
-				['de', translations.DE_NAME],
-				['fr', translations.FR_NAME],
-				['kr', translations.KR_NAME],
-				['au', translations.AU_NAME],
-				['cn', translations.CN_NAME],
-				['ca', translations.CA_NAME],
-				['es', translations.ES_NAME],
-				['it', translations.IT_NAME],
-				['ru', translations.RU_NAME],
-				['nl', translations.NL_NAME]
+				{code: 'us', name: translations.US_NAME},
+				{code: 'jp', name: translations.JP_NAME},
+				{code: 'gb', name: translations.GB_NAME},
+				{code: 'de', name: translations.DE_NAME},
+				{code: 'fr', name: translations.FR_NAME},
+				{code: 'kr', name: translations.KR_NAME},
+				{code: 'au', name: translations.AU_NAME},
+				{code: 'cn', name: translations.CN_NAME},
+				{code: 'ca', name: translations.CA_NAME},
+				{code: 'es', name: translations.ES_NAME},
+				{code: 'it', name: translations.IT_NAME},
+				{code: 'ru', name: translations.RU_NAME},
+				{code: 'nl', name: translations.NL_NAME}
 		];
+		
+//		$scope.appCategories = {
+//	        	0:    translations.CAT_0,
+//	        	6000: translations.CAT_6000,
+//	        	6001: translations.CAT_6001,
+//	        	6002: translations.CAT_6002,
+//	        	6003: translations.CAT_6003,
+//	        	6004: translations.CAT_6004,
+//	        	6005: translations.CAT_6005,
+//	        	6006: translations.CAT_6006,
+//	        	6007: translations.CAT_6007,
+//	        	6008: translations.CAT_6008,
+//	        	6009: translations.CAT_6009,
+//	        	6010: translations.CAT_6010,
+//	        	6011: translations.CAT_6011,
+//	        	6012: translations.CAT_6012,
+//	        	6013: translations.CAT_6013,
+//	        	6015: translations.CAT_6015,
+//	        	6016: translations.CAT_6016,
+//	        	6017: translations.CAT_6017,
+//	        	6018: translations.CAT_6018,
+//	        	6020: translations.CAT_6020,
+//	        	6021: translations.CAT_6021,
+//	        	6022: translations.CAT_6022,
+//	        	6023: translations.CAT_6023,
+//		};
+//		
+//		$scope.gameCategories = {
+//	        	6014: translations.CAT_6014,
+//	        	7001: translations.CAT_7001,
+//	        	7002: translations.CAT_7002,
+//	        	7003: translations.CAT_7003,
+//	        	7004: translations.CAT_7004,
+//	        	7005: translations.CAT_7005,
+//	        	7006: translations.CAT_7006,
+//	        	7007: translations.CAT_7007,
+//	        	7008: translations.CAT_7008,
+//	        	7009: translations.CAT_7009,
+//	        	7010: translations.CAT_7010,
+//	        	7011: translations.CAT_7011,
+//	        	7012: translations.CAT_7012,
+//	        	7013: translations.CAT_7013,
+//	        	7014: translations.CAT_7014,
+//	        	7015: translations.CAT_7015,
+//	        	7016: translations.CAT_7016,
+//	        	7017: translations.CAT_7017,
+//	        	7018: translations.CAT_7018,
+//	        	7019: translations.CAT_7019,
+//	    };
 		
 		$scope.appCategories = [
 	        	{id:0,    genre:translations.CAT_0},
@@ -73,7 +122,6 @@ var xaveeController = angular.module('xavee.tlcontroller', [])
 	        	{id:7007, genre:translations.CAT_7007},
 	        	{id:7008, genre:translations.CAT_7008},
 	        	{id:7009, genre:translations.CAT_7009},
-	        	{id:7010, genre:translations.CAT_7010},
 	        	{id:7011, genre:translations.CAT_7011},
 	        	{id:7012, genre:translations.CAT_7012},
 	        	{id:7013, genre:translations.CAT_7013},
@@ -84,8 +132,5 @@ var xaveeController = angular.module('xavee.tlcontroller', [])
 	        	{id:7018, genre:translations.CAT_7018},
 	        	{id:7019, genre:translations.CAT_7019},
 		 ];
-		
-		$scope.activeGameCategory = $scope.gameCategories[0];
-		$scope.activeAppCategory = $scope.appCategories[0];
 	});
 }]);

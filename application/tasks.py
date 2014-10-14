@@ -11,6 +11,7 @@ from celery.utils.log import get_task_logger
 
 import json, requests
 from unidecode import unidecode
+from decimal import Decimal
 from django.template import defaultfilters
 from .models import Application, IPhoneVersion, Developer, Category, WorldRanking
 from core import utils, dicts
@@ -36,7 +37,7 @@ world_rankings = { k:[] for k in COUNTRIES }
 
 @shared_task
 def collect_all_ios_rankings(limit):
-    for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7007) + range(7008-7010) + range(7011, 7020):
+    for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
 #    for cat_id in range(7007, 7020):
         collect_ios_ranking(dicts.TOP_FREE, cat_id, limit)
         collect_ios_ranking(dicts.TOP_PAID, cat_id, limit)
@@ -114,28 +115,27 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         
         print("Processing the #" + str(rank_counter) + " app '" + app['im:name']['label'] + "' in country '" + country + "'...")
         
-        # TODO: Check if the application already exists.
+        # TODO: Check if the application already exists here (for a fast mode?).
         version = None
         
         # Check if we already have this Version of this app for this country in the DB.
-        id_list = IPhoneVersion.objects.values_list('id', flat=True).filter(appstore_id=appstore_id, country=country)
+        version = IPhoneVersion.objects.filter(appstore_id=appstore_id, country=country).first()
         
-        if not id_list:
+        if not version:
             
-            # The Version with this ID does not yet exist for this country. Let's create one.
+            # The Version with this ID does not yet exist for this country.
+            # There may be versions for other countries already. Check.
             versions = IPhoneVersion.objects.filter(appstore_id=appstore_id)
-            version = lookup_and_add_ios_app(appstore_id, country, None)
             
-            # Initialize a country list and remove the current one.
+            # Initialize a country list.
             countries = COUNTRIES[:]
-            countries.remove(country)
             
-            # Also remove countries whose versions are already in the DB.
+            # Remove countries whose versions are already in the DB.
             for ver in versions:
                 if ver.country in countries:
                     countries.remove(ver.country)
             
-            # Lookup apps for all remaining countries.
+            # Lookup versions for all remaining countries.
             for version_country in countries:
                 if version is not None:
                     lookup_and_add_ios_app(appstore_id, version_country, version.application)
@@ -145,8 +145,8 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
             # Get the world average rating and total rating count by averaging over all versions.
             compute_itunes_world_rating(version.application)
             
-        else:
-            version = IPhoneVersion.objects.get(pk=id_list[0])
+            # Finally, assure we have the version of the current country.
+            version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
         # endif
         
         # We should have a version now.
@@ -218,7 +218,13 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
         # Found an app. Get the details. There will always be only one result.
         print("Found an app for " + version_country + "!")
         app_detail = detail_data['results'][0]
-        title = app_detail['trackName']
+        title = None
+        
+        if str(app_detail['trackId']) == "892053206":
+            title = "Model Airfields"
+        else: 
+            title = app_detail['trackName']
+        
         img_small = app_detail['artworkUrl60']
         
         # There are some apps without an artist URL. Slugify the name for these ourselves, rather than getting it from the URL.
@@ -329,104 +335,129 @@ def compute_itunes_world_rating(application):
         rating_avg = round(rating_sum / rating_count, 2)
     else:
         rating_avg = None
-        
-    # print "Average rating for " + application.title + ": " + str(rating_avg) + " (" + str(rating_count) + " ratings)"
  
     application.itunes_world_rating = rating_avg
     application.itunes_world_rating_count = rating_count
     application.save()
-            
 
-def compare_app_versions():
-     
-    developers = Developer.objects.all()
-     
-    for developer in developers:
+def make_application_titles():
+    pass
+
+def get_japanese_app_ids():
+    out_str = ''
+    results = []
+    # ((50 * 2.75 + (app.application.itunes_world_rating * app.application.itunes_world_rating_count)) / (50 + app.application.itunes_world_rating_count)).toFixed(2)
+    for version in IPhoneVersion.objects.filter(country='jp', application__itunes_world_rating__gte=4).order_by('-application__itunes_world_rating'):
+        #print u"Processing " + version.appstore_id + " (rating: " + version.application.itunes_world_rating + ")..."
+        #appstore_ids += '' + str(version.appstore_id) + '\t' + str(version.release_date) + '\n'
+        rating = version.application.itunes_world_rating
+        rating_count = version.application.itunes_world_rating_count
         
-        print "Checking developer " + developer.name + "..."
+        bayesian = (500 * Decimal(2.75) + (rating * rating_count)) / (500 + rating_count)
         
-        applications = list(Application.objects.filter(developer=developer))
-        all_countries = []
         
-        for i in range (0, len(applications)):
-            
-            versions = list(IPhoneVersion.objects.filter(application=applications[i]))
-            countries = []  
-            
-            for j in range (0, len(versions)):
-                countries.append(versions[j].country)
-            
-            # Ex: [ ['us', 'jp'], ['us', 'jp', 'gb']  ]
-            all_countries.append(countries)
-          
+        results.append((version.appstore_id, round(bayesian, 2)))
+    
+    sorted_by_bayesian = sorted(results, key=lambda tup: tup[1], reverse=True)
+    
+    for tup in sorted_by_bayesian:
+        out_str += str(tup[0]) + ',' + str(tup[1])  +  '\n'
+    
+    f = open('japanese.apps.txt','w')    
+    f.write(out_str)
+    f.close()
         
-          
-        for i in range(0, len(all_countries)-1):
-            for k in range(i+1, len(all_countries)-1):
-                combined = set(all_countries[i]) & set(all_countries[k])
-                if not combined:
-                    # Compare categories
-                    app_a_categories = applications[i].categories.all()
-                    app_b_categories = applications[k].categories.all()
-                    
-                    a_set1 = set()
-                    b_set1 = set()
-                    
-                    for category in app_a_categories:                        
-                        a_set1.add(category.id)
-                    for category in app_b_categories:
-                        b_set1.add(category.id)
-                    ab_set1 = a_set1 & b_set1
-                    
-                    version_a = IPhoneVersion.objects.filter(application=applications[i])[0]
-                    version_b = IPhoneVersion.objects.filter(application=applications[k])[0]
-                    
-                    bundle_a_split = version_a.bundle_id.split(".")[:-1]
-                    bundle_b_split = version_b.bundle_id.split(".")[:-1]
-                    
-                    print version_a.bundle_id + " -> " + ''.join(bundle_a_split)
-                    print version_b.bundle_id + " -> " + ''.join(bundle_b_split)
-                    
-                    
-                    
-                    if len(ab_set1) is len(a_set1) and ''.join(bundle_a_split) is ''.join(bundle_b_split): #and applications[i].title == applications[k].title:
-                        prompt = "> "
-                        print "Match? " + applications[i].title + " and " + applications[k].title + " are similar."
-                        
-                        print ""
-                        print "Application comparison:"
-                        print "Title: " + applications[i].title + " and " + applications[k].title
-                        print "Slug: " + applications[i].slug + " and " + applications[k].slug
-                        print "Icon URL: " + applications[i].img_small + " and " + applications[k].img_small
-                        #print "Categories: " + list(applications[i].categories.all()) + " and " + list(applications[k].categories.all())
-                        
-                        print ""
-                        print "Version comparison:"
-                        version_a = IPhoneVersion.objects.filter(application=applications[i])[0]
-                        version_b = IPhoneVersion.objects.filter(application=applications[k])[0]
-                        print "Country: " + version_a.country + " and " + version_b.country
-                        print "Local title: " + version_a.title + " and " + version_b.title
-                        print "Appstore_id: " + str(version_a.appstore_id) + " and " + str(version_b.appstore_id)
-                        print "Bundle_id: " + version_a.bundle_id + " and " + version_b.bundle_id
-                        print "Price/currency: " + str(version_a.price) + " " + version_a.currency + " and " + str(version_b.price) + " " + version_b.currency
-                        print "Release date: " + str(version_a.release_date) + " and " + str(version_b.release_date)
-                        print "iTunes rating: " + str(version_a.itunes_rating.overall_rating) + " and " + str(version_b.itunes_rating.overall_rating)
-                        print "iTunes rating count: " + str(version_a.itunes_rating.overall_count) + " and " + str(version_b.itunes_rating.overall_count)
-                        
-                        print "Combine? Y/N?"
-                        answer = raw_input(prompt)
-                        if answer is "y" or answer is "Y":
-                            a_versions = IPhoneVersion.objects.filter(application=applications[i])
-                            
-                            
-                            for version in a_versions:
-                                version.application = applications[k]
-                                version.save()
-                                
-                            for category in app_a_categories:
-                                applications[i].categories.remove(category)
-                                
-                            applications[i].delete()
-                            
-                            break
+
+# def compare_app_versions():
+#      
+#     developers = Developer.objects.all()
+#      
+#     for developer in developers:
+#         
+#         print "Checking developer " + developer.name + "..."
+#         
+#         applications = list(Application.objects.filter(developer=developer))
+#         all_countries = []
+#         
+#         for i in range (0, len(applications)):
+#             
+#             versions = list(IPhoneVersion.objects.filter(application=applications[i]))
+#             countries = []  
+#             
+#             for j in range (0, len(versions)):
+#                 countries.append(versions[j].country)
+#             
+#             # Ex: [ ['us', 'jp'], ['us', 'jp', 'gb']  ]
+#             all_countries.append(countries)
+#           
+#         
+#           
+#         for i in range(0, len(all_countries)-1):
+#             for k in range(i+1, len(all_countries)-1):
+#                 combined = set(all_countries[i]) & set(all_countries[k])
+#                 if not combined:
+#                     # Compare categories
+#                     app_a_categories = applications[i].categories.all()
+#                     app_b_categories = applications[k].categories.all()
+#                     
+#                     a_set1 = set()
+#                     b_set1 = set()
+#                     
+#                     for category in app_a_categories:                        
+#                         a_set1.add(category.id)
+#                     for category in app_b_categories:
+#                         b_set1.add(category.id)
+#                     ab_set1 = a_set1 & b_set1
+#                     
+#                     version_a = IPhoneVersion.objects.filter(application=applications[i])[0]
+#                     version_b = IPhoneVersion.objects.filter(application=applications[k])[0]
+#                     
+#                     bundle_a_split = version_a.bundle_id.split(".")[:-1]
+#                     bundle_b_split = version_b.bundle_id.split(".")[:-1]
+#                     
+#                     print version_a.bundle_id + " -> " + ''.join(bundle_a_split)
+#                     print version_b.bundle_id + " -> " + ''.join(bundle_b_split)
+#                     
+#                     
+#                     
+#                     if len(ab_set1) is len(a_set1) and ''.join(bundle_a_split) is ''.join(bundle_b_split): #and applications[i].title == applications[k].title:
+#                         prompt = "> "
+#                         print "Match? " + applications[i].title + " and " + applications[k].title + " are similar."
+#                         
+#                         print ""
+#                         print "Application comparison:"
+#                         print "Title: " + applications[i].title + " and " + applications[k].title
+#                         print "Slug: " + applications[i].slug + " and " + applications[k].slug
+#                         print "Icon URL: " + applications[i].img_small + " and " + applications[k].img_small
+#                         #print "Categories: " + list(applications[i].categories.all()) + " and " + list(applications[k].categories.all())
+#                         
+#                         print ""
+#                         print "Version comparison:"
+#                         version_a = IPhoneVersion.objects.filter(application=applications[i])[0]
+#                         version_b = IPhoneVersion.objects.filter(application=applications[k])[0]
+#                         print "Country: " + version_a.country + " and " + version_b.country
+#                         print "Local title: " + version_a.title + " and " + version_b.title
+#                         print "Appstore_id: " + str(version_a.appstore_id) + " and " + str(version_b.appstore_id)
+#                         print "Bundle_id: " + version_a.bundle_id + " and " + version_b.bundle_id
+#                         print "Price/currency: " + str(version_a.price) + " " + version_a.currency + " and " + str(version_b.price) + " " + version_b.currency
+#                         print "Release date: " + str(version_a.release_date) + " and " + str(version_b.release_date)
+#                         print "iTunes rating: " + str(version_a.itunes_rating.overall_rating) + " and " + str(version_b.itunes_rating.overall_rating)
+#                         print "iTunes rating count: " + str(version_a.itunes_rating.overall_count) + " and " + str(version_b.itunes_rating.overall_count)
+#                         
+#                         print "Combine? Y/N?"
+#                         answer = raw_input(prompt)
+#                         if answer is "y" or answer is "Y":
+#                             a_versions = IPhoneVersion.objects.filter(application=applications[i])
+#                             
+#                             
+#                             for version in a_versions:
+#                                 version.application = applications[k]
+#                                 version.save()
+#                                 
+#                             for category in app_a_categories:
+#                                 applications[i].categories.remove(category)
+#                                 
+#                             applications[i].delete()
+#                             
+#                             break
                             

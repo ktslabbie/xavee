@@ -15,6 +15,7 @@ PLATFORMS = {
 }
 
 LANGUAGE_CODES = {
+    "us": "en",
     "jp": "ja",
 }
 

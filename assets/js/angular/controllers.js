@@ -19,25 +19,45 @@ var xaveeController = angular.module('xavee.controller', [])
 }])
 
 // Controller for the Ranking page.
-.controller('RankingController', ['$scope', '$rootScope', '$location', '$controller', '$routeParams', 'Ranking', 
-                                       function($scope, $rootScope, $location, $controller, $routeParams, Ranking) {
+.controller('RankingController', ['$scope', '$rootScope', '$location', '$controller', 'Ranking', 
+                                       function($scope, $rootScope, $location, $controller, Ranking) {
 	angular.extend(this, $controller('BaseController', {$scope: $scope}));
+	angular.extend(this, $controller('TLController', {$scope: $scope}));
+	
+	var updateEnvironment = function() {
+		$scope.platformButton = $location.search().platform || "iphone";
+		$scope.rankingTypeButton = $location.search().ranking || 1;
+		$scope.countryButton = $location.search().country || LANG_TO_COUNTRY[$scope.activeLanguage];
+		$scope.activeCategoryID = $location.search().category || 6014;
+		$scope.activeGameCategory = 6014;
+		$scope.activeAppCategory = 0;
+		$scope.selectedCountry = COUNTRY_TO_INDEX[$scope.countryButton];
+		$scope.appType = ($scope.activeCategoryID == 6014 || $scope.activeCategoryID > 6999) ? 1 : 2;
+		
+		if($scope.appType == 1) {
+			$scope.activeGameCategory = $scope.activeCategoryID;
+		} else {
+			$scope.activeAppCategory = $scope.activeCategoryID;
+		}
+	}
 	
 	var updateRanking = function() {
 		$scope.pageSize = 20;
 		$scope.ranking = Ranking.ranking({country:$scope.countryButton, ranking_type:$scope.rankingTypeButton, category:$scope.activeCategoryID});
 	};
 	
-	$scope.platformButton = 'iphone';
-	$scope.rankingTypeButton = '1';
-	$scope.countryButton = 'us';
-	$scope.activeCategoryID = 6014;
+	var updatePage = function() {
+		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
+		updateRanking();
+	};
 	
-	$scope.selected = 0;
-	$scope.appType = 1;
-	$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
+	var LANG_TO_COUNTRY = { 'en': 'us', 'ja': 'jp' };
+	var COUNTRY_TO_INDEX = { 'us': 0, 'jp': 1, 'gb': 2, 'de': 3, 'fr': 4, 'kr': 5, 'au': 6, 'cn': 7, 'ca': 8, 'es': 9, 'it': 10, 'ru': 11, 'nl': 12 };
+
 	
-	//updateRanking();
+	updateEnvironment();
+	$scope.activeGameCategory = 6014;
+	updateRanking();
     
     $scope.numberOfPages = function() {
         return Math.ceil($scope.ranking.results[0].ranking.length/$scope.pageSize);
@@ -49,38 +69,34 @@ var xaveeController = angular.module('xavee.controller', [])
 	
 	$scope.changeRankingType = function(rankingType) {
 		$scope.rankingTypeButton = rankingType;
-		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
-		//updateRanking();
+		updatePage();
 	};
 	
 	$scope.changeCountry = function(country, index) {
 		$scope.countryButton = country;
-		$scope.selected = index;
-		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
-		//updateRanking();
+		$scope.selectedCountry = index;
+		updatePage();
 	};
 	
-	$scope.changeAppType = function(appType, category) {
+	$scope.changeCategory = function(appType, category) {
 		$scope.appType = appType;
-		$scope.activeCategoryID = category.id;
-		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
-		//updateRanking();
+		$scope.activeCategoryID = category;
+		if(appType == 1) {
+			$scope.activeGameCategory = category;
+		} else {
+			$scope.activeAppCategory = category;
+		}
+		updatePage();
 	};
 	
-	$scope.changeCategory = function(category) {
-		$scope.activeCategoryID = category.id;
-		$location.search({platform: $scope.platformButton, country: $scope.countryButton, category: $scope.activeCategoryID, ranking: $scope.rankingTypeButton});
-		//updateRanking();
-	};
-	
-	$rootScope.$on("$locationChangeSuccess", function (locationChangeObj, path) {
-		$scope.countryButton = $location.search().country;
-		$scope.activeCategoryID = $location.search().category;
-		$scope.rankingTypeButton = $location.search().ranking;
-		$scope.platformButton = $location.search().platform;
-		updateRanking();
+	$rootScope.$watch(function () { return $location.search() }, function (newSearch, oldSearch) {
+		
+		// Check for back/forward button press.
+		if($rootScope.actualSearch === newSearch) {
+			updateEnvironment();
+			updateRanking();
+	    }
 	});
-
 }])
 
 .controller('PostController', ['$scope', '$controller', 'Post', function($scope, $controller, Post) {

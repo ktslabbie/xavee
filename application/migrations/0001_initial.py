@@ -26,6 +26,8 @@ class Migration(SchemaMigration):
             ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
+            ('name_en', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
+            ('name_ja', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
         ))
         db.send_create_signal(u'application', ['Category'])
 
@@ -60,7 +62,7 @@ class Migration(SchemaMigration):
             ('application', self.gf('django.db.models.fields.related.ForeignKey')(related_name='iphone_versions', to=orm['application.Application'])),
             ('country', self.gf('django.db.models.fields.CharField')(default='us', max_length=2)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('appstore_id', self.gf('django.db.models.fields.IntegerField')(default='', null=True, blank=True)),
+            ('appstore_id', self.gf('django.db.models.fields.IntegerField')(default='', null=True, db_index=True, blank=True)),
             ('bundle_id', self.gf('django.db.models.fields.CharField')(max_length=256)),
             ('price', self.gf('django.db.models.fields.DecimalField')(max_digits=8, decimal_places=2)),
             ('currency', self.gf('django.db.models.fields.CharField')(max_length=3)),
@@ -80,6 +82,7 @@ class Migration(SchemaMigration):
             ('category', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='world_rankings', null=True, to=orm['application.Category'])),
             ('platform', self.gf('django.db.models.fields.SmallIntegerField')(default=1)),
             ('country', self.gf('django.db.models.fields.CharField')(default='us', max_length=2)),
+            ('currency', self.gf('django.db.models.fields.CharField')(max_length=3)),
             ('ranking', self.gf('jsonfield.fields.JSONField')(default={})),
         ))
         db.send_create_signal(u'application', ['WorldRanking'])
@@ -124,6 +127,8 @@ class Migration(SchemaMigration):
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
+            'name_en': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
+            'name_ja': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'}),
             'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },
         u'application.developer': {
@@ -139,7 +144,7 @@ class Migration(SchemaMigration):
         u'application.iphoneversion': {
             'Meta': {'object_name': 'IPhoneVersion'},
             'application': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'iphone_versions'", 'to': u"orm['application.Application']"}),
-            'appstore_id': ('django.db.models.fields.IntegerField', [], {'default': "''", 'null': 'True', 'blank': 'True'}),
+            'appstore_id': ('django.db.models.fields.IntegerField', [], {'default': "''", 'null': 'True', 'db_index': 'True', 'blank': 'True'}),
             'bundle_id': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'country': ('django.db.models.fields.CharField', [], {'default': "'us'", 'max_length': '2'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
@@ -158,6 +163,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'WorldRanking'},
             'category': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'world_rankings'", 'null': 'True', 'to': u"orm['application.Category']"}),
             'country': ('django.db.models.fields.CharField', [], {'default': "'us'", 'max_length': '2'}),
+            'currency': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'platform': ('django.db.models.fields.SmallIntegerField', [], {'default': '1'}),
             'ranking': ('jsonfield.fields.JSONField', [], {'default': '{}'}),

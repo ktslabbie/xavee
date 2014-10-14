@@ -61,7 +61,7 @@ var translationsEN = {
     CAT_6022:		"Catalogs",
     CAT_6023:		"Food & Drink",
     
-    CAT_6014:		"Games",
+    CAT_6014:		"All Games",
     CAT_7001:		"Action",
     CAT_7002:		"Adventure",
     CAT_7003:		"Arcade",
@@ -71,7 +71,6 @@ var translationsEN = {
     CAT_7007:		"Dice",
     CAT_7008:		"Educational",
     CAT_7009:		"Family",
-    CAT_7010:		"Kids",
     CAT_7011:		"Music",
     CAT_7012:		"Puzzle",
     CAT_7013:		"Racing",
@@ -146,7 +145,7 @@ var translationsJA = {
     CAT_6022:		"カタログ",
     CAT_6023:		"フード／ドリンク",
     
-    CAT_6014:		"ゲーム",
+    CAT_6014:		"全てのゲーム",
     CAT_7001:		"アクション",
     CAT_7002:		"アドベンチャー",
     CAT_7003:		"アーケード",
@@ -156,7 +155,6 @@ var translationsJA = {
     CAT_7007:		"さいころ",
     CAT_7008:		"教育",
     CAT_7009:		"ファミリー",
-    CAT_7010:		"キッズ",
     CAT_7011:		"ミュージック",
     CAT_7012:		"パズル",
     CAT_7013:		"レーシング",

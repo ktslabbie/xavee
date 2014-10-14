@@ -34,10 +34,10 @@ class ApplicationRanking(generics.GenericAPIView):
         
         obj = None
         
-        if category is None or int(category) <= 0:
-            obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=0)
-        else:
-            obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=category)
+#         if category is None or int(category) <= 0:
+#             obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=0)
+#         else:
+        obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=category)
             
         serializer = RankingSerializer(obj)
         return Response(serializer.data)
