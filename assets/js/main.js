@@ -12,6 +12,7 @@
  */
 
 $(function () {
+	
 	//use local CSS file as fallback if Bootstrap CDN fails
 	if ($('#css-check').is(':visible') === true) {
 		$('<link rel="stylesheet" type="text/css" href="/static/css/vendor/bootstrap.min.css">').appendTo('head');

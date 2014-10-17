@@ -1,4 +1,5 @@
 {% extends '__base.html' %} {% load i18n %} {% load staticfiles %}
+{% block ng_app %}{% endblock %}
 {% block content %}
 <div class="container">
 	{% include "_navbar.html" %}
@@ -7,12 +8,13 @@
 		{% block page_content %}
 		<img class="center-block" src="{% static 'img/xavee-banner.png' %}" />
 		<div class="page-header text-center">
-			<h1 translate="MAIN_TITLE"></h1>
+			<h1>{% trans "App Discovery Made Simple" %}</h1>
 			<br>
-			<p class="lead" translate="SUB_TITLE"></p>
+			<p class="lead">{% trans "Weed out the crap to find the best applications and games in the world." %}</p>
 		</div>
 		<div style="text-align: center;">
-	    	<a href="{% url 'application:application-ranking' %}" style="font-size: 36px;" target="_self" translate="TO_THE_RANKINGS"></a>
+	    	<a href="{% url 'application:application-index' %}" style="font-size: 36px;" target="_self">
+	    		{% trans "To The Rankings" %}</a>
 	    </div>
 		{% endblock %}
 		{% block page_footer %} {% endblock %}

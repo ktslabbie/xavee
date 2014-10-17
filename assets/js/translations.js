@@ -1,8 +1,8 @@
 var translationsEN = {
 		
-	MAIN_TITLE: "App Discovery Made Simple",
-	SUB_TITLE: "Weed out the crap to find the best applications and games in the world.",
-	TO_THE_RANKINGS: "To the rankings",
+//	MAIN_TITLE: "App Discovery Made Simple",
+//	SUB_TITLE: "Weed out the crap to find the best applications and games in the world.",
+//	TO_THE_RANKINGS: "To the rankings",
 	WORLD_RANKING_TITLE: "Worldwide appstore rankings",
 		
 	LANG_EN: "English",
@@ -22,13 +22,13 @@ var translationsEN = {
 	RU_NAME: "Russia",
 	NL_NAME: "The Netherlands",
 	
-	HOME:			"Home",
+	//HOME:			"Home",
 	COUNTRY:		"Country",
 	APPS:			"Apps",
 	GAMES:			"Games",
-	RANKINGS:		"Rankings",
-	BLOG:			"Blog",
-	ABOUT:			"About",
+	//RANKINGS:		"Rankings",
+	//BLOG:			"Blog",
+	//ABOUT:			"About",
 	PLATFORM:		"Platform",
 	RANKING_TYPE:	"Ranking type",
 	CATEGORY:		"Category",
@@ -84,9 +84,9 @@ var translationsEN = {
  
 var translationsJA = {
 		
-	MAIN_TITLE: "もっと賢く、もっと面白いアプリを",
-	SUB_TITLE: "神アプリだけを見つけましょう。",
-	TO_THE_RANKINGS: "ランキングへ",
+//	MAIN_TITLE: "もっと賢く、もっと面白いアプリを",
+//	SUB_TITLE: "神アプリだけを見つけましょう。",
+//	TO_THE_RANKINGS: "ランキングへ",
 	WORLD_RANKING_TITLE: "世界のApp Storeランキング",
 		
 	LANG_EN: "英語",

@@ -26,13 +26,15 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.controlle
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 })
 
-// configure routes
+// Configure routes.
 .config(function($routeProvider, $locationProvider) {
+	// Set base URL.
+	$('html').append( '<base href="/' + window.location.pathname.split("/")[1] + '/apps/">');
+	
 	$routeProvider
-
 		// route for the apps page
 		.when('/', {
-			templateUrl : '../../static/js/angular/templates/application-ranking.html',
+			templateUrl : TEMPLATE_BASE + '/application-ranking.html',
 			controller: 'RankingController'
 		});
 	
@@ -41,9 +43,12 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.controlle
 })
 
 .run(function($rootScope, $location) {
+	// Bind the image base dir to the root scope.
+	$rootScope.IMG_BASE = IMG_BASE;
+	$rootScope.TEMPLATE_BASE = TEMPLATE_BASE;
 	
 	// Bind the `$locationChangeSuccess` event on the rootScope, so that we dont need to 
-	// bind in induvidual controllers.
+	// bind in individual controllers.
 	$rootScope.$on('$locationChangeSuccess', function() {
 		$rootScope.actualSearch = $location.search();
 	});

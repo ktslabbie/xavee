@@ -18,6 +18,14 @@ def runserver():
     print(green("Starting local server..."))
     local("python manage.py runserver")
     
+def makemessages():
+    print(green("Generating translation files..."))
+    local("django-admin.py makemessages -l jp --ignore=venv/*")
+    
+def compilemessages():
+    print(green("Compiling translation files..."))
+    local("django-admin.py compliemessages")
+    
 def migrate():
     with settings(warn_only=True):
         print(green("Migrating local DB..."))
