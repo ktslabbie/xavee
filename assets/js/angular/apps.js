@@ -40,7 +40,7 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldrank
         'http://**.amazon.com/**',
     ]);
 	
-	$sceProvider.enabled(false);
+	//$sceProvider.enabled(false);
 }])
 
 // Configure routes.
