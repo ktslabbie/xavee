@@ -46,7 +46,10 @@ DATABASES = {
 # ====================================
 REST_FRAMEWORK = {
     'PAGINATE_BY': 25,
-    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)              
+    'DEFAULT_FILTER_BACKENDS':  ('rest_framework.filters.DjangoFilterBackend',),
+    
+    # This disables the browsable API.
+    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer', )              
 }
 
 

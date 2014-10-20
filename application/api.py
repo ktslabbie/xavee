@@ -19,24 +19,28 @@ class ApplicationMixin(object):
 class VersionMixin(object):
     serializer_class = IPhoneVersionSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    
+class DeveloperMixin(object):
+    queryset = Developer.objects.all()
+    serializer_class = DeveloperSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+
 
 # API view classes.
 class ApplicationList(ApplicationMixin, generics.ListAPIView):
     pass
 
 class ApplicationRanking(generics.GenericAPIView):
-    def get(self, request):
+    def get(self, request, country, platform, ranking_type, category):
         translation.activate(request.LANGUAGE_CODE)
         
-        country = request.GET.get('country')
-        ranking_type = request.GET.get('ranking_type')
-        category = request.GET.get('category')
+        if ranking_type == "free":
+            ranking_type = 1
+        elif ranking_type == "paid":
+            ranking_type = 2
+        elif ranking_type == "grossing":
+            ranking_type = 3
         
-        obj = None
-        
-#         if category is None or int(category) <= 0:
-#             obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=0)
-#         else:
         obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=category)
             
         serializer = RankingSerializer(obj)
@@ -56,7 +60,9 @@ class ApplicationDetail(ApplicationMixin, generics.RetrieveAPIView):
 class VersionDetail(VersionMixin, generics.RetrieveAPIView):
     pass
 
-class DeveloperDetail(generics.RetrieveAPIView):
-    queryset = Developer.objects.all()
-    serializer_class = DeveloperSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+# API view classes.
+class DeveloperList(DeveloperMixin, generics.ListAPIView):
+    pass
+
+class DeveloperDetail(DeveloperMixin, generics.RetrieveAPIView):
+    pass

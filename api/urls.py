@@ -5,7 +5,7 @@ Created on Jun 18, 2014
 '''
 from django.conf.urls import patterns, url, include
 from blog.api import PostList, PostDetail
-from application.api import ApplicationList, ApplicationDetail, ApplicationRanking, DeveloperDetail
+from application.api import ApplicationList, ApplicationDetail, ApplicationRanking, DeveloperList, DeveloperDetail
 from . import views
 
 # Additionally, we include the login URLs for the browseable API.
@@ -21,8 +21,10 @@ post_urls = patterns('',
 )
 
 app_urls = patterns('',
+    url(r'^/world-rankings/(?P<country>[\w\-]+)/(?P<platform>[\w\-]+)/(?P<ranking_type>[\w\-]+)/(?P<category>[0-9]+)/$', 
+                                            ApplicationRanking.as_view(),   name='application-ranking'),
     url(r'^/developers/(?P<pk>[0-9]+)/$',   DeveloperDetail.as_view(),      name='developer-detail'),
-    url(r'^/rankings$',                     ApplicationRanking.as_view(),   name='application-ranking'),
+    url(r'^/developers$',                   DeveloperList.as_view(),        name='developer-list'),
     url(r'^/(?P<pk>[0-9]+)/$',              ApplicationDetail.as_view(),    name='application-detail'),
     url(r'^$',                              ApplicationList.as_view(),      name='application-list'),
 )
@@ -30,5 +32,5 @@ app_urls = patterns('',
 urlpatterns = patterns('',
     url(r'/posts',  include(post_urls)),
     url(r'/apps',   include(app_urls)),
-    url(r'^$',     views.APIRootView.as_view()),
+    url(r'^$',                              views.APIRootView.as_view()),
 )

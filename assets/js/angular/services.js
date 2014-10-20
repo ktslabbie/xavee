@@ -19,23 +19,16 @@ xaveeAPIService.factory('Application', ['$resource', function($resource) {
     });
 }]);
 
-xaveeAPIService.factory('Ranking', ['$resource', function($resource) {
-    return $resource('/api/apps/rankings', { }, {
-    					//list: { isArray:true, method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
-    					ranking: { isArray:false, 
-    							   method:'get'
-    							    }
-    				});
+xaveeAPIService.factory('Developer', ['$resource', function($resource) {
+    return $resource('/api/apps/developers/:id', { id: '@id' }, {
+    					list: 		{ isArray:true,  method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
+    					developer:  { isArray:false, method:'get' }
+    });
 }]);
 
-xaveeAPIService.factory('AppID', function() {
-	  var appID = -1;
-
-	  var setID = function(id) {
-	      appID = id;
-	  }
-
-	  var getID = function(){
-	      return appID;
-	  }
-});
+xaveeAPIService.factory('WorldRanking', ['$resource', function($resource) {
+    return $resource('/api/apps/world-rankings/:country/:platform/:ranking_type/:category',
+    				{ country: '@country', platform: '@platform', ranking_type: '@ranking_type', category: '@category' }, {
+    					ranking: { isArray:false, method:'get' }
+    				});
+}]);

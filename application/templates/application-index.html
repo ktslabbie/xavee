@@ -1,6 +1,38 @@
 {% extends 'index.html' %}
 {% load staticfiles %}
+{% load compress %}
 {% block ng_app %}xavee.app{% endblock %}
 {% block page_content %}
-<div class="page-content" ng-view></div>
+	<div class="page-content" ng-view></div>
+{% endblock %}
+{% block pre_main_js %}
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-resource.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+	
+	{% compress js %}
+	<script>window.angular || document.write('<script src="{% static 'js/vendor/angular.min.js' %}"><\/script>')</script>
+	<script>try{angular.module("ngResource")}catch(err){document.write('<script src="{% static 'js/vendor/angular-resource.min.js' %}"><\/script>')}</script>
+	<script>try{angular.module("ngRoute")}catch(err){document.write('<script src="{% static 'js/vendor/angular-route.min.js' %}"><\/script>')}</script>
+	<script src="{% static 'js/vendor/ng-infinite-scroll.min.js' %}"></script>
+	<script src="{% static 'js/vendor/angular-translate.min.js' %}"></script>
+	<script charset="UTF-8" src="{% static 'js/translations.js' %}"></script>
+	<script>
+		// Base URLs for client-side statics.
+		var IMG_BASE 		= "{% static 'img' %}";
+		var TEMPLATE_BASE	= "{% static 'js/angular/templates' %}";
+	</script>
+	<script src="{% static 'js/angular/apps.js' %}"></script>
+	<script src="{% static 'js/angular/controllers/translation-controller.js' %}"></script>
+	<script src="{% static 'js/angular/controllers/developer-controller.js' %}"></script>
+	<script src="{% static 'js/angular/controllers/worldranking-controller.js' %}"></script>
+	<script src="{% static 'js/angular/services.js' %}"></script>
+	<script>
+		// Add the CSRF Token.
+		var app = angular.module('xavee.app');
+		app.config(['$httpProvider', function($httpProvider) {
+		    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+		}]);
+	</script>
+	{% endcompress %}
 {% endblock %}

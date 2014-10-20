@@ -9,7 +9,7 @@
 	<!-- <img class="navbar-brand" src="{% static 'img/xavee-banner.png' %}" style="height:70px;"></img> -->
 </div>
 
-<div class="navbar-collapse collapse" ng-controller="BaseController">
+<div class="navbar-collapse collapse">
 	<ul class="nav navbar-nav navbar-right">
 		<li class="{% active_page request 'home' %}">
 			<a href="{% url 'home' %}" target="_self">{% trans "Home" %}</a>
@@ -23,10 +23,48 @@
 		<li class="{% active_page request 'about' %}">
 			<a href="{% url 'about' %}" target="_self">{% trans "About" %}</a>
 		</li>
-		<li style="padding: 12px;">
-			<form action="{% url 'set_language' %}" method="post">
-				{% csrf_token %}
-				<input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>
+		
+		{# Language selector. #}
+		<li class="dropdown" style="padding: 12px 12px 4px 12px;">
+			<div class="dropdown-toggle pointer" id="languageDropdown" data-toggle="dropdown">
+				<img src="{% static 'img/blank.gif' %}" style="margin-top: 2px;" class="flag flag-{{LANGUAGE_CODE}}" alt="Current language" />
+				<span class="caret"></span>
+			</div>
+	        <ul class="dropdown-menu language-dropdown" role="menu" aria-labelledby="languageDropdown">
+		    	{% get_language_info_list for LANGUAGES as languages %}
+		    	{% for lang in languages %}
+		        <li role="presentation">
+                    <form name="setLang{{ lang.code }}" action="{% url 'set_language' %}" method="POST">{% csrf_token %}
+                        <input name="next" type="hidden" value=""/>
+                        <input type="hidden" name="language" value="{{ lang.code }}" />
+                        <a class="pointer" role="menuitem" tabindex="-1" onclick="updateLanguage('{{ lang.code }}')">
+                        	<img src="{% static 'img/blank.gif' %}" style="margin-bottom: 3px;" class="img-flag flag flag-{{ lang.code }}" alt="{{ lang.name_local }}" />
+                        	{{ lang.name_local }}
+                        </a>
+                    </form>
+                </li>
+	            {% endfor %}    
+			</ul>
+
+				<!-- <div class="dropdown">
+				  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>
+				  <i class="fa fa-language dropdown-toggle" style="font-size: 24px;" id="dropdownMenu1" data-toggle="dropdown">
+				    <span class="caret"></span>
+				  </i>
+				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				  	{% get_language_info_list for LANGUAGES as languages %}
+						{% for language in languages %}
+							<li role="presentation" {% if language.code == LANGUAGE_CODE %} class="selected"{% endif %}>
+								<a role="menuitem" tabindex="-1" onClick="$(this).closest('form').submit();">{{ language.name_local }}</a>
+							</li>
+							<option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+							    {{ language.name_local }}
+							</option>
+						{% endfor %}
+				  </ul>
+				</div> -->
+				
+				<!-- <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}"/>
 				<select style="background-color: #FFF;" class="btn" name="language" onChange="this.form.submit()">
 					{% get_language_info_list for LANGUAGES as languages %}
 						{% for language in languages %}
@@ -34,7 +72,8 @@
 							    {{ language.name_local }}
 							</option>
 						{% endfor %}
-				</select>
+				</select> -->
+				
 			</form>
 		</li>
 	</ul>

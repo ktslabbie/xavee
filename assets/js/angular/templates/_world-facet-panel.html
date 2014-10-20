@@ -1,10 +1,10 @@
- <div class="col-sm-6 col-sm-push-1 country-list">
+<div class="col-sm-6 col-sm-push-1 country-list">
 	
 	<p translate="COUNTRY"></p>
 	<div class="row">
 		<div class="col-xs-12 col-sm-8 col-md-6 country-selection" ng-repeat="country in countries">
 			<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="img-flag flag flag-{[{ country.code }]}" alt="{[{ country.name }]}" />
-			<a type="button" class="country-link" ng-click="changeCountry(country.code, $index)"
+			<a type="button" class="pointer" ng-click="changeCountry(country.code, $index)"
 					ng-class="{ 'active' : $index == selectedCountry }" ng-bind="country.name"></a>
 		</div>
 	</div>
@@ -23,12 +23,12 @@
 	
 	<p translate="RANKING_TYPE"></p>
 	<div class="btn-group">
-		<a type="button" ng-click="changeRankingType('1')" 
-			ng-class="{ 'active' : rankingTypeButton == '1' }" class="btn btn-default btn-ranking-type" translate="FREE"></a>
-		<a type="button" ng-click="changeRankingType('2')" 
-			ng-class="{ 'active' : rankingTypeButton == '2' }" class="btn btn-default btn-ranking-type" translate="PAID"></a>
-		<a type="button" ng-click="changeRankingType('3')" 
-			ng-class="{ 'active' : rankingTypeButton == '3' }" class="btn btn-default btn-ranking-type" translate="GROSSING"></a>
+		<a type="button" ng-click="changeRankingType('free')" 
+			ng-class="{ 'active' : rankingTypeButton == 'free' }" class="btn btn-default btn-ranking-type" translate="FREE"></a>
+		<a type="button" ng-click="changeRankingType('paid')" 
+			ng-class="{ 'active' : rankingTypeButton == 'paid' }" class="btn btn-default btn-ranking-type" translate="PAID"></a>
+		<a type="button" ng-click="changeRankingType('grossing')" 
+			ng-class="{ 'active' : rankingTypeButton == 'grossing' }" class="btn btn-default btn-ranking-type" translate="GROSSING"></a>
 	</div>
 	
 	<p translate="CATEGORY"></p>

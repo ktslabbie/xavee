@@ -29,6 +29,16 @@ div.container {
     padding-right: 5px;
 }
 
+
+/* ==========================================================================
+   Generic modifiers
+   ========================================================================== */
+
+.pointer {
+	cursor: pointer;
+}
+
+
 /* ==========================================================================
    Navbar styles
    ========================================================================== */
@@ -58,6 +68,10 @@ ul.nav li.active a {
 	color: #000 !important;
 	font-weight: bold;
     /* background-color: #FFF !important; */
+}
+
+.language-dropdown {
+	padding-left: 16px;
 }
 
 /* ==========================================================================
@@ -224,10 +238,6 @@ div.country-list {
 
 div.country-selection {
 	margin-bottom: 2px;
-	cursor: pointer;
-}
-
-a.country-link {
 	cursor: pointer;
 }
 

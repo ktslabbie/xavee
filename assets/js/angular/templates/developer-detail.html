@@ -1,0 +1,11 @@
+<div class="row">
+	<h3 class="developer-name" ng-bind="developer.name"></h3>
+	<p>All apps:</p>
+	<br/>
+	<div class="col-xs-12 col-sm-8 col-md-4 developer-apps" ng-repeat="app in developer.developers">
+			<img ng-src="{[{ app.img_small }]}" class="list-icon" />
+			<br/>
+			<p ng-bind="app.title"></p>
+			<br/>
+	</div>
+</div>

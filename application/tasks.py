@@ -164,11 +164,11 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
             'application': {
                 'id': version.application.id,
                 'title': version.application.title,
-#                 'slug': version.application.slug,
+                'slug': version.application.slug,
                 'developer': {
                     'id': version.application.developer.id,
                     'name': version.application.developer.name,
-#                     'slug': version.application.developer.slug,
+                    'slug': version.application.developer.slug,
                 },
                 'img_small': version.application.img_small,
                 'itunes_world_rating': version.application.itunes_world_rating,
@@ -217,14 +217,9 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
     else:
         # Found an app. Get the details. There will always be only one result.
         print("Found an app for " + version_country + "!")
-        app_detail = detail_data['results'][0]
-        title = None
         
-        if str(app_detail['trackId']) == "892053206":
-            title = "Model Airfields"
-        else: 
-            title = app_detail['trackName']
-        
+        app_detail = detail_data['results'][0]        
+        title = app_detail['trackName']
         img_small = app_detail['artworkUrl60']
         
         # There are some apps without an artist URL. Slugify the name for these ourselves, rather than getting it from the URL.
@@ -353,15 +348,15 @@ def get_japanese_app_ids():
         rating = version.application.itunes_world_rating
         rating_count = version.application.itunes_world_rating_count
         
-        bayesian = (500 * Decimal(2.75) + (rating * rating_count)) / (500 + rating_count)
+        bayesian = (1000 * Decimal(2.75) + (rating * rating_count)) / (1000 + rating_count)
         
         
-        results.append((version.appstore_id, round(bayesian, 2)))
+        results.append((version.appstore_id, round(bayesian, 2), rating_count))
     
     sorted_by_bayesian = sorted(results, key=lambda tup: tup[1], reverse=True)
     
     for tup in sorted_by_bayesian:
-        out_str += str(tup[0]) + ',' + str(tup[1])  +  '\n'
+        out_str += str(tup[0]) + ',' + str(tup[1])  + ',' + str(tup[2])  + '\n'
     
     f = open('japanese.apps.txt','w')    
     f.write(out_str)

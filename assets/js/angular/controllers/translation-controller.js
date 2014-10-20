@@ -5,7 +5,7 @@
  * 
  * File for Angular.js translation controllers.
  */
-var xaveeController = angular.module('xavee.tlcontroller', [])
+var xaveeController = angular.module('xavee.tl-controller', [])
 
 .controller('TLController', ['$scope', '$translate', function($scope, $translate) {
 	

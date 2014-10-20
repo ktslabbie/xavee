@@ -5,8 +5,6 @@ Created on Jun 8, 2014
 '''
 from rest_framework import serializers
 from .models import Application, IPhoneVersion, WorldRanking, Developer, Category
-from django import utils
-from xavee import settings
 
 class JSONField(serializers.WritableField):
     def to_native(self, obj):

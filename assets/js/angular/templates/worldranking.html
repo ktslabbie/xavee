@@ -3,6 +3,9 @@
 	<div class="col-md-12 facet-panel">
 		<div class="row facet" ng-include="TEMPLATE_BASE + '/_world-facet-panel.html'"></div>
 	</div>
+	<div class="col-md-offset-8 col-md-4 ranking-date text-muted" ng-hide="!ranking.since">
+		<h6 class="ranking-date">Last updated: <span ng-bind="ranking.since | date:'medium'"></span></h6>
+	</div>
 	<div class="col-md-12 list" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='1'>
 		<div class="row list-entry row-narrow-gutter" ng-repeat="app in ranking.ranking | limitTo:pageSize">
 			<div class="col-xs-1 col-sm-1 col-md-1 col-rank col-narrow-gutter">
