@@ -1,7 +1,7 @@
 <div class="row">
 	<h1 class="ranking-title" translate="WORLD_RANKING_TITLE"></h1>
 	<div class="col-md-12 facet-panel">
-		<div class="row facet" ng-include="TEMPLATE_BASE + '/_world-facet-panel.html'"></div>
+		<div class="row facet" ng-include="facetPanel.templateID"></div>
 	</div>
 	<div class="col-md-offset-8 col-md-4 ranking-date text-muted" ng-hide="!ranking.since">
 		<h6 class="ranking-date">Last updated: <span ng-bind="ranking.since | date:'medium'"></span></h6>

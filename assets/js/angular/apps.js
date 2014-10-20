@@ -27,6 +27,16 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldrank
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 })
 
+.config(['$sceDelegateProvider', function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'https://**.amazonaws.com/**',
+        'http://**.amazonaws.com/**',
+        'https://**.amazon.com/**',
+        'http://**.amazon.com/**',
+    ]);
+}])
+
 // Configure routes.
 .config(function($routeProvider, $locationProvider) {
 	// Set base URL.

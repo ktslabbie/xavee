@@ -8,10 +8,14 @@
 var xaveeController = angular.module('xavee.worldranking-controller', [])
 
 // Controller for the Ranking page.
-.controller('RankingController', ['$scope', '$routeParams', '$location', '$controller', 'WorldRanking', 
-                                       function($scope, $routeParams, $location, $controller, WorldRanking) {
+.controller('RankingController', ['$scope', '$routeParams', '$location', '$controller', '$sce', 'WorldRanking', 
+                                       function($scope, $routeParams, $location, $controller, $sce, WorldRanking) {
 	
 	angular.extend(this, $controller('TLController', {$scope: $scope}));
+	
+	$scope.facetPanel = {
+	        templateID:  $sce.trustAsResourceUrl(TEMPLATE_BASE + '/_world-facet-panel.html'),
+	}
 	
 	var LANG_TO_COUNTRY = { 'en': 'us', 'ja': 'jp' };
 	var COUNTRY_TO_INDEX = { 'us': 0, 'jp': 1, 'gb': 2, 'de': 3, 'fr': 4, 'kr': 5, 'au': 6, 'cn': 7, 'ca': 8, 'es': 9, 'it': 10, 'ru': 11, 'nl': 12 };

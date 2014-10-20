@@ -20,12 +20,17 @@ def runserver():
     
 def makemessages():
     print(green("Generating translation files..."))
-    local("django-admin.py makemessages -l jp --ignore=venv/*")
+    local("django-admin.py makemessages -l ja --ignore=venv/*")
     
 def compilemessages():
     print(green("Compiling translation files..."))
-    local("django-admin.py compliemessages")
+    local("django-admin.py compilemessages")
     
+def collectstatic():
+    print(green("Compressing JS/CSS and uploading statics to S3..."))
+    local("python manage.py compress")
+    local("python manage.py collectstatic")
+
 def migrate():
     with settings(warn_only=True):
         print(green("Migrating local DB..."))
@@ -34,7 +39,7 @@ def migrate():
         local("python manage.py schemamigration --auto referrer")
         local("python manage.py migrate")
 
-def update_ranking():
+def update_worldranking():
     print(green("Dumping WorldRanking table..."))
     local("pg_dump -Fc --no-acl --no-owner -h localhost -U Kristian -t application_worldranking xavee_db > worldranking.dump")
     print(green("Uploading dump to Amazon S3..."))
