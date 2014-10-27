@@ -7,14 +7,16 @@
  */
 
 xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldranking-controller', 
-                                        'xavee.developer-controller', 'xavee.tl-controller',
+                                        'xavee.app-controller', 'xavee.developer-controller', 'xavee.tl-controller',
                                         'infinite-scroll', 'pascalprecht.translate'])
-                                        
+
+// Change template variable symbols to avoid overlap with Django's symbols ( {{ }} ).
 .config(function($interpolateProvider) {
 	$interpolateProvider.startSymbol('{[{');
 	$interpolateProvider.endSymbol('}]}');
 })
 
+// Set up the languages.
 .config(['$translateProvider', function ($translateProvider) {
 	// Add translation tables.
 	$translateProvider.translations('en', translationsEN);
@@ -23,24 +25,18 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldrank
 	$translateProvider.fallbackLanguage('en');
 }])
 
+// Set the HTTP headers to work with CORS.
 .config(function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    //$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 })
 
-.config(['$sceProvider', '$sceDelegateProvider', function($sceProvider, $sceDelegateProvider) {
-    
+// White-list Amazon S3, since our templates need to be loaded from there.
+.config(['$sceDelegateProvider', function($sceDelegateProvider) {
 	$sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'https://xavee.s3.amazonaws.com/**',
-        'https://**.amazonaws.com/**',
-        'http://**.amazonaws.com/**',
-        'https://**.amazon.com/**',
-        'http://**.amazon.com/**',
     ]);
-	
-	//$sceProvider.enabled(false);
 }])
 
 // Configure routes.
@@ -63,6 +59,18 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldrank
 	            developer: function($route, Developer) {
 	            	var devID = $route.current.params.developerID.split('/')[0];
 	                return Developer.developer({id:devID});
+	            }
+	        }
+		})
+		
+		// Route for the app detail pages.
+		.when('/:appID*', {
+			templateUrl : TEMPLATE_BASE + '/app-detail.html',
+			controller: 'AppController',
+			resolve: {
+	            app: function($route, App) {
+	            	var appID = $route.current.params.appID.split('/')[0];
+	                return App.app({id:appID});
 	            }
 	        }
 		})

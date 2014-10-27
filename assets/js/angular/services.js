@@ -12,10 +12,10 @@ xaveeAPIService.factory('Post', ['$resource', function($resource) {
     return $resource('/api/posts/:slug', { slug: '@slug' });
 }]);
 
-xaveeAPIService.factory('Application', ['$resource', function($resource) {
+xaveeAPIService.factory('App', ['$resource', function($resource) {
     return $resource('/api/apps/:id', { id: '@id' }, {
-    					//list: { isArray:true, method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
-    					apps: { isArray:false, method:'get' }
+    					list: { isArray:true,  method:'get', transformResponse: function (data, headers) { return JSON.parse(data).results; }},
+    					app:  { isArray:false, method:'get' }
     });
 }]);
 
@@ -28,7 +28,7 @@ xaveeAPIService.factory('Developer', ['$resource', function($resource) {
 
 xaveeAPIService.factory('WorldRanking', ['$resource', function($resource) {
     return $resource('/api/apps/world-rankings/:country/:platform/:ranking_type/:category',
-    				{ country: '@country', platform: '@platform', ranking_type: '@ranking_type', category: '@category' }, {
+    				{	country: '@country', platform: '@platform', ranking_type: '@ranking_type', category: '@category' }, {
     					ranking: { isArray:false, method:'get' }
     				});
 }]);

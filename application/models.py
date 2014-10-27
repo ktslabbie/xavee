@@ -115,19 +115,19 @@ class IPhoneVersion(BaseModel):
         return u'%s (iPhone version)' % (self.application.title)
 
 
-# class Ranking(models.Model):
-#     ''' Database model for App version rankings. '''
-#     version = models.ForeignKey(IPhoneVersion, related_name='rankings')
-#     ranking_type = models.SmallIntegerField(choices=dicts.TYPE_CHOICES, default=dicts.TOP_GROSSING)
-#     since = models.DateTimeField(auto_now_add=True)
-#     category = models.ForeignKey(Category, blank=True, null=True, related_name='rankings')
-#     rank = models.SmallIntegerField(null=False, default=-1)
-#     
-#     class Meta:
-#         ordering = ["rank"]
-#      
-#     def __unicode__(self):
-#         return u'%s' % self.rank
+class Ranking(models.Model):
+    ''' Database model for App version rankings. '''
+    version = models.ForeignKey(IPhoneVersion, related_name='rankings')
+    ranking_type = models.SmallIntegerField(choices=dicts.TYPE_CHOICES, default=dicts.TOP_GROSSING)
+    since = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, blank=True, null=True, related_name='rankings')
+    rank = models.SmallIntegerField(null=False, default=-1)
+     
+    class Meta:
+        ordering = ["rank"]
+      
+    def __unicode__(self):
+        return u'%s' % self.rank
 
 class WorldRanking(models.Model):
     ''' Database model for App version world rankings. '''

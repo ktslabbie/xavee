@@ -5,6 +5,9 @@ Created on Aug 19, 2014
 '''
 from fabric.api import *
 from fabric.colors import green, red
+from fabric.contrib import django
+
+django.project('xavee')
 
 def celery():
     print(green("Starting Celery worker..."))
@@ -28,6 +31,7 @@ def compilemessages():
     
 def collectstatic():
     print(green("Compressing JS/CSS and uploading statics to S3..."))
+    django.settings_module('xavee.settings.deploy')
     local("python manage.py compress")
     local("python manage.py collectstatic")
 
@@ -50,16 +54,22 @@ def update_worldranking():
     local("aws s3 rm s3://xavee/worldranking.dump")
     local("rm worldranking.dump")
     
-def update_category():
-    print(green("Dumping Category table..."))
-    local("pg_dump -Fc --no-acl --no-owner -h localhost -U Kristian -t application_category xavee_db > category.dump")
-    print(green("Uploading dump to Amazon S3..."))
-    local("aws s3 cp --acl public-read category.dump s3://xavee/")
-    print(green("Restoring Category table into remote Heroku DB..."))
-    local("heroku pgbackups:restore DATABASE 'https://s3-ap-northeast-1.amazonaws.com/xavee/category.dump' --confirm xavee")
-    print(green("Finally, deleting the dump from Amazon S3 and locally."))
-    local("aws s3 rm s3://xavee/category.dump")
-    local("rm category.dump")
+# def update_category():
+#     print(green("Dumping Category table..."))
+#     local("pg_dump -Fc --no-acl --no-owner -h localhost -U Kristian -t application_category xavee_db > category.dump")
+#     print(green("Uploading dump to Amazon S3..."))
+#     local("aws s3 cp --acl public-read category.dump s3://xavee/")
+#     print(green("Restoring Category table into remote Heroku DB..."))
+#     local("heroku pgbackups:restore DATABASE 'https://s3-ap-northeast-1.amazonaws.com/xavee/category.dump' --confirm xavee")
+#     print(green("Finally, deleting the dump from Amazon S3 and locally."))
+#     local("aws s3 rm s3://xavee/category.dump")
+#     local("rm category.dump")
+
+def backup_db():
+    with settings(warn_only=True):
+        print(green("Backing up the DB..."))
+        local("dropdb backup_xavee_db")
+        local("createdb -O Kristian -T xavee_db backup_xavee_db")
 
 def test():
     print("Beginning unit tests...")
@@ -68,7 +78,7 @@ def test():
     local("python functional_tests.py")
 
 def deploy():
-    print(green("Starting local deployment process..."))
+    print(green("Starting full deployment process..."))
     test()
     
     

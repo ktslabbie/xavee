@@ -13,7 +13,7 @@ import json, requests
 from unidecode import unidecode
 from decimal import Decimal
 from django.template import defaultfilters
-from .models import Application, IPhoneVersion, Developer, Category, WorldRanking
+from .models import Application, IPhoneVersion, Developer, Category, WorldRanking, Ranking
 from core import utils, dicts
 
 # Celery logger.
@@ -37,8 +37,8 @@ world_rankings = { k:[] for k in COUNTRIES }
 
 @shared_task
 def collect_all_ios_rankings(limit):
-    for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
-#    for cat_id in range(7007, 7020):
+    #for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
+    for cat_id in [0] + [6014]:
         collect_ios_ranking(dicts.TOP_FREE, cat_id, limit)
         collect_ios_ranking(dicts.TOP_PAID, cat_id, limit)
         collect_ios_ranking(dicts.TOP_GROSSING, cat_id, limit)
@@ -106,7 +106,7 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         return
     
     # Initialize the ranking and the rankings list for this country.
-    # rankings = []
+    rankings = []
     rank_counter = 1
     
     # Iterate over the apps in the JSON list retrieved.
@@ -141,7 +141,11 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
                     lookup_and_add_ios_app(appstore_id, version_country, version.application)
                 else:
                     version = lookup_and_add_ios_app(appstore_id, version_country, None)
-                    
+            
+            # Shouldn't happen but does sometimes. iTunes error. Just skip if None.
+            if version is None:
+                continue
+                
             # Get the world average rating and total rating count by averaging over all versions.
             compute_itunes_world_rating(version.application)
             
@@ -152,8 +156,9 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         # We should have a version now.
         assert(version is not None)
         
-        # Time to create the new ranking for this version and add it to the list (we save to DB in bulk later).
-        # rankings.append(Ranking(version=version, ranking_type=ranking_type, category=category, rank=rank_counter))
+        if category.id == 0 or category.id == 6014:
+            # Create the new ranking (only all apps and all games) for this version and add it to the list (we save to DB in bulk later).
+            rankings.append(Ranking(version=version, ranking_type=ranking_type, category=category, rank=rank_counter))
         
         # Also add the rank to a dictionary we will use later to add foreign rankings to apps.
         countryrank_by_app.setdefault(version.application.id, {})[country] = rank_counter
@@ -188,9 +193,10 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         # Increment the rank counter.
         rank_counter += 1
     
-    # Collected all rankings. Remove the previous ranking and add the new ones.
-    # Ranking.objects.filter(ranking_type=ranking_type, version__country=country).delete()
-    # Ranking.objects.bulk_create(rankings)
+    if category.id == 0 or category.id == 6014:
+        # Collected all rankings. Remove the previous ranking and add the new ones.
+        Ranking.objects.filter(ranking_type=ranking_type, category=category, version__country=country).delete()
+        Ranking.objects.bulk_create(rankings)
 
 def lookup_and_add_ios_app(appstore_id, version_country, application):
     '''

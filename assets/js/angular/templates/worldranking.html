@@ -6,7 +6,7 @@
 	<div class="col-md-offset-8 col-md-4 ranking-date text-muted" ng-hide="!ranking.since">
 		<h6 class="ranking-date">Last updated: <span ng-bind="ranking.since | date:'medium'"></span></h6>
 	</div>
-	<div class="col-md-12 list" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='1'>
+	<div class="col-md-12 list" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='0'>
 		<div class="row list-entry row-narrow-gutter" ng-repeat="app in ranking.ranking | limitTo:pageSize">
 			<div class="col-xs-1 col-sm-1 col-md-1 col-rank col-narrow-gutter">
 				#<span ng-bind="$index+1"></span>
@@ -15,8 +15,8 @@
 				<img class="list-icon" ng-src="{[{ app.application.img_small }]}" />
 			</div>
 			<div class="col-xs-7 col-xs-push-2 col-sm-10 col-sm-push-0 col-md-6 col-title col-narrow-gutter">
-				<a class="app-title" href="https://itunes.apple.com/{[{ ranking.country }]}/app/id{[{ app.appstore_id }]}" target="_blank" ng-click="sendID(app.application.id)" ng-bind="app.application.title"></a>
-				<span class="small" ng-cloak>(<a class="app-title" href="/{[{ activeLanguage }]}/apps/developers/{[{ app.application.developer.id }]}" ng-bind="app.application.developer.name"></a>)</span>
+				<a class="app-title" href="{[{ app.application.id }]}/{[{ app.application.slug }]}" ng-bind="app.application.title"></a>
+				<span class="small" ng-cloak>(<a class="app-title" href="developers/{[{ app.application.developer.id }]}/{[{ app.application.developer.slug }]}" ng-bind="app.application.developer.name"></a>)</span>
 				<span class="btn btn-xs btn-glyph glyphicon glyphicon-chevron-down" ng-class="{true: 'glyphicon-chevron-down', false: 'glyphicon-chevron-up'}[!details]" ng-click="details = !details"></span>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-4 col-rankings col-narrow-gutter">
