@@ -1,13 +1,107 @@
+
 <div class="row">
 	<div class="col-md-1 col-icon col-narrow-gutter">
 		<img class="list-icon" ng-src="{[{ app.img_small }]}" />
 	</div>
-	<div class="col-md-11">
-		<h3 class="app-title" ng-bind="app.title"></h3>
+	<div class="col-md-9">
+		<h3 class="app-title" style="margin-top: 4px;" ng-bind="app.title"></h3>
+		<a href="developers/{[{ app.developer.id }]}/{[{ app.developer.slug }]}" ng-bind="app.developer.name"></a>
+	</div>
+	<div class="col-md-2 text-center">
+		<div class="row" style="font-size: 16px;">Xavee Score</div>
+		<div class="row">
+			<span style="font-size: 46px; font-weight: bold;" ng-class="xaveeRatingClass" ng-bind="xaveeRating"></span>
+		</div>
+	</div>
+</div>
+
+<div class="row" style="padding: 16px;">
+	<h4 style="margin-top: 8px;">Categories</h4>
+	<div class="col-md-3" ng-repeat="cat in app.categories"> 
+		<span ng-bind="cat.name"></span>
+	</div>
+</div>
+
+<div class="row" style="padding: 16px;">
+	<h4 style="margin-top: 8px;">Description</h4>
+	<div id="description" class="col-md-11 description-panel-closed" ng-bind="itunesApp.description" see-more></div>
+	<div id="seemore" class="col-md-12 text-right" style="height:24px;"></div>
+</div>
+
+<div class="row" style="padding: 16px;" ng-show="app.title && !hasAchievements">
+	<div class="col-md-12 text-muted">No achievements.</div>
+</div>
+
+<div class="row app-entry shadow" style="padding: 16px; background-color: #DFFFDF;" ng-show="hasAchievements">
+	<div class="col-md-12" ng-show="numberOfOverallRankings > 0" style="margin-bottom: 32px;">
+		<h4 style="margin-top: 0px;">In <span ng-bind="numberOfOverallRankings"></span> top 200 overall ranking(s)
+			<span class="btn btn-xs btn-glyph glyphicon glyphicon-chevron-up" ng-class="{true: 'glyphicon-chevron-down', false: 'glyphicon-chevron-up'}[!showTopRankings]" ng-click="showTopRankings = !showTopRankings"></span>
+		</h4>
+		<div class="col-md-4" ng-repeat="rank in rankings | orderBy:'rank'" ng-show="showTopRankings" ng-if="rank.category.id == 0 || rank.category.id == 6014">
+		<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag-small flag-{[{ rank.country }]}"/>: 
+			#<span ng-bind="rank.rank"></span> in 
+			<a href="world-rankings/{[{ rank.country }]}/iphone/{[{ rank.ranking_type_str }]}/{[{ rank.category.id }]}">
+				<span ng-bind="rank.ranking_type_loc_str"></span> (<span ng-bind="rank.category.name"></span>)
+			</a>
+		</div>
+	</div>
+	<div class="col-md-12" ng-show="numberOfCategoryRankings > 0">
+		<h4 style="margin-top: 0px;">In <span ng-bind="numberOfCategoryRankings"></span> top 10 category ranking(s)
+			<span class="btn btn-xs btn-glyph glyphicon glyphicon-chevron-up" ng-class="{true: 'glyphicon-chevron-down', false: 'glyphicon-chevron-up'}[!showTopCatRankings]" ng-click="showTopCatRankings = !showTopCatRankings"></span>
+		</h4>
+		<div class="col-md-4" ng-repeat="rank in rankings | orderBy:'rank'" ng-show="showTopCatRankings" ng-if="rank.category.id != 0 && rank.category.id != 6014">
+		<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag-small flag-{[{ rank.country }]}"/>: 
+			#<span ng-bind="rank.rank"></span> in 
+			<a href="world-rankings/{[{ rank.country }]}/iphone/{[{ rank.ranking_type_str }]}/{[{ rank.category.id }]}">
+				<span ng-bind="rank.ranking_type_loc_str"></span> (<span ng-bind="rank.category.name"></span>)
+			</a>
+		</div>
 	</div>
 	
-	
 </div>
-<div class="row" style="margin-top: 16px;">
-	<p>By <a href="developers/{[{ app.developer.id }]}/{[{ app.developer.slug }]}" ng-bind="app.developer.name"></a></p>
+
+<div class="row app-entry shadow" style="padding: 16px 16px 16px 16px;">
+	<div class="col-md-8">
+		<h4 style="margin-top: 0px;"><span ng-bind="app.iphone_versions.length"></span> iPhone version(s) 
+			<span class="btn btn-xs btn-glyph glyphicon glyphicon-chevron-up" ng-class="{true: 'glyphicon-chevron-down', false: 'glyphicon-chevron-up'}[!showVersions]" ng-click="showVersions = !showVersions"></span>
+		</h4>
+	</div>
+	<div class="col-md-4">
+		Average rating: <span ng-class="averageRatingClass" ng-bind="app.itunes_world_rating"></span> (<span ng-bind="app.itunes_world_rating_count"></span> ratings)
+	</div>
+	 
+	<div class="col-md-12" ng-show="showVersions">
+		<div class="col-md-7 app-title">
+			<strong>Title</strong>
+		</div>
+		<div class="col-md-1">
+			<strong>Price</strong>
+		</div>
+		<div class="col-md-2">
+			<strong>Release date</strong>
+		</div>
+		<div class="col-md-1">
+			<strong>Rating</strong>
+		</div>
+		<div class="col-md-1">
+			<strong>Count</strong>
+		</div>
+	</div>
+	<div class="col-md-12" ng-repeat="ver in app.iphone_versions">
+		<div class="col-md-7 app-title">
+			<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag-small flag-{[{ ver.country }]}"/> <a href="https://itunes.apple.com/{[{ ver.country }]}/app/id{[{ ver.appstore_id }]}" target="_blank"><span ng-bind="ver.title"></span></a>
+		</div>
+		<div class="col-md-1">
+			<a href="https://itunes.apple.com/{[{ ver.country }]}/app/id{[{ ver.appstore_id }]}" target="_blank"><span ng-bind="getPrice(ver.currency, ver.price)"></span></a>
+		</div>
+		<div class="col-md-2">
+			<span ng-bind="ver.release_date | date"></span>
+		</div>
+		<div class="col-md-1">
+			<span ng-bind="ver.overall_rating"></span>
+		</div>
+		<div class="col-md-1">
+			<span ng-bind="ver.overall_count"></span>
+		</div>
+	</div>
 </div>

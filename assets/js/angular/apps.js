@@ -6,7 +6,7 @@
  * File for Angular.js apps.
  */
 
-xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldranking-controller', 
+xaveeApp = angular.module('xavee.app', ['ngRoute', 'ngAnimate', 'xavee.api', 'xavee.base-controller', 'xavee.nav-controller', 'xavee.worldranking-controller', 
                                         'xavee.app-controller', 'xavee.developer-controller', 'xavee.tl-controller',
                                         'infinite-scroll', 'pascalprecht.translate'])
 
@@ -31,11 +31,12 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldrank
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 })
 
-// White-list Amazon S3, since our templates need to be loaded from there.
+// White-list Amazon S3 and iTunes, since our templates/app info need to be loaded from there.
 .config(['$sceDelegateProvider', function($sceDelegateProvider) {
 	$sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'https://xavee.s3.amazonaws.com/**',
+        'https://itunes.apple.com/**',
     ]);
 }])
 
@@ -97,10 +98,4 @@ xaveeApp = angular.module('xavee.app', ['ngRoute', 'xavee.api', 'xavee.worldrank
 		$rootScope.activeLanguage = lang;
 		$translate.use($rootScope.activeLanguage);
 	};
-	
-	// Bind the `$locationChangeSuccess` event on the rootScope, so that we dont need to 
-	// bind in individual controllers.
-//	$rootScope.$on('$locationChangeSuccess', function() {
-//		$rootScope.actualSearch = $location.search();
-//	});
 });

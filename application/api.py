@@ -7,8 +7,8 @@ from rest_framework import permissions, generics
 from django.shortcuts import get_object_or_404
 from django.utils import translation
 from rest_framework.response import Response
-from .models import WorldRanking, Application, Developer
-from .serializers import ApplicationSerializer, IPhoneVersionSerializer, RankingSerializer, DeveloperSerializer
+from .models import IPhoneVersion, Ranking, WorldRanking, Application, Developer
+from .serializers import ApplicationSerializer, SimpleApplicationSerializer, IPhoneVersionSerializer, WorldRankingSerializer, DeveloperSerializer
 
 # API Mixins.
 class ApplicationMixin(object):
@@ -16,7 +16,8 @@ class ApplicationMixin(object):
     serializer_class = ApplicationSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     
-class VersionMixin(object):
+class IPhoneVersionMixin(object):
+    queryset = IPhoneVersion.objects.all()
     serializer_class = IPhoneVersionSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     
@@ -25,10 +26,21 @@ class DeveloperMixin(object):
     serializer_class = DeveloperSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-
 # API view classes.
 class ApplicationList(ApplicationMixin, generics.ListAPIView):
-    pass
+    serializer_class = SimpleApplicationSerializer
+    
+    def get_queryset(self):
+        """
+        This view should return a list of:
+            if q, all tags that contain q
+            else, all tags
+        """
+        queryset = Application.objects.all()
+        query = self.request.QUERY_PARAMS.get('q', None)
+        if query is not None:
+            queryset = queryset.filter(title__istartswith=query)[:5]
+        return queryset
 
 class ApplicationRanking(generics.GenericAPIView):
     def get(self, request, country, platform, ranking_type, category):
@@ -43,21 +55,17 @@ class ApplicationRanking(generics.GenericAPIView):
         
         obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=category)
             
-        serializer = RankingSerializer(obj)
+        serializer = WorldRankingSerializer(obj)
         return Response(serializer.data)
     
-# class ApplicationVersionList(RankingMixin, generics.ListAPIView):
-#     def get_queryset(self):
-#         ranking_type = self.request.GET.get('ranking_type')
-#         if ranking_type:
-#             return WorldRanking.objects.filter(version__application__pk=self.kwargs.get('pk'), ranking_type=ranking_type)
-#         else:
-#             return WorldRanking.objects.filter(version__application__pk=self.kwargs.get('pk'))
+class ApplicationVersionList(IPhoneVersionMixin, generics.ListAPIView):
+    def get_queryset(self):
+        return Ranking.objects.filter(version__application__pk=self.kwargs.get('pk'))
         
 class ApplicationDetail(ApplicationMixin, generics.RetrieveAPIView):
     pass
 
-class VersionDetail(VersionMixin, generics.RetrieveAPIView):
+class VersionDetail(IPhoneVersionMixin, generics.RetrieveAPIView):
     pass
 
 # API view classes.

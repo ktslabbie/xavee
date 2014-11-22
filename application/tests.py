@@ -8,43 +8,7 @@ from math import log
 # Create your tests here.
 class AppCollectionTaskTest(TestCase):
     
-    def test_rating_weighting(self):
-        
-        log_p = 10
-        ratings = [ [4.5, 5423], [2.51, 15], [5.0, 6], [3.84, 88576], [1.32, 4532] ]
-        total_count = 0.0
-        total_count2 = 0.0
-        max_count = 0
-        
-        for rating in ratings:
-            
-            #print "log(rating): " + str(log10(rating[0]))
-            #print "log(rating count): " + str(log(rating[1], log_p))
-            #print "weighted rating: " + str(rating[0] * log10(rating[1]))
-            
-            if rating[1] > max_count:
-                max_count = rating[1]
-            
-            #total_count += log10(rating[0])
-            #total_count2 += log10(rating[1])
-        
-        max_count = float(max_count)
-        #print "Max count " + str(max_count)
-        
-        for rating in ratings:
-            #print "Normalized weight: " + str( log10(rating[1]) / max )
-            #print "Rating: " + str(rating[0]) + ", rating count: " + str(rating[1])
-            #print "Normalized rating: " + str( log(rating[1], 10) * (rating[1] / max_count)   )
-            print ""
-            print "Rating: " + str(rating[0]) + " (" + str(rating[1]) + ")" 
-            brating = (3 * 2.75 + (rating[0] * rating[1])) / (3 + rating[1])
-            
-            print "Bayesian rating: " + str(brating)
-            
-        
-        #print ""
-        #print "Sum log(rating): " + str(total_count)
-        #print "Sum log(rating count): " + str(total_count2)
+    
     
     def test_lookup_and_add_ios_app(self):
         ''' Test to make sure looking up and saving apps from the iTunes lookup API works. '''

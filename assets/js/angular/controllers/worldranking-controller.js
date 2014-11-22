@@ -8,21 +8,19 @@
 var xaveeController = angular.module('xavee.worldranking-controller', [])
 
 // Controller for the Ranking page.
-.controller('RankingController', ['$scope', '$routeParams', '$location', '$controller', 'WorldRanking', 
-                                       function($scope, $routeParams, $location, $controller, WorldRanking) {
+.controller('RankingController', ['$scope', '$routeParams', '$location', '$controller', '$timeout', 'StoreID', 'WorldRanking', 
+                                       function($scope, $routeParams, $location, $controller, $timeout, StoreID, WorldRanking) {
 	
+	angular.extend(this, $controller('BaseController', {$scope: $scope}));
 	angular.extend(this, $controller('TLController', {$scope: $scope}));
-	
-	var LANG_TO_COUNTRY = { 'en': 'us', 'ja': 'jp' };
-	var COUNTRY_TO_INDEX = { 'us': 0, 'jp': 1, 'gb': 2, 'de': 3, 'fr': 4, 'kr': 5, 'au': 6, 'cn': 7, 'ca': 8, 'es': 9, 'it': 10, 'ru': 11, 'nl': 12 };
 	
 	$scope.platformButton = $routeParams.platform || "iphone";
 	$scope.rankingTypeButton = $routeParams.ranking_type || "free";
-	$scope.countryButton = $routeParams.country || LANG_TO_COUNTRY[$scope.activeLanguage];
+	$scope.activeCountry = $routeParams.country || LANG_TO_COUNTRY[$scope.activeLanguage];
 	$scope.activeCategoryID = $routeParams.category || 6014;
 	$scope.activeGameCategory = 6014;
 	$scope.activeAppCategory = 0;
-	$scope.selectedCountry = COUNTRY_TO_INDEX[$scope.countryButton];
+	$scope.selectedCountry = COUNTRY_TO_INDEX[$scope.activeCountry];
 	$scope.appType = ($scope.activeCategoryID == 6014 || $scope.activeCategoryID > 6999) ? 1 : 2;
 	
 	if($scope.appType == 1) {
@@ -32,13 +30,26 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
 	}
 	
 	var updateRanking = function() {
-		$scope.pageSize = 20;
-		$scope.ranking = WorldRanking.ranking({country:$scope.countryButton, platform: $scope.platformButton, 
-											   ranking_type:$scope.rankingTypeButton, category:$scope.activeCategoryID});
+		$scope.pageSize = 15;
+		WorldRanking.ranking({country:$scope.activeCountry, platform: $scope.platformButton, 
+							  ranking_type:$scope.rankingTypeButton, category:$scope.activeCategoryID}, function(data) {
+												   
+			var ranking = data.ranking;
+			data.ranking = [];
+			$scope.ranking = data;
+			var time = 0;
+			
+			_.each(ranking, function(entry) {
+				$timeout(function () {
+					$scope.ranking.ranking.push(entry);
+				}, time); 
+				time += 30;
+			});
+		});
 	};
 	
 	var updatePage = function() {
-		$location.url("world-rankings/" + $scope.countryButton + "/" + $scope.platformButton + "/" + $scope.rankingTypeButton + "/" + $scope.activeCategoryID);
+		$location.url("world-rankings/" + $scope.activeCountry + "/" + $scope.platformButton + "/" + $scope.rankingTypeButton + "/" + $scope.activeCategoryID);
 	};
 
 	$scope.activeGameCategory = 6014;
@@ -49,7 +60,7 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
     };
 
     $scope.loadMore = function() {
-    	$scope.pageSize = $scope.pageSize + 20;
+    	$scope.pageSize = $scope.pageSize + 15;
     };
 	
 	$scope.changeRankingType = function(rankingType) {
@@ -58,7 +69,7 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
 	};
 	
 	$scope.changeCountry = function(country, index) {
-		$scope.countryButton = country;
+		$scope.activeCountry = country;
 		$scope.selectedCountry = index;
 		updatePage();
 	};
@@ -74,13 +85,8 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
 		updatePage();
 	};
 	
-//	$rootScope.$watch(function () { return $location.search() }, function (newSearch, oldSearch) {
-//		
-//		// Check for back/forward button press.
-//		if($rootScope.actualSearch === newSearch) {
-//			updateEnvironment();
-//			updateRanking();
-//	    }
-//	});
+	$scope.setAppstoreID = function(id, country) {
+		StoreID.setAppstoreID(id, country);
+	}
 }]);
 	

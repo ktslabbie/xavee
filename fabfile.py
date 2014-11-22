@@ -8,6 +8,8 @@ from fabric.colors import green, red
 from fabric.contrib import django
 
 django.project('xavee')
+from application import tasks
+
 
 def celery():
     print(green("Starting Celery worker..."))
@@ -35,6 +37,10 @@ def collectstatic():
     local("python manage.py compress")
     local("python manage.py collectstatic")
 
+def get_wr():
+    print(green("Getting top 200 world ranking for all categories from iTunes..."))
+    tasks.collect_all_ios_rankings(200)
+
 def migrate():
     with settings(warn_only=True):
         print(green("Migrating local DB..."))
@@ -43,7 +49,7 @@ def migrate():
         local("python manage.py schemamigration --auto referrer")
         local("python manage.py migrate")
 
-def update_worldranking():
+def update_remote_wr():
     print(green("Dumping WorldRanking table..."))
     local("pg_dump -Fc --no-acl --no-owner -h localhost -U Kristian -t application_worldranking xavee_db > worldranking.dump")
     print(green("Uploading dump to Amazon S3..."))

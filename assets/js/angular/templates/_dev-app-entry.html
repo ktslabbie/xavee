@@ -1,0 +1,16 @@
+
+<div class="pad-xs app-entry bg-blue-gradient shadow">
+	<div class="row row-narrow-gutter">
+		<div class="col-md-3 col-icon">
+			<img class="img-responsive img-icon" ng-src="{[{ app.img_small }]}"/>
+		</div>
+		<div class="col-md-9" style="font-size: 10px;">
+			<div class="row" ng-repeat="cat in app.categories"> 
+				<span ng-bind="cat.name"></span>
+			</div>
+		</div>
+		<div class="col-md-12" style="white-space: nowrap; overflow: hidden;">
+			<a href="{[{ app.id }]}/{[{ app.slug }]}" ng-click="setAppstoreID(0)" ng-bind="app.title"></a>
+		</div>
+	</div>
+</div>

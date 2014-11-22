@@ -1,11 +1,9 @@
 <div class="row">
-	<h3 class="developer-name" ng-bind="developer.name"></h3><a href back>Back</a>
-	<p>All apps:</p>
-	<br/>
-	<div class="col-xs-12 col-sm-8 col-md-4 developer-apps" ng-repeat="app in developer.developers">
-			<img ng-src="{[{ app.img_small }]}" class="list-icon" />
-			<br/>
-			<a href="{[{ app.id }]}/{[{ app.slug }]}" ng-bind="app.title"></a>
-			<br/>
+	<div class="col-md-12">
+		<h3 class="developer-name" ng-bind="developer.name"></h3><!-- <a href back>Back</a> -->
+		<p>Apps</p>
+	</div>
+	
+	<div class="col-xs-12 col-sm-6 col-md-3 developer-apps" ng-repeat="app in developer.developer_applications" ng-include="TEMPLATE_BASE + '/_dev-app-entry.html'">
 	</div>
 </div>

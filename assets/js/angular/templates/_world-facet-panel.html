@@ -1,39 +1,38 @@
-<div class="col-sm-6 col-sm-push-1 country-list">
-	
+<div class="col-md-12">
 	<p translate="COUNTRY"></p>
-	<div class="row">
-		<div class="col-xs-12 col-sm-8 col-md-6 country-selection" ng-repeat="country in countries">
-			<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="img-flag flag flag-{[{ country.code }]}" alt="{[{ country.name }]}" />
-			<a type="button" class="pointer" ng-click="changeCountry(country.code, $index)"
+	<div class="row vspace-md indent-md">
+		<div class="col-xs-6 col-sm-3 col-md-12 vspace-xxs" ng-repeat="country in countries">
+			<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag flag-{[{ country.code }]} vspace-xs" alt="{[{ country.name }]}" />
+			<a class="pointer indent-sm" ng-click="changeCountry(country.code, $index)"
 					ng-class="{ 'active' : $index == selectedCountry }" ng-bind="country.name"></a>
 		</div>
 	</div>
-	
 </div>
 
-<div class="col-sm-3 col-sm-push-2">
-
+<div class="col-sm-4 col-md-12">
 	<p translate="PLATFORM"></p>
-	<div class="btn-group">
+	<div class="btn-group indent-md">
 		<a type="button" ng-click="platformButton = 'iphone'" 
-			ng-class="{ 'active' : platformButton == 'iphone' }" class="btn btn-default btn-iphone">iPhone</a>
+			ng-class="{ 'active' : platformButton == 'iphone' }" class="btn btn-default">iPhone</a>
 		<a type="button" ng-click="platformButton = 'android'"
-			ng-class="{ 'active' : platformButton == 'android' }" class="btn btn-default btn-android disabled">Android</a>
+			ng-class="{ 'active' : platformButton == 'android' }" class="btn btn-default disabled">Android</a>
 	</div>
-	
+</div>
+<div class="col-sm-4 col-md-12">
 	<p translate="RANKING_TYPE"></p>
-	<div class="btn-group">
+	<div class="btn-group indent-md">
 		<a type="button" ng-click="changeRankingType('free')" 
-			ng-class="{ 'active' : rankingTypeButton == 'free' }" class="btn btn-default btn-ranking-type" translate="FREE"></a>
+			ng-class="{ 'active' : rankingTypeButton == 'free' }" class="btn btn-default" translate="FREE"></a>
 		<a type="button" ng-click="changeRankingType('paid')" 
-			ng-class="{ 'active' : rankingTypeButton == 'paid' }" class="btn btn-default btn-ranking-type" translate="PAID"></a>
+			ng-class="{ 'active' : rankingTypeButton == 'paid' }" class="btn btn-default" translate="PAID"></a>
 		<a type="button" ng-click="changeRankingType('grossing')" 
-			ng-class="{ 'active' : rankingTypeButton == 'grossing' }" class="btn btn-default btn-ranking-type" translate="GROSSING"></a>
+			ng-class="{ 'active' : rankingTypeButton == 'grossing' }" class="btn btn-default" translate="GROSSING"></a>
 	</div>
-	
+</div>
+<div class="col-sm-4 col-md-12">	
 	<p translate="CATEGORY"></p>
-	<div>
-		<div class="btn-group">
+	
+		<div class="btn-group indent-md">
 			<a type="button" ng-click="changeCategory(1, activeGameCategory)" 
 					ng-class="{ 'active' : appType == 1 }" class="btn btn-default btn-ranking-type" translate="GAMES"></a>
 			<a type="button" ng-click="changeCategory(2, activeAppCategory)"
@@ -46,5 +45,4 @@
 			<select class="form-control" ng-show="appType == 2" ng-model="activeAppCategory" 
 					ng-options="c.id as c.genre for c in appCategories" ng-change="changeCategory(2, activeAppCategory)"></select>
 		</div>
-	</div>
 </div>

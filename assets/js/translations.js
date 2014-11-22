@@ -37,7 +37,7 @@ var translationsEN = {
 	GROSSING:		"Grossing",
 	
 	// Categories
-	CAT_0:			"All Applications",
+	CAT_0:			"Applications",
 	CAT_6000:		"Business",
 	CAT_6001:		"Weather",
 	CAT_6002:		"Utilities",
@@ -61,7 +61,7 @@ var translationsEN = {
     CAT_6022:		"Catalogs",
     CAT_6023:		"Food & Drink",
     
-    CAT_6014:		"All Games",
+    CAT_6014:		"Games",
     CAT_7001:		"Action",
     CAT_7002:		"Adventure",
     CAT_7003:		"Arcade",
@@ -165,3 +165,11 @@ var translationsJA = {
     CAT_7018:		"トリビア",
     CAT_7019:		"単語",
 };
+
+var LANG_TO_COUNTRY = { 'en': 'us', 'ja': 'jp' };
+var COUNTRY_TO_INDEX = { 'us': 0, 'jp': 1, 'gb': 2, 'de': 3, 'fr': 4, 'kr': 5, 'au': 6, 'cn': 7, 'ca': 8, 'es': 9, 'it': 10, 'ru': 11, 'nl': 12 };
+var RANKING_TYPE_TO_STR = { 1: 'FREE', 2: 'PAID', 3: 'GROSSING' };
+var COUNTRY_ORDERING = {
+		'en': [ 'us', 'gb', 'ca', 'au', 'de', 'fr', 'es', 'it', 'nl', 'jp', 'ru', 'kr', 'cn', ],
+		'ja': [ 'jp', 'us', 'gb', 'ca', 'au', 'de', 'fr', 'es', 'it', 'nl', 'ru', 'kr', 'cn', ],
+}

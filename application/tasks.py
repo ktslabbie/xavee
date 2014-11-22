@@ -37,8 +37,8 @@ world_rankings = { k:[] for k in COUNTRIES }
 
 @shared_task
 def collect_all_ios_rankings(limit):
-    #for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
-    for cat_id in [0] + [6014]:
+    for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
+    #for cat_id in [0] + [6014]:
         collect_ios_ranking(dicts.TOP_FREE, cat_id, limit)
         collect_ios_ranking(dicts.TOP_PAID, cat_id, limit)
         collect_ios_ranking(dicts.TOP_GROSSING, cat_id, limit)
@@ -115,7 +115,6 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         
         print("Processing the #" + str(rank_counter) + " app '" + app['im:name']['label'] + "' in country '" + country + "'...")
         
-        # TODO: Check if the application already exists here (for a fast mode?).
         version = None
         
         # Check if we already have this Version of this app for this country in the DB.
@@ -150,13 +149,17 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
             compute_itunes_world_rating(version.application)
             
             # Finally, assure we have the version of the current country.
-            version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
+            try:
+                version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
+            except IPhoneVersion.DoesNotExist:
+                # Shouldn't happen but does sometimes. iTunes error. Just skip if None.
+                continue
         # endif
         
         # We should have a version now.
         assert(version is not None)
         
-        if category.id == 0 or category.id == 6014:
+        if category.id == 0 or category.id == 6014 or rank_counter <= 10:
             # Create the new ranking (only all apps and all games) for this version and add it to the list (we save to DB in bulk later).
             rankings.append(Ranking(version=version, ranking_type=ranking_type, category=category, rank=rank_counter))
         
@@ -192,11 +195,10 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         
         # Increment the rank counter.
         rank_counter += 1
-    
-    if category.id == 0 or category.id == 6014:
-        # Collected all rankings. Remove the previous ranking and add the new ones.
-        Ranking.objects.filter(ranking_type=ranking_type, category=category, version__country=country).delete()
-        Ranking.objects.bulk_create(rankings)
+        
+    # Collected all rankings. Remove the previous ranking and add the new ones.
+    Ranking.objects.filter(ranking_type=ranking_type, category=category, version__country=country).delete()
+    Ranking.objects.bulk_create(rankings)
 
 def lookup_and_add_ios_app(appstore_id, version_country, application):
     '''
@@ -212,6 +214,9 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
         try:
             lookup_resp = requests.get(lookup_url)
             detail_data = json.loads(lookup_resp.text)
+        except ValueError:
+            print("ValueError: No JSON object could be decoded... Let's try again anyway.")
+            retry()
         except Exception:
             print("Connection failed. Retrying...")
             retry()
@@ -367,7 +372,7 @@ def get_japanese_app_ids():
     f = open('japanese.apps.txt','w')    
     f.write(out_str)
     f.close()
-        
+    
 
 # def compare_app_versions():
 #      

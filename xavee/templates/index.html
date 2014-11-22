@@ -1,24 +1,22 @@
 {% extends '__base.html' %} {% load i18n %} {% load staticfiles %}
 {% block content %}
+{% include "_navbar.html" %}
 <div class="container">
-	{% include "_navbar.html" %}
 	<div class="content">
-		{% block page_header %} {% endblock %}
 		{% block page_content %}
-		<img class="center-block" src="{% static 'img/xavee-banner.png' %}" />
+		<img class="center-block" src="{% static 'img/xavee-logo.png' %}" height="180" />
 		<div class="page-header text-center">
 			<h1>{% trans "App Discovery Made Simple" %}</h1>
 			<br>
 			<p class="lead">{% trans "Weed out the crap to find the best applications and games in the world." %}</p>
 		</div>
-		<div style="text-align: center;">
+		<div class="text-center">
 	    	<a href="{% url 'application:application-index' %}" style="font-size: 36px;" target="_self">
 	    		{% trans "To The Rankings" %}</a>
 	    </div>
 		{% endblock %}
-		{% block page_footer %} {% endblock %}
 	</div>
-	<div class="footer">
+	<div class="row footer">
 	    {% block footer %}
 		<p class="text-muted footer-text">&copy; Solve Inc. All Rights Reserved.</p>
 		{% endblock %}

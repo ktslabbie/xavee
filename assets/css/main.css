@@ -3,85 +3,47 @@
    @author Kristian Slabbekoorn
    ========================================================================== */
 
-html {
-	overflow-y: scroll;
-}
+/* 
+  Allow angular.js to be loaded in the body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none !important; }
+
+/* Make sure there's always a scroll bar, to prevent layout jumps when one appears. */
+html { overflow-y: scroll; }
 
 body {
-	/* Best-practice default fonts for Japanese websites */
-	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, 
-	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-	background-color: #FDFFFD;
+	/* Supposedly best-practice default fonts for Japanese websites.
+	   Looks bad in English so don't use (maybe for Japanese version?) */
+	/* font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, 
+	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; */
+	font-family: Geneva, Tahoma, Verdana, sans-serif;
 }
 
-div.container {
-	width: 67%;
-	overflow: visible;
+.container {
+	width: 100%;
 }
 
-.row-narrow-gutter {
-    margin-left: -5px;
-    margin-right: -5px;
+div.content {
+	padding-top: 16px;
+	padding-bottom: 32px;
 }
-
-.col-narrow-gutter {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
 
 /* ==========================================================================
    Generic modifiers
    ========================================================================== */
 
-.pointer {
-	cursor: pointer;
-}
+.pointer { cursor: pointer; }
 
-
-/* ==========================================================================
-   Navbar styles
-   ========================================================================== */
-
-div.navbar-default {
-	border-bottom: none;
-	background-color: #FDFFFD;
-}
-
-a.navbar-brand {
-	font-family: Arial, sans-serif;
-	color: #111 !important;
-	background-color: #FDFFFD;
-}
-
-div.navbar-collapse {
-	border-bottom: none;
-	background-color: #FDFFFD;
-}
-
-.nav a:hover {
-	color: #000 !important;
-    background-color: #FDFFFD !important;
-}
-
-ul.nav li.active a {
-	color: #000 !important;
-	font-weight: bold;
-    /* background-color: #FFF !important; */
-}
-
-.language-dropdown {
-	padding-left: 16px;
-}
-
-/* ==========================================================================
-   Page layout styles
-   ========================================================================== */
+/* Narrow versions of Bootstrap 3 rows/columns. Make sure to use together. */
+.row-narrow-gutter { margin-left: -5px; margin-right: -5px; }
+.col-narrow-gutter { padding-left: 5px; padding-right: 5px; }
 
 /* centered columns styles */
 .row-centered {
 	margin-left: 40px;
-    text-align:center;
+    text-align: center;
 }
 .col-centered {
     display:inline-block;
@@ -92,14 +54,133 @@ ul.nav li.active a {
     margin-right:-4px;
 }
 
-div.content {
-	padding-top: 32px;
-	padding-bottom: 32px;
-	
+/* For adding space between rows. */
+.vspace-xs { margin-bottom: 4px;  }
+.vspace-md { margin-bottom: 16px; }
+
+.indent-none { padding-left: 0px;  }
+.indent-sm   { padding-left: 8px;  }
+.indent-md   { padding-left: 16px; }
+
+.pad-xs { padding: 8px;  }
+.pad-sm { padding: 16px; }
+.pad-md { padding: 32px; }
+
+.text-xs { font-size: 10px; }
+.text-sm { font-size: 12px; }
+.text-md { font-size: 14px; }
+
+.shadow {
+	-webkit-box-shadow: 1px 1px 4px -1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 1px 4px -1px rgba(0,0,0,0.75);
+	box-shadow: 1px 1px 4px -1px rgba(0,0,0,0.75);
 }
 
-div.page-content {
+.shadow-list {
+	-webkit-box-shadow: 1px 1px 4px -1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 1px 4px -1px rgba(0,0,0,0.75);
+	box-shadow: 1px 1px 4px -1px rgba(0,0,0,0.75);
+}
+
+.bg-blue-gradient {
+	background: rgb(255,255,255); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(254,253,255,1) 47%, rgba(254,253,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(254,253,255,1)), color-stop(100%,rgba(254,253,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fdfeff',GradientType=0 ); /* IE6-9 */
+}
+
+.fullscreen { min-height: 1400px; } /* Make sure at least a full screen is displayed to avoid jitter when loading. */
+.nowrap { white-space: nowrap; overflow: hidden; } /* Disable word wrapping for text (text disappears). */
+
+/* ==========================================================================
+   Navigation bar styles
+   ========================================================================== */
+
+/* Make the navbar a little smaller. */
+.navbar-nav > li > a { padding-top:13px !important; padding-bottom:13px !important; }
+.navbar { min-height:40px !important; }
+.navbar-brand { padding-top: 0px; padding-bottom: 0px; padding-left: 13px; }
+
+.navbar-search {
+	width: 30%;
+}
+
+.language-button {
+	padding: 12px 12px 13px 12px;
+}
+
+.language-dropdown {
+	padding-left: 16px;
+}
+
+.loading-large {
+	font-size: 48px;
+	padding: 8px;
+}
+
+.search-box {
+	 padding-top: 6px;
+	 padding-bottom: 6px;
+}
+
+.search-window {
+	border-radius: 0px 0px 5px 5px;
+	position: absolute;
+	z-index: 5;
+	width: 200%;
+	min-height: 70px;
+	background-color: #FEFEFF;
+}
+
+.hidden-spinner {
+	display:block!important;
+	position:absolute;
+	top:-9999px;
+	left:-9999px;
+}
+
+.search-window:nth-child(2) {
+	/* border-radius: 10px 10px 0px 0px; */
+}
+
+.search-window:last-child {
+	/* border-radius: 10px; */
+	border-bottom: 0px;
+	color: red;
+}
+
+.search-result {
+	padding: 16px;
+	border-bottom: 1px solid #000;
 	
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(254,253,255,1) 47%, rgba(254,253,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(254,253,255,1)), color-stop(100%,rgba(254,253,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fefdff',GradientType=0 ); /* IE6-9 */
+}
+
+/* ==========================================================================
+   Page layout styles
+   ========================================================================== */
+
+.description-panel-closed {
+	white-space: pre-line;
+	font-size: 12px;
+	height: 120px;
+	overflow-y: hidden;
+}
+
+.description-panel-open {
+	white-space: pre-line;
+	font-size: 12px;
+	overflow-y: none;
 }
 
 div.page-header {
@@ -118,49 +199,44 @@ img.img-title-big {
 	min-width: 160px;
 }
 
-/* ==========================================================================
-   List styles
-   ========================================================================== */
-
-div.list {
-	min-height: 1000px;
-}
-
-div.list-entry {
-	padding: 4px 4px 4px 4px;
-	margin: 8px 0px 8px 0px;
-	
-	background: rgb(255,255,255); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(253,253,253,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(253,253,253,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(253,253,253,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fdfdfd',GradientType=0 ); /* IE6-9 */
-	
-	border: 1px solid #EEE;
-	border-radius: 10px;
-}
-
-img.list-icon {
-	margin-left: 8px;
-	max-width: 56px;
+.img-icon {
+	margin: 0 auto;
+	max-height: inherit;
+	min-height: 52px;
+	min-width: 52px;
 	border-radius: 12px;
 }
+
+/* ==========================================================================
+   Ranking facet panel styles
+   ========================================================================== */
+
+.facet-panel { margin-top: 33px; }
 
 /* ==========================================================================
    Ranking styles
    ========================================================================== */
 
+.app-entry {
+	margin-bottom: 2px;
+}
+
+.pad-app-entry {
+	padding-left: 0px;
+}
+
+.ranking-date {
+	padding-right: 8px;
+}
+
+.app-entry-inner {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
 a.app-title {
 	text-decoration: none;
 	color: #008;
-}
-
-.ranking-title {
-	text-align: center;
-	margin-bottom: 32px;
 }
 
 div.row-header {
@@ -168,43 +244,30 @@ div.row-header {
 	font-weight: bolder;
 }
 
-div.col-rank {
-	padding-top: 22px;
-	padding-bottom: 4px;
+.col-rank {
+	padding-left: 10px;
 	font-weight: bold;
+	font-size: 16px;
 }
 
-div.col-icon {
-	/* padding: 4px 4px 4px 4px; */
-	/* width: 76px; */
+.col-icon {
+	max-height: 57px;
 }
 
-div.col-title {
+.col-title {
 	/* padding-left: 26px; */
-	padding-top: 22px;
-	padding-bottom: 22px;
+	/* padding-top: 4px; */
+	padding-bottom: 4px;
+	font-size: 14px;
 }
 
-div.col-rankings {
-	margin-top: 4px;
-	margin-bottom: 4px;
+.img-flag-small {
+	margin-bottom: 2px;
 }
 
 div.col-country-rank {
 	font-size: 11px;
-	padding: 1px 1px 1px 1px;
-}
-
-div.facet-panel {
-	margin-bottom: 8px;
-}
-
-div.facet {
-	margin: 16px 0px 16px 0px;
-}
-
-.btn-iphone {
-	font-size: 14px;
+	padding: 1px;
 }
 
 .btn-glyph {
@@ -221,38 +284,14 @@ div.facet {
 
 div a.active {
 	font-weight: bold;
+	color: #000000;
 }
 
 div a:hover {
 	text-decoration: none;
 }
 
-.btn-android {
-	font-size: 14px;
-	background-color: #999;
-}
 
-div.country-list {
-	margin-bottom: 16px;
-}
-
-div.country-selection {
-	margin-bottom: 2px;
-	cursor: pointer;
-}
-
-.btn-ranking-type {	
-	font-size: 12px;
-}
-
-.col-btn {
-	margin-left: 2px;
-	margin-right: 2px;
-}
-
-img.img-flag {
-	margin-right: 8px;
-}
 
 /* ==========================================================================
    Blog styles
@@ -283,20 +322,15 @@ img.img-flag {
 	padding-right: 16px;
 }
 
-
 /* ==========================================================================
    Footer styles
    ========================================================================== */
 
 .footer {
- /* padding-top: 40px;
-  	padding-bottom: 40px;
- 	border-top: 1px solid #eee; */
- 	
-	font-size:xx-small; 
-	text-align:left; 
-	width:100%; 
-	bottom:0px; 
+	font-size:xx-small;
+	text-align:left;
+	width:100%;
+	bottom:0px;
 	position:fixed; 
 	left:0px;
 	background-color:rgba(230,230,230,0);
@@ -309,28 +343,77 @@ p.footer-text {
 }
 
 /* ==========================================================================
+   Animation styles
+   ========================================================================== */
+ 
+.animate-show-hide.ng-hide-remove {
+  -webkit-transition:all linear 0.2s;
+  -moz-transition:all linear 0.2s;
+  -o-transition:all linear 0.2s;
+  transition:all linear 0.2s;
+  display:block!important;
+}
+ 
+.animate-show-hide.ng-hide-add.ng-hide-add-active,
+.animate-show-hide.ng-hide-remove {
+	opacity:0;
+}
+ 
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove.ng-hide-remove-active {
+	opacity:1;
+}
+
+.app-entry.ng-enter {
+	-webkit-transition:all linear 0.2s;
+	-moz-transition:all linear 0.2s;
+	-o-transition:all linear 0.2s;
+	transition:all linear 0.2s;
+	opacity: 0;
+}
+
+.app-entry.ng-enter-active {
+	opacity: 1;
+}
+
+
+/* ==========================================================================
    Mobile customization
    ========================================================================== */
-@media (min-width: 320px) and (max-width: 767px) {
-	div.container { 
-		width:100%;
+
+/* Pad screens. */
+@media(min-width:768px) and (max-width: 991px) {
+	.pad-app-entry {
+		padding-left: 0px;
+		padding-right: 0px;
 	}
 	
-	img.list-icon {
-		max-width: 48px;
+	.facet-panel {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+/* Mobile phone screens. */
+@media (max-width: 767px) {
+	.pad-app-entry {
+		padding-left: 0px;
+		padding-right: 0px;
 	}
 	
-	div.col-icon {
-		width: 48px;
+	.facet-panel {
+		padding-left: 0px;
+		padding-right: 0px;
 	}
 	
-	div.col-title {
-		padding-top: 6px;
-		padding-bottom: 10px;
+	.img-icon {
+		min-height: 40px;
+		min-width: 40px;
 	}
 	
-	div.col-rank {
-		padding-top: 6px;
+	.col-country-rankings {
+		padding-top: 8px;
+		padding-left: 8px;
 	}
 }
 
@@ -352,13 +435,11 @@ p.footer-text {
 .flag.flag-fr {background-position: -50px -15px}
 .flag.flag-gb {background-position: -75px -15px}
 .flag.flag-it {background-position: 0 -30px}
-.flag.flag-jp {background-position: -25px -30px}
-.flag.flag-ja {background-position: -25px -30px}
+.flag.flag-jp, .flag.flag-ja {background-position: -25px -30px}
 .flag.flag-kr {background-position: -50px -30px}
 .flag.flag-nl {background-position: -75px -30px}
 .flag.flag-ru {background-position: 0 -45px}
-.flag.flag-us {background-position: -25px -45px}
-.flag.flag-en {background-position: -25px -45px}
+.flag.flag-us, .flag.flag-en {background-position: -25px -45px}
 
 .flag-small {
 	width: 16px;

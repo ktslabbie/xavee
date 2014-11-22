@@ -1,47 +1,24 @@
 <div class="row">
-	<h1 class="ranking-title" translate="WORLD_RANKING_TITLE"></h1>
-	<div class="col-md-12 facet-panel">
-		<div class="row facet" ng-include="TEMPLATE_BASE + '/_world-facet-panel.html'"></div>
+	<div class="col-md-12 text-center">
+		<h1 translate="WORLD_RANKING_TITLE"></h1>
 	</div>
-	<div class="col-md-offset-8 col-md-4 ranking-date text-muted" ng-hide="!ranking.since">
-		<h6 class="ranking-date">Last updated: <span ng-bind="ranking.since | date:'medium'"></span></h6>
+</div>
+
+<div class="row">
+	<div class="col-md-3 facet-panel">
+		<div class="bg-blue-gradient shadow">
+			<div class="row pad-sm" ng-include="TEMPLATE_BASE + '/_world-facet-panel.html'"></div>
+		</div>
 	</div>
-	<div class="col-md-12 list" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='0'>
-		<div class="row list-entry row-narrow-gutter" ng-repeat="app in ranking.ranking | limitTo:pageSize">
-			<div class="col-xs-1 col-sm-1 col-md-1 col-rank col-narrow-gutter">
-				#<span ng-bind="$index+1"></span>
-			</div>
-			<div class="col-xs-1 col-xs-push-1 col-sm-1 col-sm-push-0 col-md-1 col-icon col-narrow-gutter">
-				<img class="list-icon" ng-src="{[{ app.application.img_small }]}" />
-			</div>
-			<div class="col-xs-7 col-xs-push-2 col-sm-10 col-sm-push-0 col-md-6 col-title col-narrow-gutter">
-				<a class="app-title" href="{[{ app.application.id }]}/{[{ app.application.slug }]}" ng-bind="app.application.title"></a>
-				<span class="small" ng-cloak>(<a class="app-title" href="developers/{[{ app.application.developer.id }]}/{[{ app.application.developer.slug }]}" ng-bind="app.application.developer.name"></a>)</span>
-				<span class="btn btn-xs btn-glyph glyphicon glyphicon-chevron-down" ng-class="{true: 'glyphicon-chevron-down', false: 'glyphicon-chevron-up'}[!details]" ng-click="details = !details"></span>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-4 col-rankings col-narrow-gutter">
-				<div class="col-xs-3 col-sm-2 col-md-3 col-country-rank col-narrow-gutter" ng-repeat="(country, cn_rank) in app.foreign_ranking">
-					<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag-small flag-{[{ country }]}"/> : <span ng-bind="cn_rank"></span>
-				</div>
-			</div>
-			
-			<div ng-show="details">
-				<div class="col-md-6 col-md-push-2 col-title">
-					<a class="app-title" href="/apps/developers/{[{ app.application.developer.id }]}" ng-bind="app.application.developer.name"></a>
-				</div>
-				<div class="col-md-2 col-title">
-					<span class="app-title" ng-bind="app.price"></span> <span class="app-title" ng-bind="ranking.currency"></span>
-				</div>
-				<div class="col-md-1 col-rank" ng-cloak>
-					<span ng-bind="app.rating.overall_rating"></span> (<span style="font-size: 11px;" ng-bind="app.rating.overall_count"></span>)
-				</div>
-				<div class="col-md-1 col-rank" ng-cloak>
-					<span ng-bind="app.application.itunes_world_rating"></span> (<span style="font-size: 11px;" ng-bind="app.application.itunes_world_rating_count"></span>)
-				</div>
-				<div class="col-md-1 col-rank">
-					<span ng-bind="((50 * 2.75 + (app.application.itunes_world_rating * app.application.itunes_world_rating_count)) / (50 + app.application.itunes_world_rating_count)).toFixed(2)"></span>
-				</div>
+	
+	<div class="col-md-9 fullscreen" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='0'>
+		<div class="row">
+			<div class="col-md-12 text-right text-muted animate-show-hide" ng-show="ranking.since">
+				<h6 class="ranking-date">Last updated: <span ng-bind="ranking.since | date:'medium'"></span></h6>
 			</div>
 		</div>
+		<ul class="list-unstyled">
+			<li class="row app-entry" ng-repeat="app in ranking.ranking | limitTo:pageSize" ng-include="TEMPLATE_BASE + '/_app-entry.html'"></li>
+		</ul>
 	</div>
 </div>

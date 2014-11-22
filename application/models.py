@@ -29,6 +29,8 @@ class Developer(BaseModel):
             self.slug = (self.slug[:251] + '..') if len(self.slug) > 253 else self.slug 
         
         orig = self.slug
+        
+        # Make sure the slug doesn't exists yet. Add a number postfix if so.
         if not Developer.objects.filter(pk=self.id).exists():
             for x in itertools.count(1):
                 if not Developer.objects.filter(slug=self.slug).exists():
@@ -57,17 +59,21 @@ class Category(BaseModel):
 
 class Application(BaseModel):
     ''' Database model for applications. '''
-    title = models.CharField("App title", max_length=256, help_text="The main title of the application (English preferred).")
+    title = models.CharField("App title", max_length=256, db_index=True, help_text="The main title of the application (English preferred).")
     slug = models.SlugField(max_length=256, unique=True, blank=True, default='')
-    developer = models.ForeignKey(Developer, related_name="developers")
+    developer = models.ForeignKey(Developer, related_name="developer_applications")
     categories = models.ManyToManyField(Category, related_name="categories")
     img_small = models.URLField(help_text="A link to a small size image (60px from iTunes).")
     itunes_world_rating = models.DecimalField("iTunes World Rating", decimal_places=2, max_digits=3, null=True, default=0)
     itunes_world_rating_count = models.IntegerField("iTunes World Rating Count", null=True, default=0)
-    
+    xavee_rating = models.SmallIntegerField("Xavee Rating", null=True, default=0)
+    multi_build = models.BooleanField("Has multiple builds", default=False)
+    iap_count = models.SmallIntegerField("Number of IAPs", default=0)
+    iap_sum = models.DecimalField("Sum of IAPs", decimal_places=2, max_digits=10, default=0)
+    review_quality = models.SmallIntegerField("Review quality", null=True, default=0)
     
     class Meta:
-        ordering = ["title"]
+        ordering = ["-itunes_world_rating_count"]
         
     def save(self, *args, **kwargs):
         ''' Custom save function. '''

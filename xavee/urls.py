@@ -6,10 +6,10 @@ Created on May 18, 2014
 The main URLConf for Xavee.
 This contains URL routings to all apps and main pages (index, about, etc).
 '''
+from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.views.generic import TemplateView, RedirectView
 from django.conf.urls.i18n import i18n_patterns
 
@@ -25,7 +25,6 @@ urlpatterns = patterns('',
     url(r'^ckeditor/browse/',       'ckeditor.views.browse',                            name='ckeditor_browse'),
     url(r'^grappelli/',             include('grappelli.urls')),
     url(r'^admin/',                 include(admin.site.urls)),
-    
     url(r'^i18n/',                  include('django.conf.urls.i18n')),
 )
 
@@ -33,7 +32,8 @@ urlpatterns += i18n_patterns('',
     url(r'^blog',                  include('blog.urls',                                namespace='blog')),
     url(r'^apps',                  include('application.urls',                         namespace='application')),
     url(r'^about$',                TemplateView.as_view(template_name='about.html'),   name='about'),
-    url(r'^$',                      TemplateView.as_view(template_name='index.html'),   name='home'),
+    #url(r'^$',                     TemplateView.as_view(template_name='index.html'),   name='home'),
+    url(r'^$',                     RedirectView.as_view(url='apps'),                   name='home'),
 )
 
 # HTML5 Boilerplate patterns.

@@ -28,11 +28,15 @@
         {% block content %}{% endblock %}
         
         {# Detect if the CDN-hosted /bootstrap.min.css fails to load. #}
-        <div id="css-check" class="hidden"></div>
+        <div id="css-check" class="hidden" style="height:1px;"></div>
         
         {# Load jQuery. #}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="{% static 'js/vendor/jquery.min.js' %}"><\/script>')</script>
+        
+        {# Load Lo-dash. #}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+        <script>window._ || document.write('<script src="{% static 'js/vendor/lodash.min.js' %}"><\/script>')</script>
         
         {# Load Bootstrap. #}
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

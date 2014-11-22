@@ -1,0 +1,24 @@
+<div class="col-md-12 pad-app-entry">
+	<div class="pad-xs app-entry-inner bg-blue-gradient shadow-list">
+		<div class="row row-narrow-gutter">
+			<div class="col-xs-2 col-sm-1 col-rank col-narrow-gutter">
+				#<span ng-bind="$index+1"></span>
+			</div>
+			<div class="col-xs-2 col-sm-1 col-icon col-narrow-gutter">
+				<img class="img-responsive img-icon" ng-src="{[{ app.application.img_small }]}" />
+			</div>
+			<div class="col-xs-8 col-sm-6 col-title col-narrow-gutter">
+				<a class="app-title" href="{[{ app.application.id }]}/{[{ app.application.slug }]}" ng-click="setAppstoreID(app.appstore_id, ranking.country)" ng-bind="app.application.title"></a><br>
+				<a class="small app-title" href="developers/{[{ app.application.developer.id }]}/{[{ app.application.developer.slug }]}" ng-bind="app.application.developer.name"></a><br>
+				<a class="small" href="https://itunes.apple.com/{[{ activeCountry }]}/app/id{[{ app.appstore_id }]}" target="_blank">Get it for <span ng-bind="getPrice(ranking.currency, app.price).toLowerCase()"></span></a>
+				
+				<!-- <span class="btn btn-xs btn-glyph glyphicon glyphicon-chevron-down" ng-class="{true: 'glyphicon-chevron-down', false: 'glyphicon-chevron-up'}[!details]" ng-click="details = !details"></span> -->
+			</div>
+			<div class="col-xs-12 col-sm-4 col-country-rankings col-narrow-gutter">
+				<div class="col-xs-3 col-sm-3 col-country-rank col-narrow-gutter" ng-repeat="(country, cn_rank) in app.foreign_ranking">
+					<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag-small flag-{[{ country }]} img-flag-small"/>: #<span ng-bind="cn_rank"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
