@@ -18,16 +18,7 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
 	$scope.rankingTypeButton = $routeParams.ranking_type || "free";
 	$scope.activeCountry = $routeParams.country || LANG_TO_COUNTRY[$scope.activeLanguage];
 	$scope.activeCategoryID = $routeParams.category || 6014;
-	$scope.activeGameCategory = 6014;
-	$scope.activeAppCategory = 0;
 	$scope.selectedCountry = COUNTRY_TO_INDEX[$scope.activeCountry];
-	$scope.appType = ($scope.activeCategoryID == 6014 || $scope.activeCategoryID > 6999) ? 1 : 2;
-	
-	if($scope.appType == 1) {
-		$scope.activeGameCategory = $scope.activeCategoryID;
-	} else {
-		$scope.activeAppCategory = $scope.activeCategoryID;
-	}
 	
 	var updateRanking = function() {
 		$scope.pageSize = 15;
@@ -52,7 +43,6 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
 		$location.url("world-rankings/" + $scope.activeCountry + "/" + $scope.platformButton + "/" + $scope.rankingTypeButton + "/" + $scope.activeCategoryID);
 	};
 
-	$scope.activeGameCategory = 6014;
 	updateRanking();
     
     $scope.numberOfPages = function() {
@@ -74,14 +64,8 @@ var xaveeController = angular.module('xavee.worldranking-controller', [])
 		updatePage();
 	};
 	
-	$scope.changeCategory = function(appType, category) {
-		$scope.appType = appType;
+	$scope.changeCategory = function(category) {
 		$scope.activeCategoryID = category;
-		if(appType == 1) {
-			$scope.activeGameCategory = category;
-		} else {
-			$scope.activeAppCategory = category;
-		}
 		updatePage();
 	};
 	

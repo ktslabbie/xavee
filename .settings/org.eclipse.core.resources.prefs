@@ -1,7 +1,9 @@
 eclipse.preferences.version=1
-encoding//application/templates/application-detail.html=UTF-8
-encoding//application/templates/application-list.html=UTF-8
-encoding//application/templates/application-ranking.html=UTF-8
+encoding//application/migrations/0002_auto__add_ranking.py=utf-8
+encoding//application/migrations/0003_auto__add_field_application_multi_build.py=utf-8
+encoding//application/migrations/0005_auto__add_index_application_title.py=utf-8
+encoding//application/models.py=utf-8
+encoding//application/templates/application-index.html=UTF-8
 encoding//assets/css/main.css=UTF-8
 encoding//assets/css/styles.css=UTF-8
 encoding//blog/migrations/0001_initial.py=utf-8

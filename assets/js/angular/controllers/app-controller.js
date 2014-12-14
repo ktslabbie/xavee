@@ -22,7 +22,6 @@ var xaveeController = angular.module('xavee.app-controller', [])
 	$scope.showTopRankings = true;
 	$scope.showTopCatRankings = true;
 	$scope.showVersions = true;
-	$scope.xaveeRating;
 	$scope.xaveeRatingClass = "text-muted";
 	$scope.averageRatingClass = "text-muted";
 	$scope.descriptionPanelClass = "description-panel-closed";
@@ -32,9 +31,8 @@ var xaveeController = angular.module('xavee.app-controller', [])
 		else if(rating < 4) $scope.averageRatingClass = "text-warning";
 		else $scope.averageRatingClass = "text-success";
 		
-		$scope.xaveeRating = parseInt(((50 * 50 + (((rating-1)*25) * count)) / (50 + count)));
-		if($scope.xaveeRating < 50) $scope.xaveeRatingClass = "text-danger";
-		else if($scope.xaveeRating < 80) $scope.xaveeRatingClass = "text-warning";
+		if($scope.app.xavee_score < 50) $scope.xaveeRatingClass = "text-danger";
+		else if($scope.app.xavee_score < 80) $scope.xaveeRatingClass = "text-warning";
 		else $scope.xaveeRatingClass = "text-success";
 	}
 	

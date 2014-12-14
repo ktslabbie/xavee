@@ -31,18 +31,8 @@
 </div>
 <div class="col-sm-4 col-md-12">	
 	<p translate="CATEGORY"></p>
-	
-		<div class="btn-group indent-md">
-			<a type="button" ng-click="changeCategory(1, activeGameCategory)" 
-					ng-class="{ 'active' : appType == 1 }" class="btn btn-default btn-ranking-type" translate="GAMES"></a>
-			<a type="button" ng-click="changeCategory(2, activeAppCategory)"
-				ng-class="{ 'active' : appType == 2 }" class="btn btn-default btn-ranking-type" translate="APPS"></a>
-		</div>
-		
-		<div>
-			<select class="form-control" ng-show="appType == 1" ng-model="activeGameCategory"
-					ng-options="c.id as c.genre for c in gameCategories" ng-change="changeCategory(1, activeGameCategory)"></select>
-			<select class="form-control" ng-show="appType == 2" ng-model="activeAppCategory" 
-					ng-options="c.id as c.genre for c in appCategories" ng-change="changeCategory(2, activeAppCategory)"></select>
+		<div class="indent-md">
+			<select class="form-control" ng-model="activeCategoryID"
+					ng-options="c.id as c.genre for c in gameCategories" ng-change="changeCategory(activeCategoryID)"></select>
 		</div>
 </div>

@@ -3,7 +3,7 @@ Created on Jun 18, 2014
 
 @author: Kristian
 '''
-from rest_framework import permissions, generics
+from rest_framework import permissions, generics, filters
 from django.shortcuts import get_object_or_404
 from django.utils import translation
 from rest_framework.response import Response
@@ -29,6 +29,10 @@ class DeveloperMixin(object):
 # API view classes.
 class ApplicationList(ApplicationMixin, generics.ListAPIView):
     serializer_class = SimpleApplicationSerializer
+    #filter_backends = (filters.OrderingFilter,)
+    #search_fields = ('title',)
+    #ordering_fields = ('xavee_score', 'title')
+    #ordering = ['-xavee_score']
     
     def get_queryset(self):
         """

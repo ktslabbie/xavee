@@ -1,13 +1,11 @@
-<div class="row search-result"> 
-	<div class="col-md-3 col-icon col-narrow-gutter">
-		<img class="img-responsive img-center img-icon" ng-src="{[{ app.img_small }]}"/>
-	</div>
-	<div class="col-md-9 col-narrow-gutter" style="font-size: 10px;">
-		<div class="row" ng-repeat="cat in app.categories"> 
-			<span ng-bind="cat.name"></span>
-		</div>
-	</div>
-	<div class="col-md-12 col-narrow-gutter" style="margin-top: 8px;">
-		<a href="{[{ app.id }]}/{[{ app.slug }]}" ng-click="setAppstoreID(0)" ng-bind="app.title"></a>
+<div class="col-xs-2 col-icon col-narrow-gutter">
+	<img class="img-icon-small img-responsive" ng-src="{[{ app.img_small }]}"/>
+</div>
+<div class="col-xs-8 search-result-title col-narrow-gutter">
+	<div class="nowrap"><a href="{[{ app.id }]}/{[{ app.slug }]}" ng-click="setAppstoreID(0)" ng-bind="app.title"></a></div>
+</div>
+<div class="col-xs-2 col-narrow-gutter text-xs">
+	<div class="row" ng-repeat="cat in app.categories"> 
+		<div class="col-md-12" ng-if="cat.id != 6014 && cat.id != 6016"><span ng-bind="cat.name"></span></div>
 	</div>
 </div>

@@ -1,3 +1,10 @@
+"""
+Created on Jul 30, 2014
+
+Models for application.
+
+@author: Kristian
+"""
 from django.db import models
 from core.models import BaseModel
 from core import dicts
@@ -9,10 +16,10 @@ import itertools
 
 class Developer(BaseModel):
     ''' Database model for developers. '''
-    ios_id = models.IntegerField("iOS ID", blank=True, null=True, unique=True, help_text="The artist ID from iTunes.")
-    android_id = models.CharField("Android ID", max_length=128, blank=True, null=True, unique=True, help_text="The developer ID from Google Play.")
-    name = models.CharField("Developer name", max_length=256)
-    slug = models.SlugField(max_length=256, unique=True, blank=True, default='')
+    ios_id      = models.IntegerField("iOS ID", help_text="The artist ID from iTunes.", blank=True, null=True, unique=True)
+    android_id  = models.CharField("Android ID", help_text="The developer ID from Google Play.", max_length=128, blank=True, null=True, unique=True)
+    name        = models.CharField("Developer name", max_length=256)
+    slug        = models.SlugField("Developer slug", max_length=256, unique=True, blank=True, default='')
     
     class Meta:
         ordering = ["name"]
@@ -66,7 +73,7 @@ class Application(BaseModel):
     img_small = models.URLField(help_text="A link to a small size image (60px from iTunes).")
     itunes_world_rating = models.DecimalField("iTunes World Rating", decimal_places=2, max_digits=3, null=True, default=0)
     itunes_world_rating_count = models.IntegerField("iTunes World Rating Count", null=True, default=0)
-    xavee_rating = models.SmallIntegerField("Xavee Rating", null=True, default=0)
+    xavee_score = models.SmallIntegerField("Xavee Score", null=True, default=0)
     multi_build = models.BooleanField("Has multiple builds", default=False)
     iap_count = models.SmallIntegerField("Number of IAPs", default=0)
     iap_sum = models.DecimalField("Sum of IAPs", decimal_places=2, max_digits=10, default=0)

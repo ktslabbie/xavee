@@ -32,14 +32,15 @@ class SimpleIPhoneVersionSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = IPhoneVersion
-        fields = ('id', 'country', 'title', 'appstore_id', 'bundle_id', 'price', 'currency', 'release_date', 'overall_rating', 'overall_count', 'rankings', 'created_at',)
+        fields = ('id', 'country', 'title', 'appstore_id', 'bundle_id', 'price', 'currency', 'release_date', 
+                  'overall_rating', 'overall_count', 'rankings', 'created_at',)
 
 class SimpleApplicationSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(source='categories')
     
     class Meta:
         model = Application
-        fields = ('id', 'title', 'slug', 'categories', 'img_small',)
+        fields = ('id', 'title', 'slug', 'categories', 'img_small', 'xavee_score',)
 
 class DeveloperSerializer(serializers.ModelSerializer):
     developer_applications = SimpleApplicationSerializer(many=True)
@@ -55,7 +56,8 @@ class IPhoneVersionSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = IPhoneVersion
-        fields = ('id', 'country', 'title', 'application', 'appstore_id', 'bundle_id', 'price', 'currency', 'release_date', 'overall_rating', 'overall_count', 'rankings', 'created_at', 'updated_at',)
+        fields = ('id', 'country', 'title', 'application', 'appstore_id', 'bundle_id', 'price', 'currency', 
+                  'release_date', 'overall_rating', 'overall_count', 'rankings', 'created_at', 'updated_at',)
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -65,7 +67,8 @@ class ApplicationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Application
-        fields = ('id', 'title', 'slug', 'developer', 'categories', 'img_small', 'itunes_world_rating', 'itunes_world_rating_count', 'iphone_versions', 'created_at', 'updated_at',)
+        fields = ('id', 'title', 'slug', 'developer', 'categories', 'img_small', 'itunes_world_rating', 
+                  'itunes_world_rating_count', 'xavee_score', 'iphone_versions', 'created_at', 'updated_at',)
 
 
 class WorldRankingSerializer(serializers.ModelSerializer):

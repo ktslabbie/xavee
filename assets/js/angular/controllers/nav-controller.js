@@ -19,7 +19,7 @@ var xaveeController = angular.module('xavee.nav-controller', [])
 		requests++;
 		$scope.resolved = false;
 		if($scope.searchQuery) {
-			$scope.searchResults = App.list({q: $scope.searchQuery }, function() {
+			$scope.searchResults = App.list({results: 5, q: $scope.searchQuery }, function() {
 				requests--;
 				if(requests <= 0) $scope.resolved = true;
 			});

@@ -10,6 +10,9 @@ from fabric.contrib import django
 django.project('xavee')
 from application import tasks
 
+def prepare_test_fixtures():
+    print(green("Getting fixtures for testing from DB..."))
+    local("python manage.py makefixture --format=yaml --indent=4 application.IPhoneVersion[:1001] > application/fixtures/application.yaml")
 
 def celery():
     print(green("Starting Celery worker..."))

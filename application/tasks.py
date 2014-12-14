@@ -1,10 +1,10 @@
-'''
+"""
 Created on Jul 30, 2014
 
 This file contains the tasks to retrieve apps from appstores daily.
 
 @author: Kristian
-'''
+"""
 from __future__ import absolute_import
 from celery import shared_task
 from celery.utils.log import get_task_logger
@@ -14,6 +14,7 @@ from unidecode import unidecode
 from decimal import Decimal
 from django.template import defaultfilters
 from .models import Application, IPhoneVersion, Developer, Category, WorldRanking, Ranking
+from .rating_utils import XaveeScore
 from core import utils, dicts
 
 # Celery logger.
@@ -37,8 +38,8 @@ world_rankings = { k:[] for k in COUNTRIES }
 
 @shared_task
 def collect_all_ios_rankings(limit):
-    for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
-    #for cat_id in [0] + [6014]:
+    #for cat_id in [0] + range(6000, 6019) + range(6020, 6024) + range(7001, 7010) + range(7011, 7020):
+    for cat_id in [6014] + range(7001, 7010) + range(7011, 7020):
         collect_ios_ranking(dicts.TOP_FREE, cat_id, limit)
         collect_ios_ranking(dicts.TOP_PAID, cat_id, limit)
         collect_ios_ranking(dicts.TOP_GROSSING, cat_id, limit)
@@ -146,7 +147,7 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
                 continue
                 
             # Get the world average rating and total rating count by averaging over all versions.
-            compute_itunes_world_rating(version.application)
+            compute_itunes_ratings(version.application)
             
             # Finally, assure we have the version of the current country.
             try:
@@ -181,12 +182,11 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
                 'img_small': version.application.img_small,
                 'itunes_world_rating': version.application.itunes_world_rating,
                 'itunes_world_rating_count': version.application.itunes_world_rating_count,
+                'xavee_score': version.application.xavee_score,
             },
             'appstore_id': version.appstore_id,
             'price': version.price,
             'rating': {
-#                 'current_version_rating': version.current_version_rating,
-#                 'current_version_count': version.current_version_count,
                 'overall_rating': version.overall_rating,
                 'overall_count': version.overall_count,
             },
@@ -323,12 +323,13 @@ def add_apprank_by_country(ranking_type, category):
                                      country=country, currency=dicts.CURRENCIES.get(country), ranking=country_ranking)
         world_ranking.save()
 
-def compute_all_itunes_world_ratings():
-    for application in Application.objects.all():        
-        compute_itunes_world_rating(application)
 
-def compute_itunes_world_rating(application):
-    
+def compute_itunes_ratings(application):
+    """
+    Function to compute world iTunes ratings per application.
+    This is simply the average rating for all countries we handle,
+    and the sum of all rating counts for each country.
+    """
     rating_sum = 0.0
     rating_count = 0
     
@@ -338,41 +339,56 @@ def compute_itunes_world_rating(application):
             rating_count += version.overall_count
     
     if rating_count is not 0:
-        rating_avg = round(rating_sum / rating_count, 2)
+        rating_avg = round(rating_sum / rating_count, 2)    # Round the rating average to 2 decimals.
     else:
         rating_avg = None
  
+    score = XaveeScore()
+    
+    # Save the new values to DB.
     application.itunes_world_rating = rating_avg
     application.itunes_world_rating_count = rating_count
+    application.xavee_score = score.get_xavee_score(rating_avg, rating_count)
     application.save()
 
-def make_application_titles():
-    pass
-
-def get_japanese_app_ids():
+def get_country_app_ids(country):
+    """
+    Function to collect all app IDs specific for a country.
+    
+    This is useful when we want to mine only the Japanese version of the appstore, for example.
+    """    
     out_str = ''
     results = []
-    # ((50 * 2.75 + (app.application.itunes_world_rating * app.application.itunes_world_rating_count)) / (50 + app.application.itunes_world_rating_count)).toFixed(2)
-    for version in IPhoneVersion.objects.filter(country='jp', application__itunes_world_rating__gte=4).order_by('-application__itunes_world_rating'):
-        #print u"Processing " + version.appstore_id + " (rating: " + version.application.itunes_world_rating + ")..."
-        #appstore_ids += '' + str(version.appstore_id) + '\t' + str(version.release_date) + '\n'
+    score = XaveeScore()
+    
+    for version in IPhoneVersion.objects.filter(country=country, application__itunes_world_rating__gte=4).order_by('-application__itunes_world_rating'):
         rating = version.application.itunes_world_rating
         rating_count = version.application.itunes_world_rating_count
+        bayesian = score.get_bayesian_average(rating, rating_count)
         
-        bayesian = (1000 * Decimal(2.75) + (rating * rating_count)) / (1000 + rating_count)
-        
-        
-        results.append((version.appstore_id, round(bayesian, 2), rating_count))
+        results.append((version.appstore_id, bayesian, rating_count))
     
     sorted_by_bayesian = sorted(results, key=lambda tup: tup[1], reverse=True)
     
     for tup in sorted_by_bayesian:
         out_str += str(tup[0]) + ',' + str(tup[1])  + ',' + str(tup[2])  + '\n'
     
-    f = open('japanese.apps.txt','w')    
+    f = open('../Ranking/' + country + '.apps.txt','w')    
     f.write(out_str)
     f.close()
+
+def update_app_ratings():
+    """
+    Function to (re-)calculate ratings for all apps currently in the database.
+    """
+    score = XaveeScore()
     
+    for app in Application.objects.all():
+        rating = app.itunes_world_rating
+        rating_count = app.itunes_world_rating_count
+        app.xavee_score = score.get_xavee_score(rating, rating_count)
+        app.save()
+        
 
 # def compare_app_versions():
 #      

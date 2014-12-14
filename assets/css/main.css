@@ -62,9 +62,10 @@ div.content {
 .indent-sm   { padding-left: 8px;  }
 .indent-md   { padding-left: 16px; }
 
-.pad-xs { padding: 8px;  }
-.pad-sm { padding: 16px; }
-.pad-md { padding: 32px; }
+.pad-xxs { padding: 4px;  }
+.pad-xs  { padding: 8px;  }
+.pad-sm  { padding: 16px; }
+.pad-md  { padding: 32px; }
 
 .text-xs { font-size: 10px; }
 .text-sm { font-size: 12px; }
@@ -132,30 +133,15 @@ div.content {
 	position: absolute;
 	z-index: 5;
 	width: 200%;
-	min-height: 70px;
-	background-color: #FEFEFF;
 }
 
-.hidden-spinner {
-	display:block!important;
-	position:absolute;
-	top:-9999px;
-	left:-9999px;
+.search-window > li:last-child {
+	border-radius: 0px 0px 5px 5px;
 }
 
-.search-window:nth-child(2) {
-	/* border-radius: 10px 10px 0px 0px; */
-}
-
-.search-window:last-child {
-	/* border-radius: 10px; */
-	border-bottom: 0px;
-	color: red;
-}
-
-.search-result {
-	padding: 16px;
-	border-bottom: 1px solid #000;
+.search-entry {
+	min-height: 66px;
+	border-bottom: 1px solid #CCC;
 	
 	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(254,253,255,1) 47%, rgba(254,253,255,1) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(254,253,255,1)), color-stop(100%,rgba(254,253,255,1))); /* Chrome,Safari4+ */
@@ -164,6 +150,11 @@ div.content {
 	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(254,253,255,1) 47%,rgba(254,253,255,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fefdff',GradientType=0 ); /* IE6-9 */
+}
+
+.search-result-title {
+	padding-top: 16px;
+	padding-bottom: 16px;
 }
 
 /* ==========================================================================
@@ -204,6 +195,14 @@ img.img-title-big {
 	max-height: inherit;
 	min-height: 52px;
 	min-width: 52px;
+	border-radius: 12px;
+}
+
+.img-icon-small {
+	margin: 0 auto;
+	max-height: inherit;
+	min-height: 42px;
+	min-width: 42px;
 	border-radius: 12px;
 }
 
