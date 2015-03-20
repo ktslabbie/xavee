@@ -1,0 +1,58 @@
+<div class="container-fluid" id="facetbar" stick-to-top>
+	<div class="btn dropdown-toggle facetbar-btn" id="ranking-menu" data-toggle="dropdown" aria-expanded="true">
+		<span ng-bind="'RANKINGS.' + getActiveRanking() | translate"></span>
+		<span class="btn-xs glyphicon glyphicon-chevron-right facetbar-chevron"></span>
+		<div class="dropdown-position">
+			<ul class="dropdown-menu facetbar-dropdown" role="menu" aria-labelledby="country-menu">
+				<li role="presentation" ng-repeat="ranking in rankings">
+					<a role="menuitem" tabindex="-1" href="" ng-click="changeRanking(ranking)">
+						<span class="indent-sm text-thin" translate="RANKINGS.{[{ ranking }]}"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="btn dropdown-toggle facetbar-btn" id="country-menu" data-toggle="dropdown" aria-expanded="true" ng-if="getActiveRanking() == 'world'">
+		<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag flag-{[{ getActiveCountry() }]} vspace-xxs" alt=""/>
+		<span class="indent-sm" ng-bind="'COUNTRIES.' + getActiveCountry() | translate"></span>
+		<span class="btn-xs glyphicon glyphicon-chevron-right facetbar-chevron"></span>
+		<div class="dropdown-position">
+			<ul class="dropdown-menu facetbar-dropdown" role="menu" aria-labelledby="country-menu">
+				<li role="presentation" ng-repeat="country in countryLists[activeLanguage]">
+					<a role="menuitem" tabindex="-1" href="" ng-click="changeCountry(country)">
+						<img ng-src="{[{ IMG_BASE }]}/blank.gif" class="flag flag-{[{ country }]} vspace-xxs" alt=""/>
+						<span class="indent-sm text-thin" translate="COUNTRIES.{[{ country }]}"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="btn dropdown-toggle facetbar-btn" id="ranking-menu" data-toggle="dropdown" aria-expanded="true">
+		<span ng-bind="'RANKING_TYPES.' + getActiveRankingType() | translate"></span>
+		<span class="btn-xs glyphicon glyphicon-chevron-right facetbar-chevron"></span>
+		<div class="dropdown-position">
+			<ul class="dropdown-menu facetbar-dropdown" role="menu" aria-labelledby="country-menu">
+				<li role="presentation" ng-repeat="rankingType in getActiveRankingTypeList()">
+					<a role="menuitem" tabindex="-1" href="" ng-click="changeRankingType(rankingType)">
+						<span class="indent-sm text-thin" translate="RANKING_TYPES.{[{ rankingType }]}"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="btn dropdown-toggle facetbar-btn" id="category-menu" data-toggle="dropdown" aria-expanded="true">
+		<span ng-bind="'CATEGORIES.' + getActiveCategory() | translate"></span>
+		<div class="dropdown-position">
+			<ul class="dropdown-menu facetbar-dropdown" role="menu" aria-labelledby="country-menu">
+				<li role="presentation" ng-repeat="category in categories">
+					<a role="menuitem" tabindex="-1" href="" ng-click="changeCategory(category)">
+						<span class="indent-sm text-thin" translate="CATEGORIES.{[{ category }]}"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

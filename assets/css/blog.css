@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Blog-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+.post-title {
+	text-decoration: none;
+	color: #008;
+}
+
+.post-date {
+	font-size: 0.9em;
+	font-family: Calibri, sans-serif;
+}
+
+.post-entry {
+	padding-top: 10px;
+}
+
+.post-description {
+	margin-top: 32px;
+	margin-bottom: 20px;
+	
+}
+
+.article {
+	padding-left: 16px;
+	padding-right: 16px;
+}
+

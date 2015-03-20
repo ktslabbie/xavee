@@ -18,22 +18,22 @@ admin.autodiscover()
 
 # URL patterns: which URL requests route to which view.
 urlpatterns = patterns('',
-    url(r'^api',                   include('api.urls')),
-    url(r'^api-auth',              include('rest_framework.urls',                      namespace='rest_framework')),
+    url(r'^api',                   include('api.urls', namespace='api')),
+    url(r'^api-auth',              include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^ckeditor/upload/',       'ckeditor.views.upload',                            name='ckeditor_upload'),
-    url(r'^ckeditor/browse/',       'ckeditor.views.browse',                            name='ckeditor_browse'),
+    url(r'^ckeditor/upload/',       'ckeditor.views.upload', name='ckeditor_upload'),
+    url(r'^ckeditor/browse/',       'ckeditor.views.browse', name='ckeditor_browse'),
     url(r'^grappelli/',             include('grappelli.urls')),
     url(r'^admin/',                 include(admin.site.urls)),
     url(r'^i18n/',                  include('django.conf.urls.i18n')),
 )
 
 urlpatterns += i18n_patterns('',
-    url(r'^blog',                  include('blog.urls',                                namespace='blog')),
-    url(r'^apps',                  include('application.urls',                         namespace='application')),
+    url(r'^blog',                  include('blog.urls',                                namespace='blog')),    
     url(r'^about$',                TemplateView.as_view(template_name='about.html'),   name='about'),
-    #url(r'^$',                     TemplateView.as_view(template_name='index.html'),   name='home'),
-    url(r'^$',                     RedirectView.as_view(url='apps'),                   name='home'),
+    url(r'^',                      include('application.urls',                         namespace='application')),
+    # url(r'^$',                     TemplateView.as_view(template_name='index.html'),   name='home'),
+    url(r'^$',                     RedirectView.as_view(url=''),                       name='home'),
 )
 
 # HTML5 Boilerplate patterns.

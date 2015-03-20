@@ -83,8 +83,8 @@ def backup_db():
 def test():
     print("Beginning unit tests...")
     local("python manage.py test")
-    print("Beginning functional tests...")
-    local("python functional_tests.py")
+    #print("Beginning functional tests...")
+    #local("python functional_tests.py")
 
 def deploy():
     print(green("Starting full deployment process..."))

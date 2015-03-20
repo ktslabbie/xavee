@@ -26,7 +26,7 @@ class XaveeScore():
     
     def get_bayesian_average(self, rating, rating_count):
         """ Returns the Bayesian average given the (average) rating and the number of ratings. """
-        return round( ( self.C*self.m + float(rating)*rating_count ) / ( self.C + rating_count ) , 2)
+        return round( ( self.C*self.m + rating*rating_count ) / ( self.C + rating_count ) , 2)
     
     def get_xavee_score(self, rating, rating_count):
         """ Returns the Xavee score given the (average) rating and the number of ratings. """
@@ -36,3 +36,11 @@ class XaveeScore():
         
         return int( (self.get_bayesian_average(float(rating), rating_count) - 1)*25 )
     
+    def get_xavee_average(self, total, count):
+        """ Returns the Xavee score given the (average) rating and the number of ratings. """
+        if total is None or count is None:
+            # We can't judge the quality due to lack of ratings. Return the prior.
+            return self.xm
+        
+        return round( ( self.C*self.xm + total ) / ( self.C + count ) , 2)
+                    

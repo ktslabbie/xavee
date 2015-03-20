@@ -47,7 +47,7 @@ class DeveloperSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Developer
-        fields = ('id', 'ios_id', 'android_id', 'name', 'slug', 'created_at', 'updated_at', 'developer_applications',)
+        fields = ('id', 'ios_id', 'android_id', 'name', 'slug', 'xavee_score', 'created_at', 'updated_at', 'developer_applications',)
 
 
 class IPhoneVersionSerializer(serializers.ModelSerializer):

@@ -26,13 +26,8 @@ class DeveloperMixin(object):
     serializer_class = DeveloperSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
-# API view classes.
 class ApplicationList(ApplicationMixin, generics.ListAPIView):
     serializer_class = SimpleApplicationSerializer
-    #filter_backends = (filters.OrderingFilter,)
-    #search_fields = ('title',)
-    #ordering_fields = ('xavee_score', 'title')
-    #ordering = ['-xavee_score']
     
     def get_queryset(self):
         """
@@ -46,15 +41,31 @@ class ApplicationList(ApplicationMixin, generics.ListAPIView):
             queryset = queryset.filter(title__istartswith=query)[:5]
         return queryset
 
+class XaveeRanking(ApplicationMixin, generics.ListAPIView):
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('xavee_score', 'itunes_world_rating_count')
+    ordering = ['-xavee_score', 'itunes_world_rating_count']
+    
+    def get_queryset(self):
+        
+        if self.kwargs['ranking_type'] == 'free':
+            queryset = Application.objects.filter(categories__id=self.kwargs['category'], price=0.0)
+        elif self.kwargs['ranking_type'] == 'paid':
+            queryset = Application.objects.filter(categories__id=self.kwargs['category'], price__gt=0.0)
+        else:
+            queryset = Application.objects.filter(categories__id=self.kwargs['category'])
+            
+        return queryset
+
 class ApplicationRanking(generics.GenericAPIView):
     def get(self, request, country, platform, ranking_type, category):
         translation.activate(request.LANGUAGE_CODE)
         
-        if ranking_type == "free":
+        if ranking_type == 'free':
             ranking_type = 1
-        elif ranking_type == "paid":
+        elif ranking_type == 'paid':
             ranking_type = 2
-        elif ranking_type == "grossing":
+        elif ranking_type == 'grossing':
             ranking_type = 3
         
         obj = get_object_or_404(WorldRanking, country=country, ranking_type=ranking_type, category=category)
@@ -74,7 +85,9 @@ class VersionDetail(IPhoneVersionMixin, generics.RetrieveAPIView):
 
 # API view classes.
 class DeveloperList(DeveloperMixin, generics.ListAPIView):
-    pass
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('xavee_score',)
+    ordering = ['-xavee_score',]
 
 class DeveloperDetail(DeveloperMixin, generics.RetrieveAPIView):
     pass

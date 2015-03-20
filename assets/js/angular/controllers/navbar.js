@@ -5,10 +5,10 @@
  * 
  * File for Angular.js controllers.
  */
-var xaveeController = angular.module('xavee.nav-controller', [])
+var navbarCtrl = angular.module('ctrl.navbar', [])
 
 // Controller for the navigation bar (mostly search?)
-.controller('NavController', ['$scope', '$location', 'App', function($scope, $location, App) {
+.controller('NavbarCtrl', ['$scope', '$location', 'AppsAPI', function($scope, $location, AppsAPI) {
 	
 	var requests = 0;
 	$scope.resolved = false;
@@ -19,7 +19,7 @@ var xaveeController = angular.module('xavee.nav-controller', [])
 		requests++;
 		$scope.resolved = false;
 		if($scope.searchQuery) {
-			$scope.searchResults = App.list({results: 5, q: $scope.searchQuery }, function() {
+			$scope.searchResults = AppsAPI.list({results: 5, q: $scope.searchQuery }, function() {
 				requests--;
 				if(requests <= 0) $scope.resolved = true;
 			});

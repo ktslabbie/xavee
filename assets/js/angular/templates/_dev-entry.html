@@ -1,0 +1,27 @@
+<div class="col-xs-12 pad-app-entry col-narrow-gutter">
+	<div class="app-entry-inner bg-green-gradient shadow" style="padding: 4px 16px;">
+		<div class="row row-narrow-gutter">
+			<div class="col-xs-1 col-narrow-gutter text-left">
+				<h4 class="">#<span ng-bind="$index+1"></span></h4>
+			</div>
+			<div class="col-xs-6 col-narrow-gutter">
+				<h4 class="indent-md text-thin">
+					<div class="vspace-xs" ng-bind="developer.name"></div>
+					<div class="text-md"><a href="" style="text-decoration: none;" ng-click="showApps = !showApps"><span ng-if="!showApps">Show</span><span ng-if="showApps">Hide</span> 
+						all <span ng-bind="developer.developer_applications.length"></span> games...</a></div>
+				</h4>
+			</div>
+			<div class="col-xs-4 col-narrow-gutter" style="padding-top: 10px; padding-bottom: 8px;">
+				<div style="margin-bottom: -5px;" class="inline-block" ng-repeat="app in developer.developer_applications | orderBy: '-xavee_score' | limitTo: 9">
+					<img class="img-responsive img-icon-tiny" ng-src="{[{ app.img_small }]}"/>
+				</div>
+			</div>
+			<div class="col-xs-1 col-narrow-gutter text-center" style="font-size: 22px; padding-top: 12px;">
+				<span ng-bind="developer.xavee_score" developer-score></span>
+			</div>
+		</div>
+		<div class="row" style="padding-top: 8px;" ng-if="showApps">
+			<div ng-repeat="app in developer.developer_applications | orderBy: '-xavee_score'" ng-include="TEMPLATE_BASE + '/_dev-app-entry.html'"></div>
+		</div>
+	</div>
+</div>

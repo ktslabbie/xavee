@@ -4,9 +4,11 @@
  * @author Kristian
  * 
  * Main Javascript file. 
- * All Javascript that is run on every page must go in here.
+ * All plain, non-Angular Javascript that is run on every page must go in here.
  */
+
 // Make Django language changing work with URL rewrites by setting the latest URL and submitting the form manually.
+// The function is here to make it possible to switch languages even outside of the Angular environment.
 var updateLanguage = function(langCode) {
 	$('input[name="next"]').val(window.location.pathname.slice(3));
 	$('form[name="setLang' + langCode + '"]').submit();

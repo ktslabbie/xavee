@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Navigation bar-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+/* Make the navbar a little smaller. */
+.navbar-nav > li > a { 
+	font-size: 16px;
+	font-family: 'Asap';
+	font-weight: 400;
+	color: #DDD !important;
+	padding-top: 13px !important;
+	padding-bottom: 13px !important;
+}
+
+.navbar-nav > li > a:hover { color: #FFF !important; }
+.navbar-nav > .active > a { color: #FFF !important; background-color: #004409 !important; }
+.navbar { min-height: 36px !important; }
+
+.navbar-inverse {
+	background-color: #007439;
+}
+
+.navbar-toggle {
+	margin-bottom: 6px;
+	margin-top: 6px;
+}
+
+.navbar-search {
+	max-width: 360px;
+	width: 60%;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	float: left;
+}
+
+.language-button {
+	padding: 12px 12px 13px 12px;
+}
+
+#language-dropdown {
+	color: #DDD;
+}
+
+#language-dropdown:hover {
+	color: #FFF;
+}
+
+.language-menu {
+	padding-left: 16px;
+}
+
+/* Search pop-up styles. */
+.search-window {
+	position: absolute;
+	margin-top: 46px;
+	z-index: 10;
+	width: 70%;
+	margin-left: -10px;
+}
+
+.search-entry {
+	min-height: 66px;
+	border-bottom: 1px solid #CCC;
+}
+
+.search-result-title {
+	padding-top: 16px;
+	padding-bottom: 16px;
+}

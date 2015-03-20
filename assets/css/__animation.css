@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Angular animation-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+ 
+.animate-show-hide.ng-hide-remove {
+	-webkit-transition:all linear 0.2s;
+	-moz-transition:all linear 0.2s;
+	-o-transition:all linear 0.2s;
+	transition:all linear 0.2s;
+	display:block!important;
+}
+ 
+.animate-show-hide.ng-hide-add.ng-hide-add-active,
+.animate-show-hide.ng-hide-remove {
+	opacity:0;
+}
+ 
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove.ng-hide-remove-active {
+	opacity:1;
+}
+
+.app-entry.ng-enter {
+	-webkit-transition:all linear 0.2s;
+	-moz-transition:all linear 0.2s;
+	-o-transition:all linear 0.2s;
+	transition:all linear 0.2s;
+	opacity: 0;
+}
+
+.app-entry.ng-enter-active {
+	opacity: 1;
+}

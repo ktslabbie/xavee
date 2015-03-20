@@ -28,7 +28,7 @@ class AppCollectionTaskTest(TestCase):
         self.assertEqual(clashUS.bundle_id, "com.supercell.magic")              # The right bundle ID?
         self.assertEqual(clashUS.currency, "USD")                               # The right currency?
         self.assertGreaterEqual(clashUS.overall_count, 1024557)                 # Overall rating count at least 1024557? (can never decrease)
-        self.assertEqual(clashUS.release_date, datetime(2012, 8, 2, 8, 24, 58)) # The right release date?
+        self.assertEqual(clashUS.release_date, datetime(2012, 8, 2, 17, 24, 58))# The right release date?
         
         clashApp = clashUS.application
         self.assertEqual(clashApp.title, "Clash of Clans")                      # The right universal title?
@@ -37,8 +37,8 @@ class AppCollectionTaskTest(TestCase):
         self.assertFalse(clashApp.multi_build)                                  # Clash of Clans is not a multi-build app
         self.assertGreaterEqual(clashApp.itunes_world_rating, 1.0)              # iTunes world rating must be between 1.0 and 5.0
         self.assertLessEqual(clashApp.itunes_world_rating, 5.0)                 # iTunes world rating must be between 1.0 and 5.0
-        self.assertGreaterEqual(clashApp.xavee_score, 0)                       # iTunes world rating must be between 1.0 and 5.0
-        self.assertLessEqual(clashApp.xavee_score, 100)                        # iTunes world rating must be between 1.0 and 5.0
+        self.assertGreaterEqual(clashApp.xavee_score, 0)                        # Xavee rating must be between 0 and 100
+        self.assertLessEqual(clashApp.xavee_score, 100)                         # Xavee rating must be between 0 and 100
         
         clashDev = clashApp.developer
         self.assertEqual(clashDev.ios_id, 488106216)                            # The right iOS ID for this developer?
@@ -60,7 +60,7 @@ class AppCollectionTaskTest(TestCase):
         sameNameDev2.save()
         self.assertEqual(sameNameDev2.slug, "supercell-2")                      # Was the -2 appended correctly?
         
-        app2 = Application(title=u"CLasH oF ClAns", developer=sameNameDev2)     # Test the same for Application as well.
+        app2 = Application(title=u"CLasH oF ClAns", developer=sameNameDev2, price=0)     # Test the same for Application as well.
         app2.save()
         self.assertEqual(app2.slug, "clash-of-clans-1")                         # Was the -1 appended correctly?
         
@@ -81,11 +81,41 @@ class AppCollectionTaskTest(TestCase):
         tasks.update_app_ratings()
         for app in Application.objects.all():
             print "" + app.title + " - R: " + str(app.itunes_world_rating) + ", C: " + str(app.itunes_world_rating_count) + ", X: " + str(app.xavee_score)
-            self.assertTrue(app.xavee_score > 0) 
+            self.assertTrue(app.xavee_score > 0)
     
-    def test_lookup_and_add_ios_app(self):
+    def test_update_dev_ratings(self):
+        score = XaveeScore()
+        score.set_bayesian_params(2.75, 0.5)
+        b = score.get_xavee_average(500, 5)
+        print "Xavee developer score of 294 total and 5 apps = " + str(b)
+        #self.assertEqual(b, 72)
+        
+        print "Testing Xavee rating update..."
+        tasks.update_dev_ratings()
+        for dev in Developer.objects.all():
+            for app in Application.objects.filter(developer__ios_id=dev.ios_id):
+                print "App for " + dev.name + ": " + app.title + ", X: " + str(app.xavee_score)
+                
+            print "" + dev.name + " X: " + str(dev.xavee_score)
+            self.assertTrue(dev.xavee_score > 0)
+            
+    def test_update_apps_from_versions(self):
+        clashUS = IPhoneVersion.objects.get(title="Clash of Clans", country="us")
+        clashUS.price = 499
+        clashUS.currency = "JPY"
+        clashUS.save()
+        
+        print "Testing app update from versions..."
+        tasks.update_apps_from_versions()
+        app = Application.objects.get(title="Clash of Clans")
+        
+        print "" + app.title + " - Price: " + str(app.currency) + str(app.price)
+        self.assertEqual(app.price, 499)
+        self.assertEqual(app.currency, "JPY")
+    
+    def test_app_creation(self):
         ''' Test to make sure looking up and saving apps from the iTunes lookup API works. '''
-        appstore_id = 454638411  # Facebook Messenger (should does not exist in game-only DB)
+        appstore_id = 454638411  # Facebook Messenger (should not exist in game-only DB)
         country = 'us'
         application = None
 
@@ -96,6 +126,27 @@ class AppCollectionTaskTest(TestCase):
         self.assertEqual(version.application.developer.name, "Facebook, Inc.")
         self.assertEqual(version.application.developer.slug, "facebook-inc.")
         self.assertEqual(version.application.slug, "facebook-messenger")
+
+        appstore_id = 651510680
+        country = 'es'
+        
+        tasks.create_and_add_application(appstore_id, country)
+        
+        version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
+        self.assertEqual(version.application.developer.name, "Etermax")
+        self.assertEqual(version.title, "Preguntados")
+        self.assertEqual(version.application.title, "Trivia Crack")             # Make sure the application gets the US title.
+        
+        version.application.title = "Preguntados"
+        version.application.save()
+        
+        version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
+        self.assertEqual(version.application.title, "Preguntados")             # We changed it back to the Spanish title.
+        
+        tasks.update_apps_from_versions()
+        
+        version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
+        self.assertEqual(version.application.title, "Trivia Crack")             # Make sure the application gets the US title again.
 
 #      
 #     def test_collect_ios_ranking(self):

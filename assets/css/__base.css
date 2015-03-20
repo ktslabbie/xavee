@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Project-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+/* 
+  Allow angular.js to be loaded in the body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none !important; }
+
+/* Make sure there's always a scroll bar, to prevent layout jumps when one appears. */
+html { overflow-y: scroll; }
+
+body {
+	/* Supposedly best-practice default fonts for Japanese websites.
+	   Looks bad in English so don't use (maybe for Japanese version?) */
+	/* font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, 
+	            "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; */
+	font-family: 'Open Sans', sans-serif; /* Also consider: 'Muli', 'Asap' */
+	font-weight: 400;
+	font-size: 15px;
+	background-color: #FEFFFE;
+}
+
+.container {
+	min-width: 80%;
+	padding-bottom: 16px;
+}
+
+/* ==========================================================================
+   Generic modifiers
+   ========================================================================== */
+
+.pointer { cursor: pointer; }
+
+/* Fix for pixel-shift when switching from static to fixed navbar. */
+.navbar { border: none; }
+
+/* Narrow versions of Bootstrap 3 rows/columns. Make sure to use together. */
+.row-narrow-gutter { margin-left: -5px; margin-right: -5px; }
+.col-narrow-gutter { padding-left: 5px; padding-right: 5px; }
+
+/* If we use Bootstrap columns to create gutters, the content needs to be re-aligned. */
+.row-inner { padding-right: 15px; }
+
+/* For adding space between rows. */
+.vspace-xxs { margin-bottom: 3px;  }
+.vspace-xs  { margin-bottom: 4px;  }
+.vspace-sm  { margin-bottom: 8px;  }
+.vspace-md  { margin-bottom: 16px; }
+
+.vspace-top-xxs { margin-top: 3px;  }
+.vspace-top-xs  { margin-top: 4px;  }
+.vspace-top-sm  { margin-top: 8px;  }
+.vspace-top-md  { margin-top: 16px; }
+
+.outdent-sm   { margin-left: -16px;  }
+.indent-none { padding-left: 0px;  }
+.indent-xs   { padding-left: 4px;  }
+.indent-sm   { padding-left: 8px;  }
+.indent-md   { padding-left: 16px; }
+
+.right-indent-sm { padding-right: 8px;  }
+
+.pad-xxs { padding: 4px;  }
+.pad-xs  { padding: 8px;  }
+.pad-sm  { padding: 16px; }
+.pad-md  { padding: 32px; }
+
+.text-xxs { font-size:  9px; }
+.text-xs  { font-size: 10px; }
+.text-sm  { font-size: 12px; }
+.text-md  { font-size: 14px; }
+.text-lg  { font-size: 16px; }
+.text-xl  { font-size: 18px; }
+.text-xxl { font-size: 20px; }
+
+.text-thin { font-weight: 300; }
+.text-bold { font-weight: 700; }
+
+.inline-block { display: inline-block; }
+
+.shadow {
+	-webkit-box-shadow: 1px 1px 2px -1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 1px 2px -1px rgba(0,0,0,0.75);
+	box-shadow: 1px 1px 2px -1px rgba(0,0,0,0.75);
+}
+
+.bg-green-gradient {
+	background: rgb(255,255,255); /* Old browsers　*/
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(254,255,253,1) 47%, rgba(253,255,252,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(47%,rgba(254,255,253,1)), color-stop(100%,rgba(253,255,252,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,255,253,1) 47%,rgba(253,255,252,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,255,253,1) 47%,rgba(253,255,252,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(254,255,253,1) 47%,rgba(253,255,252,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(254,255,253,1) 47%,rgba(253,255,252,1) 100%); /* W3C */
+	filter:     progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fdfeff',GradientType=0 ); /* IE6-9 */
+}
+
+.fullscreen { min-height: 1400px; } /* Make sure at least a full screen is displayed to avoid jitter when loading. */
+.nowrap { white-space: nowrap; overflow: hidden; } /* Disable word wrapping for text (text disappears). */
+
+
+/* ==========================================================================
+   Misc. styles
+   ========================================================================== */
+
+.loading-large {
+	font-size: 48px;
+	color: #005500;
+	padding: 8px;
+}
+
+.flag {
+	width: 25px;
+	height: 15px;
+	background: url(../img/flags.png) no-repeat;
+}
+
+.flag.flag-au 			{ background-position: -25px 0 }
+.flag.flag-ca 			{ background-position: -50px 0 }
+.flag.flag-cn 			{ background-position: -75px 0 }
+.flag.flag-de 			{ background-position: 0 -15px }
+.flag.flag-es 			{ background-position: -25px -15px }
+.flag.flag-fr 			{ background-position: -50px -15px }
+.flag.flag-gb 			{ background-position: -75px -15px }
+.flag.flag-it 			{ background-position: 0 -30px }
+.flag.flag-jp, .flag-ja { background-position: -25px -30px }
+.flag.flag-kr 			{ background-position: -50px -30px }
+.flag.flag-nl 			{ background-position: -75px -30px }
+.flag.flag-ru 			{ background-position: 0 -45px }
+.flag.flag-us, .flag-en { background-position: -25px -45px }
+
+.flag-small {
+	width: 16px;
+	height: 11px;
+	background: url(../img/flags_small.png) no-repeat;
+}
+
+.flag-small.flag-au { background-position: -16px 0 }
+.flag-small.flag-ca { background-position: -32px 0 }
+.flag-small.flag-cn { background-position: -48px 0 }
+.flag-small.flag-de { background-position: 0 -11px }
+.flag-small.flag-es { background-position: -16px -11px }
+.flag-small.flag-fr { background-position: -32px -11px }
+.flag-small.flag-gb { background-position: -48px -11px }
+.flag-small.flag-it { background-position: 0 -22px }
+.flag-small.flag-jp { background-position: -16px -22px }
+.flag-small.flag-kr { background-position: -32px -22px }
+.flag-small.flag-nl { background-position: -48px -22px }
+.flag-small.flag-ru { background-position: 0 -33px }
+.flag-small.flag-us { background-position: -16px -33px }

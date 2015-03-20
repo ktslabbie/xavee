@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Facet bar-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+#facetbar {
+	background-color: #FFFFFF;
+	color: #111111;
+	min-height: 36px;
+	border-bottom: 1px solid #EEEEEE;
+	z-index: 5;
+}
+
+.facetbar-btn {
+	border-radius: 0;
+	border-bottom: 0;
+	
+	height: 35px;
+	font-size: 16px;
+	font-weight: 300;
+	margin-right: -4px;
+	
+	-webkit-transition: background-color 0.2s, color 0.1s, transform 0.1s;
+	-moz-transition: background-color 0.2s, color 0.1s, transform 0.1s;
+	-o-transition: background-color 0.2s, color 0.1s, transform 0.1s;
+	transition: background-color 0.2s, color 0.1s, transform 0.1s;
+}
+
+.facetbar-btn:hover {
+	background-color: #62D99C;
+	color: #FFFFFF;
+	box-shadow: 1px 1px 2px -1px rgba(0,0,0,0.25);
+	opacity: 1;
+}
+
+.facetbar-chevron {
+	font-size: 9px;
+	vertical-align: 2px;
+}
+
+.dropdown-position {
+	position: relative;
+}
+
+.facetbar-hidden {
+	margin-left: -13px;
+	margin-top: 7px;
+	height: 400px;
+	width: 400px;
+}
+
+.facetbar-dropdown {
+	margin-left: -13px;
+	margin-top: 6px;
+	border-radius: 0;
+	border: 0;
+	border-top: 1px solid #EEEEEE;
+	font-size: 16px;
+}
+
+.facetbar-btn:hover > div > ul.facetbar-dropdown {
+    display: block;
+}
+
+.facetbar-shadow {
+	-webkit-box-shadow: 0px 1px 1px -1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 1px 1px -1px rgba(0,0,0,0.75);
+	box-shadow: 0px 1px 1px -1px rgba(0,0,0,0.75);
+}
+

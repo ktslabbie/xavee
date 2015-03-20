@@ -1,0 +1,28 @@
+<div class="col-xs-12 pad-app-entry col-narrow-gutter">
+	<div class="app-entry-inner bg-green-gradient shadow" style="padding: 8px 8px 4px 8px;">
+		<div class="row row-narrow-gutter">
+			<div class="col-xs-2 col-sm-1 col-rank" style="padding-left: 5px; padding-right: 0px;">
+				#<span ng-bind="$index+1"></span>
+			</div>
+			<div class="col-xs-2 col-sm-1 col-icon" style="padding-left: 0px; padding-right: 5px;">
+				<img class="img-responsive img-icon" ng-src="{[{ app.img_small }]}" />
+			</div>
+			<div class="col-xs-6 col-sm-7 col-title col-narrow-gutter">
+				<a class="app-title" href="apps/{[{ app.id }]}/{[{ app.slug }]}" ng-click="setAppstoreID(app.iphone_versions[0].appstore_id, app.iphone_versions[0].country)" ng-bind="app.title"></a><br>
+				<a class="small app-title" href="developers/{[{ app.developer.id }]}/{[{ app.developer.slug }]}" ng-bind="app.developer.name"></a><br>
+				<a class="small" href="https://itunes.apple.com/{[{ activeCountry }]}/app/id{[{ app.iphone_versions[0].appstore_id }]}" target="_blank"><span translate="PRICE" translate-values="{ price: '{[{ getPrice(app.iphone_versions[0].currency, app.iphone_versions[0].price) }]}' }"></span></a>
+			</div>
+			<div class="col-xs-2 col-sm-1 col-sm-push-2 col-narrow-gutter text-center" style="margin-top: -4px; font-size: 24px;">
+				<span ng-bind="app.xavee_score" xavee-score></span>
+			</div>
+			<div class="col-xs-8 col-xs-push-4 col-sm-2 col-sm-push-0 col-sm-pull-1 col-narrow-gutter text-sm text-left">
+				<div class="row col-xs-5 col-sm-12">
+					<span><strong>iTunes:</strong></span> <span style="font-weight: 700;" ng-bind="app.itunes_world_rating" itunes-rating></span>
+				</div>
+				<div class="row col-xs-7 col-sm-12">
+					(<span ng-bind="app.itunes_world_rating_count"></span> ratings)
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

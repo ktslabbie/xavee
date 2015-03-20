@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Apps-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+.description-panel-closed {
+	white-space: pre-line;
+	font-size: 12px;
+	height: 120px;
+	overflow-y: hidden;
+}
+
+.description-panel-open {
+	white-space: pre-line;
+	font-size: 12px;
+	overflow-y: none;
+}
+
+div.page-header {
+	border: none;
+}
+
+div.page-title {
+	margin-bottom: 40px;
+}
+
+img.img-title {
+	max-width: 150px;
+}
+
+img.img-title-big {
+	min-width: 160px;
+}
+
+.img-icon {
+	margin: 0 auto;
+	max-height: inherit;
+	min-height: 52px;
+	min-width: 52px;
+	border-radius: 12px;
+}
+
+.img-icon-tiny {
+	margin: 0 auto;
+	max-height: 36px;
+	min-height: 22px;
+	min-width: 22px;
+	border-radius: 6px;
+}
+
+/* ==========================================================================
+   Ranking facet panel styles
+   ========================================================================== */
+
+.facet-panel { margin-top: 33px; }
+
+/* ==========================================================================
+   Ranking styles
+   ========================================================================== */
+
+.app-entry {
+	margin-bottom: 2px;
+}
+
+.pad-app-entry {
+	padding-left: 0px;
+}
+
+.ranking-date {
+	padding-right: 8px;
+}
+
+.app-entry-inner {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+a.app-title {
+	text-decoration: none;
+	color: #008;
+}
+
+div.row-header {
+	padding-left: 12px;
+	font-weight: bolder;
+}
+
+.col-rank {
+	padding-left: 10px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.col-icon {
+	max-height: 57px;
+}
+
+.col-icon-small {
+	max-height: 52px;
+	margin-bottom: 8px;
+}
+
+.col-title {
+	padding-bottom: 4px;
+}
+
+.img-flag-small {
+	margin-bottom: 2px;
+}
+
+div.col-country-rank {
+	font-size: 11px;
+	padding: 1px;
+}
+
+.col-xavee-score {
+	font-size: 46px;
+	font-weight: bold;
+}
+
+.btn-glyph {
+	margin-bottom: 5px;
+}
+
+.btn-group {
+	margin-bottom: 16px;
+}
+
+.btn-group a.active {
+	background-color: #9E9;
+}
+
+div a.active {
+	font-weight: bold;
+	color: #000000;
+}
+
+div a:hover {
+	text-decoration: none;
+}
+

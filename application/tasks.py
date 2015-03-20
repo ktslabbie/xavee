@@ -85,7 +85,6 @@ def collect_ios_ranking(ranking_type, ranking_category_id, limit):
     
     print("All apps collected and ranked.")
 
-
 def collect_ios_ranking_for_country(path, ranking_type, category, country):
     ''' Sub-function to collect a type of ranking for one country. '''
     
@@ -116,49 +115,12 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
         
         print("Processing the #" + str(rank_counter) + " app '" + app['im:name']['label'] + "' in country '" + country + "'...")
         
-        version = None
+        # Create and add the application (all versions and the compounded application).
+        version = create_and_add_application(appstore_id, country)
         
-        # Check if we already have this Version of this app for this country in the DB.
-        version = IPhoneVersion.objects.filter(appstore_id=appstore_id, country=country).first()
-        
-        if not version:
-            
-            # The Version with this ID does not yet exist for this country.
-            # There may be versions for other countries already. Check.
-            versions = IPhoneVersion.objects.filter(appstore_id=appstore_id)
-            
-            # Initialize a country list.
-            countries = COUNTRIES[:]
-            
-            # Remove countries whose versions are already in the DB.
-            for ver in versions:
-                if ver.country in countries:
-                    countries.remove(ver.country)
-            
-            # Lookup versions for all remaining countries.
-            for version_country in countries:
-                if version is not None:
-                    lookup_and_add_ios_app(appstore_id, version_country, version.application)
-                else:
-                    version = lookup_and_add_ios_app(appstore_id, version_country, None)
-            
-            # Shouldn't happen but does sometimes. iTunes error. Just skip if None.
-            if version is None:
-                continue
-                
-            # Get the world average rating and total rating count by averaging over all versions.
-            compute_itunes_ratings(version.application)
-            
-            # Finally, assure we have the version of the current country.
-            try:
-                version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
-            except IPhoneVersion.DoesNotExist:
-                # Shouldn't happen but does sometimes. iTunes error. Just skip if None.
-                continue
-        # endif
-        
-        # We should have a version now.
-        assert(version is not None)
+        # Just skip if app creation failed somehow (it shouldn't).
+        if version is None:
+            continue
         
         if category.id == 0 or category.id == 6014 or rank_counter <= 10:
             # Create the new ranking (only all apps and all games) for this version and add it to the list (we save to DB in bulk later).
@@ -200,6 +162,52 @@ def collect_ios_ranking_for_country(path, ranking_type, category, country):
     Ranking.objects.filter(ranking_type=ranking_type, category=category, version__country=country).delete()
     Ranking.objects.bulk_create(rankings)
 
+def create_and_add_application(appstore_id, country):
+        
+    # Check if we already have this Version of this app for this country in the DB.
+    version = IPhoneVersion.objects.filter(appstore_id=appstore_id, country=country).first()
+    
+    if not version:
+        
+        # The Version with this ID does not yet exist for this country.
+        # There may be versions for other countries already. Check.
+        versions = IPhoneVersion.objects.filter(appstore_id=appstore_id)
+        
+        # Initialize a country list.
+        countries = COUNTRIES[:]
+        
+        # Remove countries whose versions are already in the DB.
+        for ver in versions:
+            if ver.country in countries:
+                countries.remove(ver.country)
+        
+        # Lookup versions for all remaining countries.
+        for version_country in countries:
+            if version is not None:
+                lookup_and_add_ios_app(appstore_id, version_country, version.application)
+            else:
+                version = lookup_and_add_ios_app(appstore_id, version_country, None)
+        
+        # Shouldn't happen but does sometimes. iTunes error. Just return None.
+        if version is None:
+            return None
+            
+        # Get the world average rating and total rating count by averaging over all versions.
+        compute_itunes_ratings(version.application)
+        
+        # Finally, assure we have the version of the current country.
+        try:
+            version = IPhoneVersion.objects.get(appstore_id=appstore_id, country=country)
+        except IPhoneVersion.DoesNotExist:
+            # Shouldn't happen but does sometimes. iTunes error. Just return None.
+            return None
+    # endif
+    
+    # We should have a version now.
+    assert(version is not None)
+    
+    return version
+
 def lookup_and_add_ios_app(appstore_id, version_country, application):
     '''
     This function queries app details for the current country using the lookup API, 
@@ -232,6 +240,9 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
         app_detail = detail_data['results'][0]        
         title = app_detail['trackName']
         img_small = app_detail['artworkUrl60']
+        price = app_detail['price']
+        currency = app_detail['currency']
+        release_date = app_detail['releaseDate']
         
         # There are some apps without an artist URL. Slugify the name for these ourselves, rather than getting it from the URL.
         dev_slug = ''
@@ -252,7 +263,8 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
                 developer.save()
             
             # We have enough to create and save an Application.
-            application = Application(title=title, slug=app_slug, developer=developer, img_small=img_small)
+            application = Application(title=title, slug=app_slug, developer=developer, 
+                                      img_small=img_small, price=price, currency=currency, release_date=release_date)
             application.save()
             
             # Next get the categories.
@@ -280,9 +292,6 @@ def lookup_and_add_ios_app(appstore_id, version_country, application):
         
         # Get the remaining Version-specific data.
         bundle_id = app_detail['bundleId']
-        price = app_detail['price']
-        currency = app_detail['currency']
-        release_date = app_detail['releaseDate']
         
         # Get the ratings for this version (if it has ratings; new games may not have them yet).
         current_version_rating = None
@@ -322,7 +331,6 @@ def add_apprank_by_country(ranking_type, category):
         world_ranking = WorldRanking(ranking_type=ranking_type, category=category, platform=dicts.IPHONE, 
                                      country=country, currency=dicts.CURRENCIES.get(country), ranking=country_ranking)
         world_ranking.save()
-
 
 def compute_itunes_ratings(application):
     """
@@ -377,17 +385,71 @@ def get_country_app_ids(country):
     f.write(out_str)
     f.close()
 
+def update_apps_from_versions():
+    """
+    Function to update application data from their preferred versions.
+    """
+    count = Application.objects.count()
+    apps = Application.objects.all()
+    
+    for app in apps:
+        
+        print str(count) + " apps to go. Now processing " + app.title + "..."
+        count -= 1
+        
+        # Initialize a country list.
+        countries = COUNTRIES[:]
+        
+        # Lookup versions for all remaining countries.
+        for version_country in countries:
+            version = utils.get_or_none(IPhoneVersion, application=app, country=version_country)
+            
+            if version is not None:
+                app.title = version.title
+                app.price = version.price
+                app.currency = version.currency
+                app.release_date = version.release_date
+                app.save()
+                break
+    
+
 def update_app_ratings():
     """
     Function to (re-)calculate ratings for all apps currently in the database.
     """
     score = XaveeScore()
+    count = Application.objects.count()
     
     for app in Application.objects.all():
+        print str(count) + " apps to go. Now processing " + app.title + "..."
+        count -= 1
+        
         rating = app.itunes_world_rating
         rating_count = app.itunes_world_rating_count
         app.xavee_score = score.get_xavee_score(rating, rating_count)
         app.save()
+        
+def update_dev_ratings():
+    """
+    Function to (re-)calculate ratings for all developers currently in the database.
+    """
+    score = XaveeScore()
+    score.set_bayesian_params(2.75, 0.5)
+    count = Developer.objects.count()
+    
+    for dev in Developer.objects.all():
+        
+        print str(count) + " devs to go. Now processing " + dev.name + "..."
+        count -= 1
+        
+        app_count = 0
+        xavee_total = 0
+        for app in Application.objects.filter(developer__ios_id=dev.ios_id):
+            app_count += 1
+            xavee_total += app.xavee_score
+        
+        dev.xavee_score = score.get_xavee_average(xavee_total, app_count)
+        dev.save()
         
 
 # def compare_app_versions():

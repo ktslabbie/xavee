@@ -1,9 +1,12 @@
+<div class="row vspace-md">
+	<div class="col-xs-9">
+		<h3 ng-bind="developer.name"></h3>
+	</div>
+	<div class="col-xs-3 col-narrow-gutter text-center">
+		<div class="vspace-xs text-md" style="margin-top: 6px;"><strong translate="DEV_SCORE"></strong></div>
+		<div class="text-xxl" ng-bind="developer.xavee_score" developer-score></div>
+	</div>
+</div>
 <div class="row">
-	<div class="col-md-12">
-		<h3 class="developer-name" ng-bind="developer.name"></h3><!-- <a href back>Back</a> -->
-		<p>Apps</p>
-	</div>
-	
-	<div class="col-xs-12 col-sm-6 col-md-3 developer-apps" ng-repeat="app in developer.developer_applications" ng-include="TEMPLATE_BASE + '/_dev-app-entry.html'">
-	</div>
+	<div ng-repeat="app in developer.developer_applications | orderBy: '-xavee_score'" ng-include="TEMPLATE_BASE + '/_dev-app-entry.html'"></div>
 </div>

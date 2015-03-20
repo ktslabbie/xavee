@@ -1,16 +1,24 @@
-
-<div class="pad-xs app-entry bg-blue-gradient shadow">
-	<div class="row row-narrow-gutter">
-		<div class="col-md-3 col-icon">
-			<img class="img-responsive img-icon" ng-src="{[{ app.img_small }]}"/>
-		</div>
-		<div class="col-md-9" style="font-size: 10px;">
-			<div class="row" ng-repeat="cat in app.categories"> 
-				<span ng-bind="cat.name"></span>
+<div class="col-xs-6 col-sm-4 col-md-3 app-entry col-narrow-gutter">
+	<div class="pad-xs app-entry-inner bg-green-gradient shadow">
+		<div class="row row-inner">
+			<div class="col-xs-4 col-icon-small">
+				<img class="img-responsive img-icon" ng-src="{[{ app.img_small }]}"/>
+			</div>
+			<div class="col-xs-6 text-xs">
+				<div class="row" ng-repeat="cat in app.categories | filter: { id: '!'+ 6014 }"> 
+					<span ng-bind="cat.name"></span>
+				</div>
+			</div>
+			<div class="col-xs-2 text-xxl">
+				<div class="row"> 
+					<span ng-bind="app.xavee_score" xavee-score></span>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-12 nowrap">
-			<a href="{[{ app.id }]}/{[{ app.slug }]}" ng-click="setAppstoreID(0)" ng-bind="app.title"></a>
+		<div class="row row-inner">
+			<div class="col-xs-12 text-md nowrap">
+				<a href="apps/{[{ app.id }]}/{[{ app.slug }]}" ng-click="setAppstoreID(0)" ng-bind="app.title"></a>
+			</div>
 		</div>
 	</div>
 </div>

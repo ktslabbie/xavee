@@ -36,8 +36,8 @@ COUNTRY_CHOICES = OrderedDict((
     ('it', "Italy"),
     ('es', "Spain"),
     ('nl', "The Netherlands"),
-    ('ru', "Russia"),
     ('jp', "Japan"),
+    ('ru', "Russia"),
     ('kr', "Korea"),
     ('cn', "China"),
 ))
@@ -52,8 +52,8 @@ CURRENCIES = {
     'it': "EUR",
     'es': "EUR",
     'nl': "EUR",
-    'ru': "RUB",
     'jp': "JPY",
+    'ru': "RUB",
     'kr': "USD",
     'cn': "CNY",
 }

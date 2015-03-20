@@ -6,6 +6,16 @@ Created on Aug 10, 2014
 import sys, time
 
 """
+Helper to get an object from the DB, or None if it doesn't exists.
+Django's standard get() function gives an exception in this case.
+"""
+def get_or_none(model, **kwargs):
+    try:
+        return model.objects.get(**kwargs)
+    except model.DoesNotExist:
+        return None
+    
+"""
 Get an app or developer slug from an iTunes URL.
 This is easier than dealing with slug generation ourselves.
 """

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 import os
 import dj_database_url
+import passwords
 from datetime import date, timedelta
 
 # Helper function to get the absolute file path to the project.
@@ -49,7 +50,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS':  ('rest_framework.filters.DjangoFilterBackend',),
     
     # This disables the browsable API.
-    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer', )              
+    # 'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer', )              
 }
 
 
@@ -65,8 +66,8 @@ CELERY_TIMEZONE          = 'Japan'
 # ====================================
 #       Amazon AWS settings
 # ====================================
-AWS_ACCESS_KEY_ID       = 'AKIAIQDUJFNULPVAVI6A'
-AWS_SECRET_ACCESS_KEY   = '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'
+AWS_ACCESS_KEY_ID       = passwords.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY   = passwords.AWS_SECRET_ACCESS_KEY
 AWS_STORAGE_BUCKET_NAME = 'xavee'
 AWS_IS_GZIPPED          = True
 AWS_PRELOAD_METADATA    = True
@@ -224,7 +225,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '8w)3$4m03*0almq)0yercyj%07@%d)fvc32rf4,,.few3'
+SECRET_KEY = passwords.SECRET_KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

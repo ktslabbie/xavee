@@ -20,6 +20,7 @@ class Developer(BaseModel):
     android_id  = models.CharField("Android ID", help_text="The developer ID from Google Play.", max_length=128, blank=True, null=True, unique=True)
     name        = models.CharField("Developer name", max_length=256)
     slug        = models.SlugField("Developer slug", max_length=256, unique=True, blank=True, default='')
+    xavee_score = models.SmallIntegerField("Xavee Score", null=True)
     
     class Meta:
         ordering = ["name"]
@@ -71,6 +72,9 @@ class Application(BaseModel):
     developer = models.ForeignKey(Developer, related_name="developer_applications")
     categories = models.ManyToManyField(Category, related_name="categories")
     img_small = models.URLField(help_text="A link to a small size image (60px from iTunes).")
+    price = models.DecimalField(decimal_places=2, max_digits=8, help_text="Price in the preferred currency. 0 if free.")
+    currency = models.CharField(help_text="Three-letter currency code.", max_length=3)
+    release_date = models.DateTimeField(blank=True, null=True, help_text="Initial release date (optional).")
     itunes_world_rating = models.DecimalField("iTunes World Rating", decimal_places=2, max_digits=3, null=True, default=0)
     itunes_world_rating_count = models.IntegerField("iTunes World Rating Count", null=True, default=0)
     xavee_score = models.SmallIntegerField("Xavee Score", null=True, default=0)
@@ -135,7 +139,7 @@ class Ranking(models.Model):
     since = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, blank=True, null=True, related_name='rankings')
     rank = models.SmallIntegerField(null=False, default=-1)
-     
+
     class Meta:
         ordering = ["rank"]
       

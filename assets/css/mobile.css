@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Mobile-specific styles.    
+   @author Kristian Slabbekoorn
+   ========================================================================== */
+
+/* Pad screens. */
+@media(min-width:768px) and (max-width: 991px) {
+	.pad-app-entry {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	.facet-panel {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+/* Mobile phone screens. */
+@media (max-width: 767px) {
+	
+	.search-window {
+		width: 100%;
+	}
+	
+	.search-entry {
+		width: inherit;
+	}
+
+	.pad-app-entry {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	.facet-panel {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	.img-icon {
+		min-height: 40px;
+		min-width: 40px;
+	}
+	
+	.col-country-rankings {
+		padding-top: 8px;
+		padding-left: 8px;
+	}
+}

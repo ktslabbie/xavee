@@ -1,10 +1,8 @@
 {% extends '__base.html' %} {% load i18n %} {% load staticfiles %}
 {% block content %}
-{% include "_navbar.html" %}
-<div class="container">
-	<div class="content">
-		{% block page_content %}
-		<img class="center-block" src="{% static 'img/xavee-logo.png' %}" height="180" />
+	{% include '_navbar.html' %}
+	{% block page_content %}
+		<!-- <img class="center-block" src="{% static 'img/xavee-logo.png' %}" height="180" />
 		<div class="page-header text-center">
 			<h1>{% trans "App Discovery Made Simple" %}</h1>
 			<br>
@@ -13,13 +11,11 @@
 		<div class="text-center">
 	    	<a href="{% url 'application:application-index' %}" style="font-size: 36px;" target="_self">
 	    		{% trans "To The Rankings" %}</a>
-	    </div>
-		{% endblock %}
-	</div>
-	<div class="row footer">
-	    {% block footer %}
-		<p class="text-muted footer-text">&copy; Solve Inc. All Rights Reserved.</p>
-		{% endblock %}
-	</div>
-</div>
+	    </div> -->
+	{% endblock %}
+	{% block footer %}
+		<!-- <div class="container-fluid footer text-xxs">    
+			<span class="text-muted">&copy; Xavee K.K. All Rights Reserved.</span>
+		</div> -->
+	{% endblock %}
 {% endblock %}
