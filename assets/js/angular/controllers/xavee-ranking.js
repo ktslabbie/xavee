@@ -29,6 +29,7 @@ var xrCtrl = angular.module('ctrl.xavee-ranking', [])
 	$scope.updating = false;
 	
 	var updateRanking = function() {
+		$scope.updating = true;
 		
 		XaveeRankingsAPI.ranking({
 			// API URL/query parameters.
@@ -49,7 +50,7 @@ var xrCtrl = angular.module('ctrl.xavee-ranking', [])
 				time += 30;
 			});
 			
-			$scope.updating = false;
+			$timeout(function () { $scope.updating = false; }, time);
 		});
 	};
 
@@ -65,12 +66,10 @@ var xrCtrl = angular.module('ctrl.xavee-ranking', [])
 
     $scope.loadMore = function() {
     	if(!$scope.updating) {
-    		$scope.updating = true;
     		$scope.pageSize = $scope.pageSize + 25;
 	    	$scope.currentPage++;
 	    	updateRanking();
     	}
-	    	
     };
 	
 	$scope.setAppstoreID = function(id, country) {
