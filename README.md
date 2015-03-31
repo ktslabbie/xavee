@@ -1,4 +1,8 @@
 
+# [Xavee.net](https://www.xavee.net)
+
+![alt text](https://s3-ap-northeast-1.amazonaws.com/xavee/static/img/xavee-screenshot.png "Screenshot of the app in action")
+
 Xavee is an attempt at automatically curating games on the various mobile app stores.
 It is commonly agreed that it is extremely difficult to find good games on these stores,
 as stores are profit-oriented and therefore tend to promote only those games that will make them the most money
