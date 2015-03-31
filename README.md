@@ -1,9 +1,9 @@
 
-# [Xavee.net](https://www.xavee.net)
+## Xavee.net
 
 ![alt text](https://s3-ap-northeast-1.amazonaws.com/xavee/static/img/xavee-screenshot.png "Screenshot of the app in action")
 
-Xavee is an attempt at automatically curating games on the various mobile app stores.
+[Xavee.net](https://www.xavee.net) is an attempt at automatically curating games on the various mobile app stores.
 It is commonly agreed that it is extremely difficult to find good games on these stores,
 as stores are profit-oriented and therefore tend to promote only those games that will make them the most money
 (i.e. games with so many IAPs that they're practically unplayable).
@@ -16,7 +16,7 @@ The site is available in English and Japanese.
 
 ## Rankings
 
-Xavee.net will offer a suite of different ways to rank games on the stores, which can then be drilled down into
+Xavee will offer a suite of different ways to rank games on the stores, which can then be drilled down into
 by filtering by country, category, price, whether the game has IAPs or not, and so on.
 At this point in time, three rankings are implemented:
 
