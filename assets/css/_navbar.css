@@ -26,9 +26,16 @@
 	margin-top: 6px;
 }
 
+.navbar-logo {
+	float: left;
+	padding-top: 6px;
+	padding-right: 12px;
+	padding-bottom: 6px;
+}
+
 .navbar-search {
-	max-width: 360px;
-	width: 60%;
+	max-width: 316px;
+	width: 48%;
 	padding-top: 6px;
 	padding-bottom: 6px;
 	float: left;

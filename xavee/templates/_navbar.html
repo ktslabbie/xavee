@@ -1,6 +1,12 @@
 {% load staticfiles %} {% load i18n %} {% load navbar_tags %}
 <nav role="navigation" ng-controller="NavbarCtrl">
 	<div class="container-fluid navbar-static-top navbar-inverse">
+	    <div>
+	    	<a href="{% url 'application:application-index' %}">
+	    		<img class="navbar-logo" src="{% static 'img/xavee-banner-white.png' %}" height="45" class="vspace-xs" alt="Xavee logo" />
+	    	</a>
+	    </div>
+	
 		<div class="navbar-search input-group">
 		    <input type="text" class="form-control" placeholder="Search" ng-model="searchQuery" ng-model-options="{debounce:200}" ng-change="query()">
 		    <div class="input-group-btn">

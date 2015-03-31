@@ -3,7 +3,7 @@
 		<h6 class="ranking-date">Last updated: <span ng-bind="ranking.since | date:'medium'"></span></h6>
 	</div>
 </div>
-<div class="fullscreen" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='0'>
+<div class="fullscreen" infinite-scroll='loadMore()' infinite-scroll-disabled="pageSize >= 200" infinite-scroll-distance='1'>
 	<ul class="list-unstyled">
 		<li class="row app-entry" ng-repeat="app in ranking.ranking | limitTo:pageSize" ng-include="TEMPLATE_BASE + '/_app-entry.html'"></li>
 	</ul>
